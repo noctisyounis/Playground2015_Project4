@@ -90,6 +90,12 @@ public class BoardBehaviour : MonoBehaviour
 
 		if (m_turnNumber > 24) 
 		{
+			//Stop Timer
+			GameObject Timer = GameObject.Find("Timer");
+			TimerBehaviour scriptTimer = (TimerBehaviour) Timer.GetComponent<TimerBehaviour>();
+			scriptTimer.CancelInvoke();
+
+			//Stop IA Playing
 			GameObject Opponent = GameObject.Find("Opponent");
 			OpponentBehaviour script = (OpponentBehaviour) Opponent.GetComponent<OpponentBehaviour>();
 			script.CancelInvoke();
