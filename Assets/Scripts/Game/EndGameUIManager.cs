@@ -92,6 +92,7 @@ public class EndGameUIManager : MonoBehaviour {
 
 	public void ReturnToMenu()
 	{
+		Debug.Log("ReturnToMenu");
 		Application.LoadLevel(m_menu);
 	}
 
