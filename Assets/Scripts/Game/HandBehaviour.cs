@@ -18,11 +18,11 @@ public class HandBehaviour : MonoBehaviour, IDropHandler, IPointerEnterHandler, 
 
 	public void Start()
 	{
+		m_board = GameObject.Find("Board").GetComponent<BoardBehaviour>();
 		LoadDeck();
 		for (int i = 0; i < 5; i++) 
 		{
 			Draw();
-
 		}
 	}
 
@@ -36,8 +36,6 @@ public class HandBehaviour : MonoBehaviour, IDropHandler, IPointerEnterHandler, 
 				d.m_placeholderParent = this.transform;
 			}
 		}
-
-
 	}
 	
 	public void OnPointerExit(PointerEventData eventData) 
@@ -48,10 +46,8 @@ public class HandBehaviour : MonoBehaviour, IDropHandler, IPointerEnterHandler, 
 			if(d != null && d.m_placeholderParent==this.transform) 
 			{
 				d.m_placeholderParent = d.m_parentToReturnTo;
-			};
+			}
 		}
-		
-
 	}
 	
 	public void OnDrop(PointerEventData eventData) 
@@ -62,9 +58,9 @@ public class HandBehaviour : MonoBehaviour, IDropHandler, IPointerEnterHandler, 
 		if(d != null) 
 		{
 			d.m_parentToReturnTo = this.transform;
-		}
-		
+		}		
 	}
+
 	#endregion
 	
 	#region Utils
@@ -73,11 +69,13 @@ public class HandBehaviour : MonoBehaviour, IDropHandler, IPointerEnterHandler, 
 	{
 		GameObject prefab = (GameObject)Resources.Load ("Card", typeof(GameObject));
 		GameObject deck = GameObject.Find("PlayerDeck");
+		GameObject Card;
 		m_deck.Clear();
-		for (int i = 1 ; i < 19; i++) {
-			GameObject Card = (GameObject)Instantiate(prefab);
+		for (int i = 1; i < 19; i++) 
+		{
+			Card = (GameObject)Instantiate(prefab);
 			Card.transform.SetParent(deck.transform);
-			Card.name = "Card"+i.ToString();
+			Card.name = "Card" + i.ToString();
 			m_deck.Add(Card);
 		}
 		Shuffle(m_deck);
@@ -85,7 +83,7 @@ public class HandBehaviour : MonoBehaviour, IDropHandler, IPointerEnterHandler, 
 
 	public void Draw()
 	{
-		if (m_deck.Count>0) 
+		if (m_deck.Count > 0) 
 		{
 			GameObject Card = m_deck [0];
 			m_deck.Remove (Card);
@@ -115,7 +113,7 @@ public class HandBehaviour : MonoBehaviour, IDropHandler, IPointerEnterHandler, 
 
 	public void ForcePlay(BoardBehaviour scriptBoard)
 	{
-		List<GameObject> squares = GameObject.Find("Board").GetComponent<BoardBehaviour>().m_cubes.ToList();
+		List<GameObject> squares = m_board.m_cubes.ToList();
 		squares.RemoveAll(x => x.GetComponent<SquareBehaviour>().m_isOccuped);
 		int index = (int)Mathf.Floor( Random.Range(0,squares.Count));
 
@@ -125,13 +123,13 @@ public class HandBehaviour : MonoBehaviour, IDropHandler, IPointerEnterHandler, 
 		GameObject card = gameObject.transform.GetChild(cardIndex).gameObject;
 
 		scriptBoard.PutTokken(squares[index],card);
-
-
 	}
 
 	#endregion
 	
 	#region Private Variable
+
+	private BoardBehaviour m_board;
 
 	#endregion
 }

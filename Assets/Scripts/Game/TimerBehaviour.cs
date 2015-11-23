@@ -18,11 +18,12 @@ public class TimerBehaviour : MonoBehaviour
 	public void Start()
 	{
 		m_time = m_timePerTurn;
+		m_hand = GameObject.Find("Hand").GetComponent<HandBehaviour>();
+		m_turnCounter = (Text) gameObject.transform.FindChild("Turn").GetComponent<Text>();
 
 		m_board = (BoardBehaviour)GameObject.Find("Board").GetComponent<BoardBehaviour>();
 
 		InvokeRepeating("CountDown",1,1);
-
 	}
 
 	public void FixedUpdate()
@@ -33,8 +34,7 @@ public class TimerBehaviour : MonoBehaviour
 	public void TimerOut()
 	{
 		Debug.Log("Timer Out");
-		GameObject.Find("Hand").GetComponent<HandBehaviour>().ForcePlay(m_board);
-
+		m_hand.ForcePlay(m_board);
 	}
 
 
@@ -42,13 +42,15 @@ public class TimerBehaviour : MonoBehaviour
 	{
 		m_time = m_timePerTurn;
 		BoardBehaviour script = (BoardBehaviour) m_board.GetComponent<BoardBehaviour>();
-		if (script.m_player_Turn) {
+		if (script.m_player_Turn) 
+		{
 			gameObject.GetComponent<Image>().color = Color.blue;
 		}
 		else 
 		{
 			gameObject.GetComponent<Image>().color = Color.red;
 		}
+		m_turnCounter.text = "Turn n°" + m_board.m_turnNumber.ToString();
 
 	}
 
@@ -74,7 +76,8 @@ public class TimerBehaviour : MonoBehaviour
 	#region Private Variable
 
 	private BoardBehaviour m_board;
-
+	private HandBehaviour m_hand;
+	private Text m_turnCounter;
 
 	#endregion
 }

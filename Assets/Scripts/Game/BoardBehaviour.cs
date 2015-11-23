@@ -41,31 +41,25 @@ public class BoardBehaviour : MonoBehaviour
 	// Use this for initialization
 	void Start () 
 	{
-
+		m_hand = GameObject.Find("Hand");
 		m_timer = (TimerBehaviour) GameObject.Find("Timer").GetComponent<TimerBehaviour>();
 		Generate ();
 	}
-
-
-
-
 
 	public GameObject CheckCubePointing (GameObject card)
 	{
 		//Debug.Log ("Checking start");
 
-		foreach (GameObject item in m_cubes) {
-
+		foreach (GameObject item in m_cubes) 
+		{
 				item.GetComponent("SquareBehaviour");
 				SquareBehaviour scriptSquare = (SquareBehaviour)item.GetComponent("SquareBehaviour");
 				bool SquareOK = scriptSquare.m_isPointed;
 								
-
 				if(SquareOK)
 				{
 					return item;
 				}
-				
 		}
 		return null;
 	}
@@ -91,9 +85,7 @@ public class BoardBehaviour : MonoBehaviour
 		if (m_turnNumber > 24) 
 		{
 			//Stop Timer
-			GameObject Timer = GameObject.Find("Timer");
-			TimerBehaviour scriptTimer = (TimerBehaviour) Timer.GetComponent<TimerBehaviour>();
-			scriptTimer.CancelInvoke();
+			m_timer.CancelInvoke();
 
 			//Stop IA Playing
 			GameObject Opponent = GameObject.Find("Opponent");
@@ -102,7 +94,14 @@ public class BoardBehaviour : MonoBehaviour
 
 			m_player_Turn = false;
 
+			EndGameUIManager EndGame = (EndGameUIManager) GameObject.Find("EndGameUI").GetComponent<EndGameUIManager>();
+
+			EndGame.ShowPointsCounter();
+
 			Debug.Log("End Game : Start Battle");
+
+			EndGame.VictoryGameMessage(true);
+
 		}
 
 	}
@@ -112,15 +111,13 @@ public class BoardBehaviour : MonoBehaviour
 	#region Utils
 	void Generate()
 	{
-		
 		GameObject[] prefabs = new GameObject[5];
 		prefabs[0] = (GameObject)Resources.Load ("SquareForest", typeof(GameObject));
 		prefabs[1] = (GameObject)Resources.Load ("SquareSwamp", typeof(GameObject));
 		prefabs[2] = (GameObject)Resources.Load ("SquareMountain", typeof(GameObject));
 		prefabs[3] = (GameObject)Resources.Load ("SquarePlaine", typeof(GameObject));
 		prefabs[4] = (GameObject)Resources.Load ("SquareRuin", typeof(GameObject));
-		
-		
+			
 		int[] Tiles = m_boardDesign;
 		System.Array.Reverse(Tiles);
 		
@@ -128,8 +125,7 @@ public class BoardBehaviour : MonoBehaviour
 		{
 			int x = i % m_rowsLength;
 			int z = i / m_rowsLength;
-			
-			
+						
 			int number = Tiles[i];
 			
 			GameObject prefab = prefabs[number];
@@ -137,8 +133,7 @@ public class BoardBehaviour : MonoBehaviour
 			//Rotate Tiles
 			Vector3 position = new Vector3(x,0,z); 
 			Quaternion rotation = gameObject.transform.rotation;
-			rotation.y = 180;
-			
+			rotation.y = 180;	
 			
 			GameObject item = (GameObject)Instantiate(prefab,position, rotation);
 			m_cubes[i] = item;
@@ -154,21 +149,19 @@ public class BoardBehaviour : MonoBehaviour
 		{
 			m_turnNumber++;
 			m_player_Turn = false;
-
-
 		}
 		else 
 		{
 			m_turnNumber++;
 			m_player_Turn = true;
 			
-			if (m_player2 == TypePlayer.Player) {
+			if (m_player2 == TypePlayer.Player) 
+			{
 				//Action Player 2
 			}
 			
 			// Draw at the Start of your turn;
-			GameObject Hand = GameObject.Find("Hand");
-			HandBehaviour scriptHand = (HandBehaviour) Hand.GetComponent("HandBehaviour");
+			HandBehaviour scriptHand = (HandBehaviour) m_hand.GetComponent("HandBehaviour");
 			scriptHand.Draw();
 		}
 		m_timer.EndTurn();
@@ -179,7 +172,7 @@ public class BoardBehaviour : MonoBehaviour
 	#region Private Variable
 
 	private TimerBehaviour m_timer;
-
+	private GameObject m_hand;
 
 	#endregion
 }

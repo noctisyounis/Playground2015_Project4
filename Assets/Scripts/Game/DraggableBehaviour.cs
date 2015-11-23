@@ -18,10 +18,7 @@ public class DraggableBehaviour : MonoBehaviour, IBeginDragHandler, IDragHandler
 		gameObject.GetComponent<RectTransform>().localScale = new Vector3(1, 1, 1);
 		GameObject board = GameObject.Find ("Board");
 		m_board = board;
-
 	}
-
-
 
 	public void OnBeginDrag(PointerEventData eventData) 
 	{
@@ -61,21 +58,17 @@ public class DraggableBehaviour : MonoBehaviour, IBeginDragHandler, IDragHandler
 		for(int i=0; i < m_placeholderParent.childCount; i++) 
 		{
 			if(this.transform.position.x < m_placeholderParent.GetChild(i).position.x) 
-			{
-				
+			{		
 				newSiblingIndex = i;
 				
 				if(m_placeholder.transform.GetSiblingIndex() < newSiblingIndex)
 				{
 					newSiblingIndex--;
 				}
-
 				break;
 			}
 		}
-		
-		m_placeholder.transform.SetSiblingIndex(newSiblingIndex);
-		
+		m_placeholder.transform.SetSiblingIndex(newSiblingIndex);		
 	}
 	
 	public void OnEndDrag(PointerEventData eventData) 
@@ -86,9 +79,11 @@ public class DraggableBehaviour : MonoBehaviour, IBeginDragHandler, IDragHandler
 		if (scriptBoard.m_player_Turn) 
 		{
 			GameObject cube = scriptBoard.CheckCubePointing (eventData.pointerDrag);
-			if (cube != null) {
-				scriptBoard.PutTokken(cube,gameObject);
-
+			if (cube != null) 
+			{
+				if (!cube.GetComponent<SquareBehaviour>().m_isOccuped) {
+					scriptBoard.PutTokken(cube,gameObject);
+				}
 			}
 		}
 
@@ -97,8 +92,6 @@ public class DraggableBehaviour : MonoBehaviour, IBeginDragHandler, IDragHandler
 		GetComponent<CanvasGroup>().blocksRaycasts = true;
 		
 		Destroy(m_placeholder);
-
-
 	}
 
 	public void OnPointerEnter(PointerEventData eventData) 
@@ -111,7 +104,6 @@ public class DraggableBehaviour : MonoBehaviour, IBeginDragHandler, IDragHandler
 			NewPosition.y += (Screen.height * 0.15f);
 			this.transform.position = NewPosition;
 		}
-
 	}
 	
 	public void OnPointerExit(PointerEventData eventData) 
@@ -120,8 +112,6 @@ public class DraggableBehaviour : MonoBehaviour, IBeginDragHandler, IDragHandler
 		{
 			this.transform.position = m_oldPosition;
 		}
-
-
 	}
 
 

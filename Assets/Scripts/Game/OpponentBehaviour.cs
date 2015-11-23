@@ -8,7 +8,7 @@ public class OpponentBehaviour : MonoBehaviour {
 
 	public List<GameObject> m_opponentDeck = new List<GameObject>();
 
-
+	public int CheckTime = 15;
 
 	#endregion
 
@@ -21,8 +21,7 @@ public class OpponentBehaviour : MonoBehaviour {
 
 		LoadDeck();
 
-
-		InvokeRepeating("CheckOpponentTurn",3,15);
+		InvokeRepeating("CheckOpponentTurn",3,CheckTime);
 
 	}
 
@@ -70,7 +69,8 @@ public class OpponentBehaviour : MonoBehaviour {
 	{
 		GameObject prefab = (GameObject)Resources.Load ("Card", typeof(GameObject));
 		m_opponentDeck.Clear();
-		for (int i = 1 ; i < 19; i++) {
+		for (int i = 1 ; i < 19; i++) 
+		{
 			GameObject Card = (GameObject)Instantiate(prefab);
 			Card.transform.SetParent(gameObject.transform.GetChild(1));
 			Card.name = "Card"+i.ToString();
