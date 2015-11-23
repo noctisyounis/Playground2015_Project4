@@ -109,9 +109,7 @@ public class DraggableBehaviour : MonoBehaviour, IBeginDragHandler, IDragHandler
 			m_oldPosition = this.transform.position;
 			Vector3 NewPosition = m_oldPosition;
 			NewPosition.y += (Screen.height * 0.15f);
-			gameObject.transform.position = NewPosition;
-			gameObject.GetComponent<RectTransform>().localScale = new Vector3(1.5f, 1.5f, 1.5f);
-
+			this.transform.position = NewPosition;
 		}
 
 	}
@@ -120,8 +118,7 @@ public class DraggableBehaviour : MonoBehaviour, IBeginDragHandler, IDragHandler
 	{
 		if (!eventData.dragging) 
 		{
-			gameObject.transform.position = m_oldPosition;
-			gameObject.GetComponent<RectTransform>().localScale = new Vector3(1, 1, 1);
+			this.transform.position = m_oldPosition;
 		}
 
 

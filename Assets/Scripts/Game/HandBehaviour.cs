@@ -119,7 +119,7 @@ public class HandBehaviour : MonoBehaviour, IDropHandler, IPointerEnterHandler, 
 		squares.RemoveAll(x => x.GetComponent<SquareBehaviour>().m_isOccuped);
 		int index = (int)Mathf.Floor( Random.Range(0,squares.Count));
 
-		//TODO Release Drag
+		//Release Drag
 		int cardIndex = (int) Mathf.Floor( Random.Range(0,gameObject.transform.childCount));
 
 		GameObject card = gameObject.transform.GetChild(cardIndex).gameObject;

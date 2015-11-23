@@ -1,7 +1,6 @@
 using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
 
 public class OpponentBehaviour : MonoBehaviour {
 
@@ -44,17 +43,19 @@ public class OpponentBehaviour : MonoBehaviour {
 		GameObject[] Squares = scriptBoard.m_cubes;
 		GameObject FocusSquare;
 
+		foreach (GameObject item in Squares) 
+		{
+			SquareBehaviour Script = item.GetComponent<SquareBehaviour>();
+			if (!Script.m_isOccuped) 
+			{
+				FocusSquare = item;
+				GameObject PlayedCard = m_opponentDeck[0];
+				m_opponentDeck.Remove(PlayedCard);
+				scriptBoard.PutTokken(FocusSquare, PlayedCard);
 
-
-		List<GameObject> FreeSquares = GameObject.Find("Board").GetComponent<BoardBehaviour>().m_cubes.ToList();
-		FreeSquares.RemoveAll(x => x.GetComponent<SquareBehaviour>().m_isOccuped);
-		int index = (int)Mathf.Floor( Random.Range(0,FreeSquares.Count));
-
-		FocusSquare = FreeSquares[index];
-
-		GameObject PlayedCard = m_opponentDeck[0];
-		
-		scriptBoard.PutTokken(FocusSquare,PlayedCard);
+				return;
+			}
+		}
 
 		Debug.Log("Impossible to Play: No Empty Square");
 
