@@ -1,5 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
+using System.Linq;
 
 public class BoardBehaviour : MonoBehaviour 
 {
@@ -21,11 +23,10 @@ public class BoardBehaviour : MonoBehaviour
 	 * 3 = Plaine
 	 * 4 = Ruin
 	 * 
-	 * Les colonnes sont invesée
 	 */
 	private int[] m_boardDesign = new int[]
 	{
-		0,1,2,3,4,0,
+		1,1,2,3,4,0,
 		0,1,2,3,4,1,
 		0,1,2,3,4,2,
 		0,1,2,3,4,3,
@@ -41,8 +42,9 @@ public class BoardBehaviour : MonoBehaviour
 	// Use this for initialization
 	void Start () 
 	{
-		m_hand = GameObject.Find("Hand");
-		m_timer = (TimerBehaviour) GameObject.Find("Timer").GetComponent<TimerBehaviour>();
+		m_hand = GameObject.FindObjectOfType<HandBehaviour>().transform.gameObject;
+
+		m_timer = GameObject.FindObjectOfType<TimerBehaviour>();
 		Generate ();
 	}
 
@@ -52,8 +54,8 @@ public class BoardBehaviour : MonoBehaviour
 
 		foreach (GameObject item in m_cubes) 
 		{
-				item.GetComponent("SquareBehaviour");
-				SquareBehaviour scriptSquare = (SquareBehaviour)item.GetComponent("SquareBehaviour");
+				item.GetComponent<SquareBehaviour>();
+				SquareBehaviour scriptSquare = (SquareBehaviour)item.GetComponent<SquareBehaviour>();
 				bool SquareOK = scriptSquare.m_isPointed;
 								
 				if(SquareOK)
@@ -66,10 +68,10 @@ public class BoardBehaviour : MonoBehaviour
 
 	public void PutTokken(GameObject cube, GameObject card)
 	{
-		SquareBehaviour scriptSquare = (SquareBehaviour)cube.GetComponent("SquareBehaviour");
+		SquareBehaviour scriptSquare = (SquareBehaviour)cube.GetComponent<SquareBehaviour>();
 		scriptSquare.m_isOccuped = true;
 		
-		CardUnitBehaviour scriptCard = (CardUnitBehaviour) card.GetComponent("CardUnitBehaviour");
+		CardUnitBehaviour scriptCard = (CardUnitBehaviour) card.GetComponent<CardUnitBehaviour>();
 		
 		Vector3 PositionVector = cube.transform.position;
 		PositionVector.y += 0.1f;
@@ -88,13 +90,13 @@ public class BoardBehaviour : MonoBehaviour
 			m_timer.CancelInvoke();
 
 			//Stop IA Playing
-			GameObject Opponent = GameObject.Find("Opponent");
+			GameObject Opponent = GameObject.FindObjectOfType<OpponentBehaviour>().transform.gameObject;
 			OpponentBehaviour script = (OpponentBehaviour) Opponent.GetComponent<OpponentBehaviour>();
 			script.CancelInvoke();
 
 			m_player_Turn = false;
 
-			EndGameUIManager EndGame = (EndGameUIManager) GameObject.Find("EndGameUI").GetComponent<EndGameUIManager>();
+			EndGameUIManager EndGame = (EndGameUIManager) GameObject.FindObjectOfType<EndGameUIManager>();
 
 			EndGame.ShowPointsCounter();
 
@@ -124,18 +126,21 @@ public class BoardBehaviour : MonoBehaviour
 		for (int i = 0; i < Tiles.Length; i++) 
 		{
 			int x = i % m_rowsLength;
-			int z = i / m_rowsLength;
+			int y = i / m_rowsLength;
 						
 			int number = Tiles[i];
 			
 			GameObject prefab = prefabs[number];
 			
 			//Rotate Tiles
-			Vector3 position = new Vector3(x,0,z); 
+			Vector3 position = new Vector3(5-x,0,y); 
 			Quaternion rotation = gameObject.transform.rotation;
 			rotation.y = 180;	
 			
 			GameObject item = (GameObject)Instantiate(prefab,position, rotation);
+			SquareBehaviour script = (SquareBehaviour) item.GetComponent<SquareBehaviour>();
+			script.m_gridX = 5-x;
+			script.m_gridY = 4-y;
 			m_cubes[i] = item;
 			
 			item.transform.SetParent(gameObject.transform);
@@ -161,10 +166,73 @@ public class BoardBehaviour : MonoBehaviour
 			}
 			
 			// Draw at the Start of your turn;
-			HandBehaviour scriptHand = (HandBehaviour) m_hand.GetComponent("HandBehaviour");
+			HandBehaviour scriptHand = (HandBehaviour) m_hand.GetComponent<HandBehaviour>();
 			scriptHand.Draw();
 		}
 		m_timer.EndTurn();
+	}
+
+	public List<GameObject> FightOrder()
+	{
+		List<GameObject> Squares = m_cubes.ToList();
+		Squares.RemoveAll(x => !x.GetComponent<SquareBehaviour>().m_isOccuped);
+
+		List<GameObject> Tokkens = new List<GameObject>();
+		foreach (GameObject item in Squares) 
+		{
+			SquareBehaviour SquareScript = item.GetComponent<SquareBehaviour>();
+			GameObject Tokken = SquareScript.m_tokken;
+			TokkenBehaviour TokkenScript = Tokken.GetComponent<TokkenBehaviour>();
+			TokkenScript.m_gridX = SquareScript.m_gridX;
+			TokkenScript.m_gridY = SquareScript.m_gridY;
+			Tokkens.Add (Tokken);
+		}
+
+		Tokkens.OrderBy(x => x.GetComponent<TokkenBehaviour>().m_speed)
+				.ThenBy(x => x.GetComponent<TokkenBehaviour>().m_playedAtTurn);
+
+		//TODO eb integrate tokken
+
+		return Tokkens;
+	}
+
+
+	public List<GameObject> Fight(bool IsFinalFight)
+	{
+		List<GameObject> Tokkens = FightOrder();
+
+		//TODO eb integrate tokken
+		foreach ( GameObject item in Tokkens) 
+		{
+			TokkenBehaviour script = item.GetComponent<TokkenBehaviour>();
+
+			if (script.m_hp < 0) 
+			{
+				//enum
+				// CC
+				if (script.m_type == "CC") 
+				{
+
+				}
+				// Archer
+				else if (script.m_type == "Archer") 
+				{
+					
+				}
+				// Heavy
+				else if (script.m_type == "Heavy") 
+				{
+					
+				}
+
+
+			}
+
+		}
+
+
+		//return Tokken still alive
+		return Tokkens;
 	}
 
 	#endregion

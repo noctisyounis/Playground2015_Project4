@@ -17,7 +17,7 @@ public class OpponentBehaviour : MonoBehaviour {
 
 	public void Start()
 	{
-		m_Board = GameObject.Find("Board");
+		m_board = GameObject.FindObjectOfType<BoardBehaviour>().gameObject;
 
 		LoadDeck();
 
@@ -27,7 +27,7 @@ public class OpponentBehaviour : MonoBehaviour {
 
 	private void CheckOpponentTurn()
 	{
-		BoardBehaviour scriptBoard = (BoardBehaviour)m_Board.GetComponent<BoardBehaviour>();
+		BoardBehaviour scriptBoard = (BoardBehaviour)m_board.GetComponent<BoardBehaviour>();
 		if (!scriptBoard.m_player_Turn) 
 		{
 			Play(scriptBoard);
@@ -102,6 +102,6 @@ public class OpponentBehaviour : MonoBehaviour {
 
 
 	#region Private Variable
-	GameObject m_Board;
+	GameObject m_board;
 	#endregion
 }

@@ -19,13 +19,11 @@ public class PressStartBehaviour : MonoBehaviour
 
     void OnMouseUp()
     {
-        GameObject button = GameObject.Find("Button");
-        button.GetComponent<AnimationMenuBehaviour>().Move();
-
-        GameObject title = GameObject.Find("TitreBis");
-        title.GetComponent<MoveTitleBehaviour>().Move();
+        GameObject.FindObjectOfType<AnimationMenuBehaviour>().Move();
         
-        Destroy(GameObject.Find("PressStart"));
+		GameObject.FindObjectOfType<MoveTitleBehaviour>().Move();
+        
+        Destroy(GameObject.FindObjectOfType<PressStartBehaviour>().gameObject);
     }
 
     #endregion

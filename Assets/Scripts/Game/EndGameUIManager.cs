@@ -9,6 +9,7 @@ public class EndGameUIManager : MonoBehaviour {
 	#region Public Variable
 
 	public string m_menu = "menu";
+	public GameObject m_resultText;
 	
 	#endregion
 	
@@ -18,8 +19,9 @@ public class EndGameUIManager : MonoBehaviour {
 	{
 		EndGameUIVisible(false);
 
-		m_player1Point = GameObject.Find("Player1Points").GetComponent<Text>();
-		m_player2Point = GameObject.Find("Player2Points").GetComponent<Text>();
+		//TODO verif
+		m_player1Point = gameObject.transform.GetChild(2).GetChild(2).GetComponent<Text>();
+		m_player2Point = gameObject.transform.GetChild(2).GetChild(3).GetComponent<Text>();
 
 
 
@@ -32,7 +34,7 @@ public class EndGameUIManager : MonoBehaviour {
 
 	public void ShowPointsCounter()
 	{
-		Text[] TesxtUI = gameObject.transform.FindChild("Counter").GetComponentsInChildren<Text>();
+		Text[] TesxtUI = gameObject.transform.GetChild(2).GetComponentsInChildren<Text>();
 
 		foreach (Text item in TesxtUI) 
 		{
@@ -84,7 +86,7 @@ public class EndGameUIManager : MonoBehaviour {
 			Message = "Victory";
 			break;
 		}
-		gameObject.transform.FindChild("ResultText").GetComponent<Text>().text = Message;
+		m_resultText.GetComponent<Text>().text = Message;
 
 		EndGameUIVisible(true);
 

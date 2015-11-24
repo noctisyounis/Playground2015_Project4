@@ -16,7 +16,7 @@ public class DraggableBehaviour : MonoBehaviour, IBeginDragHandler, IDragHandler
 	public void Start()
 	{
 		gameObject.GetComponent<RectTransform>().localScale = new Vector3(1, 1, 1);
-		GameObject board = GameObject.Find ("Board");
+		GameObject board = GameObject.FindObjectOfType<BoardBehaviour>().gameObject;
 		m_board = board;
 	}
 
@@ -75,7 +75,7 @@ public class DraggableBehaviour : MonoBehaviour, IBeginDragHandler, IDragHandler
 	{
 		//Debug.Log ("OnEndDrag");
 
-		BoardBehaviour scriptBoard = (BoardBehaviour)m_board.GetComponent("BoardBehaviour");
+		BoardBehaviour scriptBoard = (BoardBehaviour)m_board.GetComponent<BoardBehaviour>();
 		if (scriptBoard.m_player_Turn) 
 		{
 			GameObject cube = scriptBoard.CheckCubePointing (eventData.pointerDrag);

@@ -11,6 +11,7 @@ public class HandBehaviour : MonoBehaviour, IDropHandler, IPointerEnterHandler, 
 	#region Public Variable
 
 	public List<GameObject> m_deck = new List<GameObject>();
+	public GameObject PlayerDeck;
 
 	#endregion
 
@@ -18,7 +19,7 @@ public class HandBehaviour : MonoBehaviour, IDropHandler, IPointerEnterHandler, 
 
 	public void Start()
 	{
-		m_board = GameObject.Find("Board").GetComponent<BoardBehaviour>();
+		m_board = GameObject.FindObjectOfType<BoardBehaviour>();
 		LoadDeck();
 		for (int i = 0; i < 5; i++) 
 		{
@@ -68,13 +69,12 @@ public class HandBehaviour : MonoBehaviour, IDropHandler, IPointerEnterHandler, 
 	private void LoadDeck()
 	{
 		GameObject prefab = (GameObject)Resources.Load ("Card", typeof(GameObject));
-		GameObject deck = GameObject.Find("PlayerDeck");
 		GameObject Card;
 		m_deck.Clear();
 		for (int i = 1; i < 19; i++) 
 		{
 			Card = (GameObject)Instantiate(prefab);
-			Card.transform.SetParent(deck.transform);
+			Card.transform.SetParent(PlayerDeck.transform);
 			Card.name = "Card" + i.ToString();
 			m_deck.Add(Card);
 		}

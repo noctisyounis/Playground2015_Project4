@@ -10,6 +10,8 @@ public class SquareBehaviour : MonoBehaviour
 	public bool m_isPointed= false;
 	public bool m_isOccuped = false;
 	public GameObject m_tokken;
+	public int m_gridX;
+	public int m_gridY;
 
 	#endregion
 

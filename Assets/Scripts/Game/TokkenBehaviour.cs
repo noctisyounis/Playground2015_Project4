@@ -23,6 +23,11 @@ public class TokkenBehaviour : MonoBehaviour {
 	public string m_description;
 	
 	public string m_pictures;
+
+	public int m_playedAtTurn;
+
+	public int m_gridX;
+	public int m_gridY;
 	
 	#endregion
 	
@@ -47,7 +52,7 @@ public class TokkenBehaviour : MonoBehaviour {
 		}
 		GameObject Tokken = (GameObject)Instantiate(prefab,position, rotation);
 
-		TokkenBehaviour TokkenB = (TokkenBehaviour) Tokken.GetComponent("TokkenBehaviour");
+		TokkenBehaviour TokkenB = (TokkenBehaviour) Tokken.GetComponent<TokkenBehaviour>();
 
 		TokkenB.m_hp = Card.m_hp;
 		TokkenB.m_ATK_Up = Card.m_ATK_Up;

@@ -11,6 +11,8 @@ public class TimerBehaviour : MonoBehaviour
 
 	public int m_time;
 
+	public GameObject m_turnCounter;
+
 	#endregion
 	
 	#region Main Methodes
@@ -18,10 +20,10 @@ public class TimerBehaviour : MonoBehaviour
 	public void Start()
 	{
 		m_time = m_timePerTurn;
-		m_hand = GameObject.Find("Hand").GetComponent<HandBehaviour>();
-		m_turnCounter = (Text) gameObject.transform.FindChild("Turn").GetComponent<Text>();
+		m_hand = GameObject.FindObjectOfType<HandBehaviour>();
 
-		m_board = (BoardBehaviour)GameObject.Find("Board").GetComponent<BoardBehaviour>();
+
+		m_board = (BoardBehaviour)GameObject.FindObjectOfType<BoardBehaviour>();
 
 		InvokeRepeating("CountDown",1,1);
 	}
@@ -50,7 +52,8 @@ public class TimerBehaviour : MonoBehaviour
 		{
 			gameObject.GetComponent<Image>().color = Color.red;
 		}
-		m_turnCounter.text = "Turn n°" + m_board.m_turnNumber.ToString();
+		int i = (m_board.m_turnNumber+1)/2;
+		m_turnCounter.GetComponent<Text>().text = "Turn n°" + i.ToString();
 
 	}
 
@@ -77,7 +80,7 @@ public class TimerBehaviour : MonoBehaviour
 
 	private BoardBehaviour m_board;
 	private HandBehaviour m_hand;
-	private Text m_turnCounter;
+
 
 	#endregion
 }
