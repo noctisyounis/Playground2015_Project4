@@ -1,0 +1,180 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<gameCard>
+	<unit>
+		<card id="1">
+			<name>Sombre Guerrier</name>
+			<description>
+				<l1>Ne pour frapper...</l1>
+				<l2>On ne rigole pas contre le</l2>
+				<l3>sombre guerrier...</l3>
+			</description>
+			<type>Close</type>
+			<init>5</init>
+			<life>8</life>
+			<price>7</price>
+			<damage>
+				<top>6</top>
+				<bottom>5</bottom>
+				<left>6</left>
+				<right>6</right>
+			</damage>
+		</card>
+	</unit>	
+	<unit>
+		<card id="2">
+			<name>Balliste de feu</name>
+			<description>
+				<l1>Balise de l'empire ... </l1>
+				<l2>fait partie de la meilleur arme de ...</l2>
+				<l3>un beau engin de guerre</l3>
+			</description>
+			<type>BigRange</type>
+			<init>2</init>
+			<life>3</life>
+			<price>11</price>
+			<damage>
+				<top>9</top>
+				<bottom>6</bottom>
+				<left>8</left>
+				<right>7</right>
+			</damage>
+		</card>
+	</unit>
+	<unit>	
+		<card id="3">
+			<name>Archer crepusculaire</name>
+			<description>
+				<l1>Une fleche, une blessure.</l1>
+				<l2>Rapide comme le vent.</l2>
+			</description>
+			<type>Range</type>
+			<init>7</init>
+			<life>5</life>
+			<price>3</price>
+			<damage>
+				<top>3</top>
+				<bottom>3</bottom>
+				<left>2</left>
+				<right>2</right>
+			</damage>	
+		</card>
+	</unit>
+	
+	<movement>
+		<card id="4"></card>
+		<card id="5"></card>
+	</movement>
+	
+	<land>
+		<card id="6">
+			<type>Forest</type>
+			<name>Sherwood</name>
+			<description>Transforme le terrain en foret</description>
+			<zones>
+				<zone>
+					<y>1</y>
+					<x>0</x>
+				</zone>
+				<zone>
+					<y>-1</y>
+					<x>0</x>
+				</zone>
+				<zone>
+					<y>0</y>
+					<x>1</x>
+				</zone>
+				<zone>
+					<y>0</y>
+					<x>-1</x>
+				</zone>
+			</zones>
+		</card>
+	</land>
+	<land>	
+	
+		<card id="7">
+			<type>Swamp</type>
+			<name>Marecage de Zangar</name>
+			<description>Transforme une ligne en marais</description>
+			<zones>
+				<zone>
+					<y>0</y>
+					<x>1</x>
+				</zone>
+				<zone>
+					<y>0</y>
+					<x>-1</x>
+				</zone>
+			</zones>
+		</card>
+	</land>
+	<land>	
+	
+		<card id="8">
+			<type>Mountain</type>
+			<name>Le Mont Blanc</name>
+			<description>Transforme le terrain en montagne</description>
+			<zones>
+				<zone>
+					<y>0</y>
+					<x>1</x>
+				</zone>
+				<zone>
+					<y>-1</y>
+					<x>-1</x>
+				</zone>
+				<zone>
+					<y>-1</y>
+					<x>0</x>
+				</zone>
+			</zones>
+		</card>
+	</land>
+	<land>	
+	
+		<card id="9">
+			<type>Ruin</type>
+			<name>Ruine d'If</name>
+			<description>Transforme le terrain en ruine</description>
+			<zones>
+				<zone>
+					<y>1</y>
+					<x>1</x>
+				</zone>
+				<zone>
+					<y>-1</y>
+					<x>1</x>
+				</zone>
+				<zone>
+					<y>-1</y>
+					<x>-1</x>
+				</zone>
+				<zone>
+					<y>1</y>
+					<x>-1</x>
+				</zone>
+			</zones>	
+		</card>
+	</land>
+	<land>
+		<card id="10">
+			<type>Plain</type>
+			<name>Plaine du Roan</name>
+			<description>Transforme le terrain en plaine</description>
+			<zones>
+				<zone>
+					<y>1</y>
+					<x>0</x>
+				</zone>
+				<zone>
+					<y>1</y>
+					<x>-1</x>
+				</zone>
+				<zone>
+					<y>0</y>
+					<x>-1</x>
+				</zone>
+			</zones>	
+		</card>	
+	</land>
+</gameCard>
