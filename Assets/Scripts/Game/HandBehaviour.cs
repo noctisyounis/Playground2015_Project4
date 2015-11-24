@@ -68,23 +68,29 @@ public class HandBehaviour : MonoBehaviour, IDropHandler, IPointerEnterHandler, 
 
 	private void LoadDeck()
 	{
-		GameObject prefab = (GameObject)Resources.Load ("Card", typeof(GameObject));
-		GameObject Card;
-		m_deck.Clear();
-		for (int i = 1; i < 19; i++) 
-		{
-			Card = (GameObject)Instantiate(prefab);
-			Card.transform.SetParent(PlayerDeck.transform);
-			Card.name = "Card" + i.ToString();
-			m_deck.Add(Card);
-		}
-		Shuffle(m_deck);
-	}
+        GameObject prefab = (GameObject)Resources.Load("Card", typeof(GameObject));
+        GameObject deck = GameObject.Find("PlayerDeck");
+        m_deck.Clear();
+        ReadDeckBehaviour deckList = new ReadDeckBehaviour();
+        ReadXmlBehaviour cardList = new ReadXmlBehaviour();    
+        for (int i = 0; i < deckList.PropDeck.Count; i++)
+        {
+            int id = int.Parse(deckList.PropDeck[i].ToString());
+            GameObject Card = GameObject.Instantiate((GameObject)cardList.List[id - 1]);
+            Card.transform.SetParent(PlayerDeck.transform);
+            Card.name = "Card" + i.ToString();
+            m_deck.Add(Card);
+        }
+		Debug.Log("taille du deck player :" + m_deck.Count);
+        Shuffle(m_deck);
+    }
 
 	public void Draw()
 	{
+		Debug.Log("taille du deck player :" + m_deck.Count);
 		if (m_deck.Count > 0) 
 		{
+			Debug.Log("Test");
 			GameObject Card = m_deck [0];
 			m_deck.Remove (Card);
 			Card.transform.SetParent (gameObject.transform);

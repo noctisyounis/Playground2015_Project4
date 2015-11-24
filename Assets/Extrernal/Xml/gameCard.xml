@@ -46,6 +46,7 @@
 			<description>
 				<l1>Une fleche, une blessure.</l1>
 				<l2>Rapide comme le vent.</l2>
+        <l3>  </l3>
 			</description>
 			<type>Range</type>
 			<init>7</init>
