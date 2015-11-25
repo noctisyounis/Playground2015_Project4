@@ -78,7 +78,9 @@ public class BoardBehaviour : MonoBehaviour
 		PositionVector.y += 0.1f;
 		
 		GameObject Tokken = TokkenBehaviour.CreateTokken(scriptCard,PositionVector,gameObject.transform.rotation, m_player_Turn);
-		
+		Tokken.transform.SetParent(gameObject.transform);
+		Tokken.GetComponent<RectTransform>().Rotate(new Vector3(270,0,0));
+
 		scriptSquare.m_tokken = Tokken;	
 		
 		scriptCard.PlayCard();
