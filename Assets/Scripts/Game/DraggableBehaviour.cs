@@ -89,9 +89,9 @@ public class DraggableBehaviour : MonoBehaviour, IBeginDragHandler, IDragHandler
 				}
 			}
 		}
-
-		this.transform.SetParent( m_parentToReturnTo );
-		this.transform.SetSiblingIndex( m_placeholder.transform.GetSiblingIndex() );
+		m_oldPosition = m_placeholder.transform.position;
+		transform.SetParent( m_parentToReturnTo );
+		transform.SetSiblingIndex( m_placeholder.transform.GetSiblingIndex() );
 		GetComponent<CanvasGroup>().blocksRaycasts = true;
 
 		transform.localScale = Vector3.one;
