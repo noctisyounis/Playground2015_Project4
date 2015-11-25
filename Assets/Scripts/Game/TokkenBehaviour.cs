@@ -54,23 +54,23 @@ public class TokkenBehaviour : MonoBehaviour {
 
 		TokkenBehaviour TokkenB = (TokkenBehaviour) Tokken.GetComponent<TokkenBehaviour>();
 
-		TokkenB.m_hp = Card.m_hp;
-		TokkenB.m_ATK_Up = Card.m_ATK_Up;
-		TokkenB.m_ATK_Right = Card.m_ATK_Right;
-		TokkenB.m_ATK_Down = Card.m_ATK_Down;
-		TokkenB.m_ATK_Left = Card.m_ATK_Left;
+        //TokkenB.m_hp = Card.m_hp;
+        //TokkenB.m_ATK_Up = Card.m_ATK_Up;
+        //TokkenB.m_ATK_Right = Card.m_ATK_Right;
+        //TokkenB.m_ATK_Down = Card.m_ATK_Down;
+        //TokkenB.m_ATK_Left = Card.m_ATK_Left;
 		
-		TokkenB.m_speed = Card.m_speed;
+        //TokkenB.m_speed = Card.m_speed;
 		
-		TokkenB.m_victoryPoint = Card.m_victoryPoint;
+        //TokkenB.m_victoryPoint = Card.m_victoryPoint;
 		
-		TokkenB.m_name = Card.m_name;
+        //TokkenB.m_name = Card.m_name;
 		
-		TokkenB.m_type = Card.m_type;
+        //TokkenB.m_type = Card.m_type;
 		
-		TokkenB.m_description = Card.m_description;
+        //TokkenB.m_description = Card.m_description;
 		
-		TokkenB.m_pictures = Card.m_pictures;
+        //TokkenB.m_pictures = Card.m_pictures;
 
 		return Tokken;
 	}
