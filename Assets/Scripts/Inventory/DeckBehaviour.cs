@@ -6,7 +6,6 @@ public class DeckBehaviour : MonoBehaviour {
 
 	#region public variable
 	public List<GameObject> m_deck = new List<GameObject>();
-	public GameObject PlayerDeck;
 	#endregion
 
 	#region Main method
@@ -32,7 +31,7 @@ public class DeckBehaviour : MonoBehaviour {
 	private void LoadDeck()
 	{
 		// Creer une ressource "Title" -> Zone text (= title) + nbre exemplaires
-		GameObject prefab = (GameObject)Resources.Load("Card", typeof(GameObject));
+		//GameObject prefab = (GameObject)Resources.Load("CardInventory", typeof(GameObject));
 		m_deck.Clear();
 		ReadDeckBehaviour deckList = new ReadDeckBehaviour();
 		ReadXmlBehaviour cardList = new ReadXmlBehaviour();
@@ -41,7 +40,8 @@ public class DeckBehaviour : MonoBehaviour {
 			int id = int.Parse(deckList.PropDeck[i].ToString());
 			GameObject Card = GameObject.Instantiate((GameObject)cardList.List[id-1]);
 			// why (id - 1)
-			Card.transform.SetParent(PlayerDeck.transform);
+			Card.transform.SetParent(gameObject.transform);
+			//Card1 ? Card2 ? ... ?
 			Card.name = "Card" + i.ToString();
 			m_deck.Add(Card);
 		}

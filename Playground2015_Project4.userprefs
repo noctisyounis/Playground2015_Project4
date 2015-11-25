@@ -1,11 +1,11 @@
 ﻿<Properties>
-  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\Menu\MenuScript.cs">
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="MonoDevelop.Default" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\Inventory\DeckBehaviour.cs">
     <Files>
-      <File FileName="Assets\Scripts\Menu\AnimationMenuBehaviour.cs" Line="24" Column="41" />
-      <File FileName="Assets\Scripts\Menu\MoveTitleBehaviour.cs" Line="18" Column="46" />
-      <File FileName="Assets\Scripts\Menu\PressStartBehaviour.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\Menu\MenuScript.cs" Line="17" Column="2" />
+      <File FileName="Assets\Scripts\Inventory\OnCkickBehaviour.cs" Line="37" Column="25" />
+      <File FileName="Assets\Scripts\Inventory\DeckBehaviour.cs" Line="34" Column="3" />
+      <File FileName="Assets\Scripts\Inventory\InventoryBehaviour.cs" Line="46" Column="35" />
+      <File FileName="Assets\Scripts\Game\HandBehaviour.cs" Line="80" Column="4" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
