@@ -32,7 +32,7 @@ public class ReadXmlBehaviour
             #region card unit
             if (reader.NodeType == System.Xml.XmlNodeType.Element && reader.Name == "unit")
             {
-                Debug.Log("new");
+                //Debug.Log("new");
                 GameObject prefab = (GameObject)Resources.Load("Card", typeof(GameObject));
                 CardUnitBehaviour script = prefab.GetComponent<CardUnitBehaviour>();
                 card = true;
@@ -46,8 +46,8 @@ public class ReadXmlBehaviour
                         {
                             card = false;
                             List.Add(GameObject.Instantiate(prefab));
-                            Debug.Log("save");
-                            Debug.Log(List.Count);
+                            //Debug.Log("save");
+                            //Debug.Log(List.Count);
                         }
                     }
 

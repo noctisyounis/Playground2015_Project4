@@ -8,6 +8,7 @@ public class DraggableBehaviour : MonoBehaviour, IBeginDragHandler, IDragHandler
 	#region Public Variabl
 	public Transform m_parentToReturnTo = null;
 	public Transform m_placeholderParent = null;
+	public bool m_isHovered = false;
 
 	#endregion
 	
@@ -18,6 +19,8 @@ public class DraggableBehaviour : MonoBehaviour, IBeginDragHandler, IDragHandler
 		gameObject.GetComponent<RectTransform>().localScale = new Vector3(1, 1, 1);
 		GameObject board = GameObject.FindObjectOfType<BoardBehaviour>().gameObject;
 		m_board = board;
+		m_hand = GameObject.FindObjectOfType<HandBehaviour>().gameObject;
+
 	}
 
 	public void OnBeginDrag(PointerEventData eventData) 
@@ -90,19 +93,36 @@ public class DraggableBehaviour : MonoBehaviour, IBeginDragHandler, IDragHandler
 		this.transform.SetParent( m_parentToReturnTo );
 		this.transform.SetSiblingIndex( m_placeholder.transform.GetSiblingIndex() );
 		GetComponent<CanvasGroup>().blocksRaycasts = true;
-		
+
+		transform.localScale = Vector3.one;
+
 		Destroy(m_placeholder);
 	}
 
 	public void OnPointerEnter(PointerEventData eventData) 
 	{
-		//Debug.Log("OnPointerEnter");
-		if (!eventData.dragging) 
-		{
-			m_oldPosition = this.transform.position;
-			Vector3 NewPosition = m_oldPosition;
-			NewPosition.y += (Screen.height * 0.15f);
-			this.transform.position = NewPosition;
+		if (!m_isHovered) {
+			if (!eventData.dragging) 
+			{
+				// reset other card
+				foreach (var item in m_hand.transform.GetComponentsInChildren<CardBehaviour>()) 
+				{
+					if (item.m_isHovered) 
+					{
+						item.ResetPostition();
+					}
+				}
+
+
+				m_isHovered = true;
+
+				m_oldPosition = this.transform.position;
+				Vector3 NewPosition = m_oldPosition;
+				NewPosition.y += (Screen.height * 0.20f);
+				transform.position = NewPosition;
+				transform.localScale = new Vector3 (1.7f, 1.7f, 1.7f);
+			
+			}
 		}
 	}
 	
@@ -110,15 +130,26 @@ public class DraggableBehaviour : MonoBehaviour, IBeginDragHandler, IDragHandler
 	{
 		if (!eventData.dragging) 
 		{
-			this.transform.position = m_oldPosition;
+			Debug.Log(eventData.position.ToString());
+			if (eventData.position.y >= 10 ) 
+			{
+				ResetPostition();
+			}
 		}
 	}
 
 
 
 	#endregion
-	
+
 	#region Utils
+
+	public void ResetPostition()
+	{
+		transform.position = m_oldPosition;
+		transform.localScale = Vector3.one;
+		m_isHovered = false;
+	}
 
 
 
@@ -127,7 +158,9 @@ public class DraggableBehaviour : MonoBehaviour, IBeginDragHandler, IDragHandler
 	#region Private Variable
 	GameObject m_placeholder = null;
 	Vector3 m_oldPosition ;
+	GameObject m_hand;
 	GameObject m_board;
+
 	#endregion
 
 

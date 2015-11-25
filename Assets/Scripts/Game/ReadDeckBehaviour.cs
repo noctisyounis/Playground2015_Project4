@@ -33,7 +33,7 @@ public class ReadDeckBehaviour
                 if (reader.Name == "id")
                 {
                     reader.Read();
-                   Debug.Log(reader.Value);
+                   //Debug.Log(reader.Value);
                    m_deckList.Add(reader.Value);
 
                 }

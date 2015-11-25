@@ -10,6 +10,9 @@ public class EndGameUIManager : MonoBehaviour {
 
 	public string m_menu = "menu";
 	public GameObject m_resultText;
+	public GameObject m_player1Point;
+	public GameObject m_player2Point;
+	public GameObject m_counter;
 	
 	#endregion
 	
@@ -18,12 +21,6 @@ public class EndGameUIManager : MonoBehaviour {
 	public void Start()
 	{
 		EndGameUIVisible(false);
-
-		//TODO verif
-		m_player1Point = gameObject.transform.GetChild(2).GetChild(2).GetComponent<Text>();
-		m_player2Point = gameObject.transform.GetChild(2).GetChild(3).GetComponent<Text>();
-
-
 
 	}
 	
@@ -34,7 +31,7 @@ public class EndGameUIManager : MonoBehaviour {
 
 	public void ShowPointsCounter()
 	{
-		Text[] TesxtUI = gameObject.transform.GetChild(2).GetComponentsInChildren<Text>();
+		Text[] TesxtUI = m_counter.GetComponentsInChildren<Text>();
 
 		foreach (Text item in TesxtUI) 
 		{
@@ -68,8 +65,8 @@ public class EndGameUIManager : MonoBehaviour {
 
 	public void SetPointCounter(int Player1, int Player2)
 	{
-		m_player1Point.text = Player1.ToString();
-		m_player2Point.text = Player2.ToString();
+		m_player1Point.GetComponent<Text>().text = Player1.ToString();
+		m_player2Point.GetComponent<Text>().text = Player2.ToString();
 	}
 
 	public void VictoryGameMessage(bool? IsVictory)
@@ -101,9 +98,7 @@ public class EndGameUIManager : MonoBehaviour {
 	#endregion
 	
 	#region Private Variable
-
-	private Text m_player1Point;
-	private Text m_player2Point;
+	
 
 	#endregion
 }

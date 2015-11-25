@@ -80,16 +80,16 @@ public class HandBehaviour : MonoBehaviour, IDropHandler, IPointerEnterHandler, 
             Card.name = "Card" + i.ToString();
             m_deck.Add(Card);
         }
-		Debug.Log("taille du deck player :" + m_deck.Count);
+		//Debug.Log("taille du deck player :" + m_deck.Count);
         Shuffle(m_deck);
     }
 
 	public void Draw()
 	{
-		Debug.Log("taille du deck player :" + m_deck.Count);
+		//Debug.Log("taille du deck player :" + m_deck.Count);
 		if (m_deck.Count > 0) 
 		{
-			Debug.Log("Test");
+			//Debug.Log("Test");
 			GameObject Card = m_deck [0];
 			m_deck.Remove (Card);
 			Card.transform.SetParent (gameObject.transform);
