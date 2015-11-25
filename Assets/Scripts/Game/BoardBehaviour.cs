@@ -26,11 +26,11 @@ public class BoardBehaviour : MonoBehaviour
 	 */
 	private int[] m_boardDesign = new int[]
 	{
-		1,1,2,3,4,0,
-		0,1,2,3,4,1,
-		0,1,2,3,4,2,
-		0,1,2,3,4,3,
-		0,1,2,3,4,4
+		2,1,0,0,4,0,
+		0,0,4,4,0,1,
+		0,1,2,3,1,2,
+		2,4,0,1,4,3,
+		0,1,0,2,0,4
 	} ;
 	public GameObject[] m_cubes = new GameObject[30];
 
@@ -46,6 +46,7 @@ public class BoardBehaviour : MonoBehaviour
 
 		m_timer = GameObject.FindObjectOfType<TimerBehaviour>();
 		Generate ();
+
 	}
 
 	public GameObject CheckCubePointing (GameObject card)
@@ -77,7 +78,9 @@ public class BoardBehaviour : MonoBehaviour
 		PositionVector.y += 0.1f;
 		
 		GameObject Tokken = TokkenBehaviour.CreateTokken(scriptCard,PositionVector,gameObject.transform.rotation, m_player_Turn);
-		
+		Tokken.transform.SetParent(gameObject.transform);
+		Tokken.GetComponent<RectTransform>().Rotate(new Vector3(270,0,0));
+
 		scriptSquare.m_tokken = Tokken;	
 		
 		scriptCard.PlayCard();
@@ -121,7 +124,7 @@ public class BoardBehaviour : MonoBehaviour
 		prefabs[4] = (GameObject)Resources.Load ("SquareRuin", typeof(GameObject));
 			
 		int[] Tiles = m_boardDesign;
-		System.Array.Reverse(Tiles);
+		//System.Array.Reverse(Tiles);
 		
 		for (int i = 0; i < Tiles.Length; i++) 
 		{
@@ -135,8 +138,7 @@ public class BoardBehaviour : MonoBehaviour
 			//Rotate Tiles
 			Vector3 position = new Vector3(5-x,0,y); 
 			Quaternion rotation = gameObject.transform.rotation;
-			rotation.y = 180;	
-			
+			//rotation.y = 180;
 			GameObject item = (GameObject)Instantiate(prefab,position, rotation);
 			SquareBehaviour script = (SquareBehaviour) item.GetComponent<SquareBehaviour>();
 			script.m_gridX = 5-x;
@@ -144,7 +146,7 @@ public class BoardBehaviour : MonoBehaviour
 			m_cubes[i] = item;
 			
 			item.transform.SetParent(gameObject.transform);
-			
+
 		}	
 	}
 
