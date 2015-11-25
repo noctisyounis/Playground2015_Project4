@@ -16,7 +16,7 @@ public class DraggableBehaviour : MonoBehaviour, IBeginDragHandler, IDragHandler
 
 	public void Start()
 	{
-		gameObject.GetComponent<RectTransform>().localScale = new Vector3(1, 1, 1);
+		gameObject.GetComponent<RectTransform>().localScale = new Vector3(1.6f, 1.6f, 1.6f);
 		GameObject board = GameObject.FindObjectOfType<BoardBehaviour>().gameObject;
 		m_board = board;
 		m_hand = GameObject.FindObjectOfType<HandBehaviour>().gameObject;
@@ -94,7 +94,7 @@ public class DraggableBehaviour : MonoBehaviour, IBeginDragHandler, IDragHandler
 		transform.SetSiblingIndex( m_placeholder.transform.GetSiblingIndex() );
 		GetComponent<CanvasGroup>().blocksRaycasts = true;
 
-		transform.localScale = Vector3.one;
+		transform.localScale = new Vector3(1.6f,1.6f,1.6f);
 
 		Destroy(m_placeholder);
 	}
@@ -113,14 +113,13 @@ public class DraggableBehaviour : MonoBehaviour, IBeginDragHandler, IDragHandler
 					}
 				}
 
-
 				m_isHovered = true;
 
 				m_oldPosition = this.transform.position;
 				Vector3 NewPosition = m_oldPosition;
 				NewPosition.y += (Screen.height * 0.20f);
 				transform.position = NewPosition;
-				transform.localScale = new Vector3 (1.7f, 1.7f, 1.7f);
+				transform.localScale = new Vector3 (2.5f, 2.5f, 2.5f);
 			
 			}
 		}
@@ -147,7 +146,7 @@ public class DraggableBehaviour : MonoBehaviour, IBeginDragHandler, IDragHandler
 	public void ResetPostition()
 	{
 		transform.position = m_oldPosition;
-		transform.localScale = Vector3.one;
+		transform.localScale = new Vector3(1.6f,1.6f,1.6f);
 		m_isHovered = false;
 	}
 
