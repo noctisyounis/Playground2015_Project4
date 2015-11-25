@@ -26,23 +26,16 @@ public class DraggableBehaviour : MonoBehaviour, IBeginDragHandler, IDragHandler
 	public void OnBeginDrag(PointerEventData eventData) 
 	{
 		//Debug.Log ("OnBeginDrag");
-		
-		m_placeholder = new GameObject();
-		m_placeholder.name = "PlaceHolder";
-		m_placeholder.transform.SetParent( this.transform.parent );
-		LayoutElement le = m_placeholder.AddComponent<LayoutElement>();
-		le.preferredWidth = this.GetComponent<LayoutElement>().preferredWidth;
-		le.preferredHeight = this.GetComponent<LayoutElement>().preferredHeight;
-		le.flexibleWidth = 0;
-		le.flexibleHeight = 0;
-		
-		m_placeholder.transform.SetSiblingIndex( this.transform.GetSiblingIndex() );
-		
-		m_parentToReturnTo = this.transform.parent;
-		m_placeholderParent = m_parentToReturnTo;
-		this.transform.SetParent( this.transform.parent.parent );
 
-		GetComponent<CanvasGroup>().blocksRaycasts = false;
+		//if (Dummy != null) 
+		//{
+		//	GameObject.Destroy(Dummy);
+		//}
+
+		CreatePlaceHolder ();
+		
+		
+
 	}
 	
 	public void OnDrag(PointerEventData eventData) 
@@ -101,11 +94,12 @@ public class DraggableBehaviour : MonoBehaviour, IBeginDragHandler, IDragHandler
 
 	public void OnPointerEnter(PointerEventData eventData) 
 	{
-		if (!m_isHovered) {
+		if (!m_isHovered) 
+		{
 			if (!eventData.dragging) 
 			{
 				// reset other card
-				foreach (var item in m_hand.transform.GetComponentsInChildren<CardBehaviour>()) 
+				foreach (var item in m_hand.transform.GetComponentsInChildren<DraggableBehaviour>()) 
 				{
 					if (item.m_isHovered) 
 					{
@@ -120,7 +114,8 @@ public class DraggableBehaviour : MonoBehaviour, IBeginDragHandler, IDragHandler
 				NewPosition.y += (Screen.height * 0.20f);
 				transform.position = NewPosition;
 				transform.localScale = new Vector3 (2.5f, 2.5f, 2.5f);
-			
+				//DummyHoveredCard();
+
 			}
 		}
 	}
@@ -145,12 +140,55 @@ public class DraggableBehaviour : MonoBehaviour, IBeginDragHandler, IDragHandler
 
 	public void ResetPostition()
 	{
+		transform.SetParent(m_hand.transform);
 		transform.position = m_oldPosition;
 		transform.localScale = new Vector3(1.6f,1.6f,1.6f);
 		m_isHovered = false;
+
+		//if (Dummy != null) 
+		//{
+		//	GameObject.Destroy (Dummy);
+		//}
 	}
 
+	void CreatePlaceHolder ()
+	{
+		m_placeholder = new GameObject ();
+		m_placeholder.name = "PlaceHolder";
+		m_placeholder.transform.SetParent (this.transform.parent);
+		LayoutElement le = m_placeholder.AddComponent<LayoutElement> ();
+		le.preferredWidth = this.GetComponent<LayoutElement> ().preferredWidth;
+		le.preferredHeight = this.GetComponent<LayoutElement> ().preferredHeight;
+		le.flexibleWidth = 0;
+		le.flexibleHeight = 0;
+		m_placeholder.transform.SetSiblingIndex (this.transform.GetSiblingIndex ());
+		m_parentToReturnTo = this.transform.parent;
+		m_placeholderParent = m_parentToReturnTo;
+		this.transform.SetParent (this.transform.parent.parent);
+		GetComponent<CanvasGroup> ().blocksRaycasts = false;
+	}
 
+	void DummyHoveredCard()
+	{
+		Dummy = GameObject.Instantiate(gameObject);
+		Dummy.GetComponent<CanvasGroup>().blocksRaycasts = false;
+		Dummy.GetComponent<RectTransform>().sizeDelta = gameObject.GetComponent<RectTransform>().sizeDelta;
+		Dummy.GetComponent<RectTransform>().position = gameObject.GetComponent<RectTransform>().position;
+
+		Dummy.transform.SetParent(m_hand.transform.parent);
+
+		Invoke("ResizeDummy",0.03f);
+
+		//TODO eb find better method
+
+	}
+
+	public void ResizeDummy()
+	{
+		if (Dummy != null) {
+			Dummy.transform.localScale = new Vector3 (2.5f, 2.5f, 2.5f);
+		}
+	}
 
 	#endregion
 	
@@ -159,7 +197,7 @@ public class DraggableBehaviour : MonoBehaviour, IBeginDragHandler, IDragHandler
 	Vector3 m_oldPosition ;
 	GameObject m_hand;
 	GameObject m_board;
-
+	GameObject Dummy;
 	#endregion
 
 
