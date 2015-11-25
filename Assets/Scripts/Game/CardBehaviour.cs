@@ -2,7 +2,7 @@
 using System.Collections;
 using UnityEngine.UI;
 
-public class CardBehaviour : DraggableBehaviour {
+public class CardBehaviour : MonoBehaviour {
 
 	#region Public Variable
 

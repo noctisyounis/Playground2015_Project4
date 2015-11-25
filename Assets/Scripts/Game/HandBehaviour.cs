@@ -77,6 +77,7 @@ public class HandBehaviour : MonoBehaviour, IDropHandler, IPointerEnterHandler, 
             int id = int.Parse(deckList.PropDeck[i].ToString());
             GameObject Card = GameObject.Instantiate((GameObject)cardList.List[id - 1]);
             Card.transform.SetParent(PlayerDeck.transform);
+			Card.AddComponent<DraggableBehaviour>();
             Card.name = "Card" + i.ToString();
             m_deck.Add(Card);
         }
