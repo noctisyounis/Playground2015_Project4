@@ -210,17 +210,17 @@ public class BoardBehaviour : MonoBehaviour
 			{
 				//enum
 				// CC
-				if (script.m_type == "CC") 
+				if (script.m_type == "Close" ) 
 				{
 
 				}
 				// Archer
-				else if (script.m_type == "Archer") 
+				else if (script.m_type == "Range") 
 				{
 					
 				}
 				// Heavy
-				else if (script.m_type == "Heavy") 
+				else if (script.m_type == "BigRange") 
 				{
 					
 				}

@@ -17,8 +17,6 @@ public class CardUnitBehaviour : CardBehaviour
     public int m_price;
     public string m_type;
 
-
-
     #endregion
 
     #region Main Methodes
