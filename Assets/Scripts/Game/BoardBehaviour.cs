@@ -206,21 +206,21 @@ public class BoardBehaviour : MonoBehaviour
 		{
 			TokkenBehaviour script = item.GetComponent<TokkenBehaviour>();
 
-			if (script.m_hp < 0) 
+			if (script.hp < 0) 
 			{
 				//enum
 				// CC
-				if (script.m_type == "Close" ) 
+				if (script.type == "Close" ) 
 				{
 
 				}
 				// Archer
-				else if (script.m_type == "Range") 
+				else if (script.type == "Range") 
 				{
 					
 				}
 				// Heavy
-				else if (script.m_type == "BigRange") 
+				else if (script.type == "BigRange") 
 				{
 					
 				}
