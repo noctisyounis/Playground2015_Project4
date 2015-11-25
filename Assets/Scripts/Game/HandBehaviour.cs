@@ -94,7 +94,7 @@ public class HandBehaviour : MonoBehaviour, IDropHandler, IPointerEnterHandler, 
 			GameObject Card = m_deck [0];
 			m_deck.Remove (Card);
 			Card.transform.SetParent (gameObject.transform);
-			Card.GetComponent<RectTransform>().localScale = new Vector3(1.6f,1.6f,1.6f);
+			Card.GetComponent<RectTransform>().localScale = new Vector3(1.0f,1.0f,1.0f);
 		}
 	} 
 

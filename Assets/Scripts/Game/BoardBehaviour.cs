@@ -141,8 +141,8 @@ public class BoardBehaviour : MonoBehaviour
 			//rotation.y = 180;
 			GameObject item = (GameObject)Instantiate(prefab,position, rotation);
 			SquareBehaviour script = (SquareBehaviour) item.GetComponent<SquareBehaviour>();
-			script.m_gridX = 5-x;
-			script.m_gridY = 4-y;
+			script.m_gridX = x;
+			script.m_gridY = y;
 			m_cubes[i] = item;
 			
 			item.transform.SetParent(gameObject.transform);
