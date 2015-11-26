@@ -9,6 +9,7 @@ public class DraggableBehaviour : MonoBehaviour, IBeginDragHandler, IDragHandler
 	public Transform m_parentToReturnTo = null;
 	public Transform m_placeholderParent = null;
 	public bool m_isHovered = false;
+	private GameObject m_cardHolder;
 
 	#endregion
 	
@@ -16,6 +17,7 @@ public class DraggableBehaviour : MonoBehaviour, IBeginDragHandler, IDragHandler
 
 	public void Start()
 	{
+		m_cardHolder = GameObject.Find ("CardHolderLayout");
 		gameObject.GetComponent<RectTransform>().localScale = new Vector3(1f, 1f, 1f);
 		GameObject board = GameObject.FindObjectOfType<BoardBehaviour>().gameObject;
 		m_board = board;
@@ -94,6 +96,8 @@ public class DraggableBehaviour : MonoBehaviour, IBeginDragHandler, IDragHandler
 
 	public void OnPointerEnter(PointerEventData eventData) 
 	{
+		m_cardHolder.GetComponent<CardHolderBehaviour> ().setNewCardUnit (this.GetComponent<CardUnitBehaviour> ());
+			
 		if (!m_isHovered) 
 		{
 			if (!eventData.dragging) 
@@ -111,17 +115,20 @@ public class DraggableBehaviour : MonoBehaviour, IBeginDragHandler, IDragHandler
 
 				m_oldPosition = this.transform.position;
 				Vector3 NewPosition = m_oldPosition;
-				NewPosition.y += (Screen.height * 0.20f);
+				NewPosition.y += (Screen.height * 0.10f);
 				transform.position = NewPosition;
-				transform.localScale = new Vector3 (1.6f, 1.6f, 1.6f);
-				DummyHoveredCard();
+			//	transform.localScale = new Vector3 (1.6f, 1.6f, 1.6f);
+				//DummyHoveredCard();
 
 			}
 		}
+
 	}
 	
 	public void OnPointerExit(PointerEventData eventData) 
 	{
+		m_cardHolder.GetComponent<CardHolderBehaviour> ().removeCard ();
+
 		if (!eventData.dragging) 
 		{
 			Debug.Log(eventData.position.ToString());
@@ -168,7 +175,7 @@ public class DraggableBehaviour : MonoBehaviour, IBeginDragHandler, IDragHandler
 		GetComponent<CanvasGroup> ().blocksRaycasts = false;
 	}
 
-	void DummyHoveredCard()
+	/*void DummyHoveredCard()
 	{
 		Dummy = GameObject.Instantiate(gameObject);
 		Dummy.GetComponent<CanvasGroup>().blocksRaycasts = false;
@@ -188,7 +195,7 @@ public class DraggableBehaviour : MonoBehaviour, IBeginDragHandler, IDragHandler
 		if (Dummy != null) {
 			Dummy.transform.localScale = new Vector3 (1.6f, 1.6f, 1.6f);
 		}
-	}
+	}*/
 
 	#endregion
 	

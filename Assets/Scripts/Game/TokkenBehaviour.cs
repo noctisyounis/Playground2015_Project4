@@ -22,15 +22,13 @@ public class TokkenBehaviour : MonoBehaviour
     public int m_playedAtTurn;
 
     public int m_gridX;
-    public int m_gridY;
+	public int m_gridY;
 
-    #endregion
+	
+	#endregion
 
     #region Main Methodes
-
-
-
-
+	
     #endregion
 
     #region Utils
@@ -43,43 +41,68 @@ public class TokkenBehaviour : MonoBehaviour
         }
         else
         {
-            prefab = (GameObject)Resources.Load("PlayerTokken", typeof(GameObject));
+            prefab = (GameObject)Resources.Load("OpponentTokken", typeof(GameObject));
         }
         TokkenBehaviour script = prefab.GetComponent<TokkenBehaviour>();
+
         
-        script.m_hp.GetComponent<Text>().text = Card.m_HP.GetComponent<Text>().text;
-        script.m_ATK_Up.GetComponent<Text>().text = Card.m_ATK_Up.GetComponent<Text>().text;
-        script.m_ATK_Right.GetComponent<Text>().text = Card.m_ATK_Right.GetComponent<Text>().text;
-        script.m_ATK_Down.GetComponent<Text>().text = Card.m_ATK_Down.GetComponent<Text>().text;
-        script.m_ATK_Left.GetComponent<Text>().text = Card.m_ATK_Left.GetComponent<Text>().text;
-        script.m_speed.GetComponent<Text>().text = Card.m_Speed.GetComponent<Text>().text;
+		script.m_hp.GetComponent<Text> ().text = Card.m_HP.GetComponent<Text> ().text;
+		script.m_ATK_Up.GetComponent<Text> ().text = Card.m_ATK_Up.GetComponent<Text> ().text;
+		script.m_ATK_Right.GetComponent<Text> ().text = Card.m_ATK_Right.GetComponent<Text> ().text;
+		script.m_ATK_Down.GetComponent<Text> ().text = Card.m_ATK_Down.GetComponent<Text> ().text;
+		script.m_ATK_Left.GetComponent<Text> ().text = Card.m_ATK_Left.GetComponent<Text> ().text;
+		script.m_speed.GetComponent<Text> ().text = Card.m_Speed.GetComponent<Text> ().text;
 
-        GameObject Tokken = (GameObject)Instantiate(prefab, position, rotation);
+		GameObject Tokken = (GameObject)Instantiate (prefab, position, rotation);
 
-        TokkenBehaviour TokkenB = (TokkenBehaviour)Tokken.GetComponent<TokkenBehaviour>();
+		TokkenBehaviour TokkenB = (TokkenBehaviour)Tokken.GetComponent<TokkenBehaviour> ();
 
-        TokkenB.hp = int.Parse(Card.m_HP.GetComponent<Text>().text);
-        TokkenB.ATK_Up = int.Parse(Card.m_ATK_Up.GetComponent<Text>().text);
-        TokkenB.ATK_Right = int.Parse(Card.m_ATK_Right.GetComponent<Text>().text);
-        TokkenB.ATK_Down = int.Parse(Card.m_ATK_Down.GetComponent<Text>().text);
-        TokkenB.ATK_Left = int.Parse(Card.m_ATK_Left.GetComponent<Text>().text);
+		TokkenB.hp = int.Parse (Card.m_HP.GetComponent<Text> ().text);
+		TokkenB.ATK_Up = int.Parse (Card.m_ATK_Up.GetComponent<Text> ().text);
+		TokkenB.ATK_Right = int.Parse (Card.m_ATK_Right.GetComponent<Text> ().text);
+		TokkenB.ATK_Down = int.Parse (Card.m_ATK_Down.GetComponent<Text> ().text);
+		TokkenB.ATK_Left = int.Parse (Card.m_ATK_Left.GetComponent<Text> ().text);
 
-        TokkenB.speed = int.Parse(Card.m_Speed.GetComponent<Text>().text);
+		TokkenB.speed = int.Parse (Card.m_Speed.GetComponent<Text> ().text);
 
-        TokkenB.victoryPoint = Card.PropVictory_Point;
+		TokkenB.victoryPoint = Card.PropVictory_Point;
 
-        TokkenB.name = Card.m_name.GetComponent<Text>().text;
+		TokkenB.name = Card.m_name.GetComponent<Text> ().text;
 
-        TokkenB.type = Card.m_type;
+		TokkenB.type = Card.m_type;
 
-        TokkenB.descriptionL1 = Card.m_Description1.GetComponent<Text>().text;
-        TokkenB.descriptionL2 = Card.m_Description2.GetComponent<Text>().text;
-        TokkenB.descriptionL3 = Card.m_Description3.GetComponent<Text>().text;
+		TokkenB.descriptionL1 = Card.m_Description1.GetComponent<Text> ().text;
+		TokkenB.descriptionL2 = Card.m_Description2.GetComponent<Text> ().text;
+		TokkenB.descriptionL3 = Card.m_Description3.GetComponent<Text> ().text;
+		
+		return Tokken;
+	}
 
 
+	public bool DealDamageTo(int Damage)
+	{
+		bool Alive = (hp > 0);
 
-        return Tokken;
-    }
+		if (Alive) 
+		{
+			hp -= Damage;
+			if (hp <= 0) {
+				gameObject.GetComponent<Canvas> ().enabled = false;
+				GameObject square = GameObject.FindObjectOfType<BoardBehaviour> ().m_cubes [m_gridX, m_gridY];
+				square.GetComponent<SquareBehaviour> ().m_isOccuped = false;
+			}
+		}
+
+		return Alive;
+	}
+
+	public void SetPosition(int x,int y)
+	{
+		m_gridX = x;
+		m_gridY = y;
+	}
+
+
     #endregion
 
     #region Private Variable
@@ -139,7 +162,6 @@ public class TokkenBehaviour : MonoBehaviour
         get { return _type; }
         set { _type = value; }
     }
-
 
     private string _descriptionL1;
     public string descriptionL1

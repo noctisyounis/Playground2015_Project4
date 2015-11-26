@@ -30,6 +30,30 @@ public class CardUnitBehaviour : CardBehaviour
 
     #region Utils
 
+	public void copy(CardUnitBehaviour c1)
+	{
+		this.ATK_Down = c1.ATK_Down;
+		this.ATK_Left = c1.ATK_Left;
+		this.ATK_Right = c1.ATK_Right;
+		this.ATK_Up = c1.ATK_Up;
+		this.HP = c1.HP;
+		this.Speed = c1.Speed;
+
+		this.m_name.GetComponent<Text>().text = c1.m_name.GetComponent<Text>().text;
+		this.m_HP.GetComponent<Text>().text = c1.m_HP.GetComponent<Text>().text;
+
+		this.m_Description1.GetComponent<Text>().text = c1.m_Description1.GetComponent<Text>().text;
+		this.m_Description2.GetComponent<Text>().text = c1.m_Description2.GetComponent<Text>().text;
+		this.m_Description3.GetComponent<Text>().text = c1.m_Description3.GetComponent<Text>().text;
+
+		this.m_ATK_Down.GetComponent<Text>().text = c1.m_ATK_Down.GetComponent<Text>().text;
+		this.m_ATK_Up.GetComponent<Text>().text = c1.m_ATK_Up.GetComponent<Text>().text;
+		this.m_ATK_Right.GetComponent<Text>().text = c1.m_ATK_Right.GetComponent<Text>().text;
+		this.m_ATK_Left.GetComponent<Text>().text = c1.m_ATK_Left.GetComponent<Text>().text;
+		
+		this.m_Speed.GetComponent<Text>().text = c1.m_Speed.GetComponent<Text>().text;
+	}
+
     #endregion
 
     #region Private Variable

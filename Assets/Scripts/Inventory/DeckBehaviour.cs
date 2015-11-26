@@ -5,8 +5,19 @@ using System.Collections.Generic;
 public class DeckBehaviour : MonoBehaviour {
 
 	#region public variable
+<<<<<<< HEAD
+
+	public static List<GameObject> m_deck = new List<GameObject>();
+    public Sprite m_bigRange;
+    public Sprite m_range;
+    public Sprite m_cac;
+
+=======
+    public Sprite m_bigRange;
+    public Sprite m_range;
+    public Sprite m_cac;
 	public List<GameObject> m_deck = new List<GameObject>();
-	public GameObject PlayerDeck;
+>>>>>>> origin/master
 	#endregion
 
 	#region Main method
@@ -14,34 +25,45 @@ public class DeckBehaviour : MonoBehaviour {
 	void Start () {
 		LoadDeck();
 		for(int i = 0; i < m_deck.Count; i++)
-	{
-		/*
-		-placer les cartes dans la DeckList
-		-"Stocker" les meme cartes? (ex: 12 Gerriers sombres)
-		-gerer le onClick? (autre method)
-		*/
-			GameObject Card = m_deck[i];
-			Card.transform.SetParent(gameObject.transform);
-	}
+		{
+				GameObject Card = m_deck[i];
+				Card.transform.SetParent(gameObject.transform);
+		}
 	
 	}
+	// Utility? OnClick? 
+	void Update()
+	{
+		for (int i = 0; i < m_deck.Count; i++) 
+		{
+			GameObject Card = m_deck[i];
+			Card.transform.SetParent(gameObject.transform);
+		}
+	}
+
 	#endregion
 
 	#region Utils
-	// = method HandBehaviour
+	// = method HandBehaviour, optimal? 
 	private void LoadDeck()
 	{
-		// Creer une ressource "Title" -> Zone text (= title) + nbre exemplaires
-		GameObject prefab = (GameObject)Resources.Load("Card", typeof(GameObject));
+		// Create  resource "Title" -> Zone text (= title) + nbr copies
+		GameObject prefab = (GameObject)Resources.Load("CardInventory", typeof(GameObject));
 		m_deck.Clear();
 		ReadDeckBehaviour deckList = new ReadDeckBehaviour();
-		ReadXmlBehaviour cardList = new ReadXmlBehaviour();
 
-		for (int i = 0; i < deckList.PropDeck.Count; i++) {
+        ReadXmlBehaviour cardList = new ReadXmlBehaviour(m_range, m_bigRange, m_cac,"CardInventory");
+
+		for (int i = 0; i < deckList.PropDeck.Count; i++) 
+		{
 			int id = int.Parse(deckList.PropDeck[i].ToString());
 			GameObject Card = GameObject.Instantiate((GameObject)cardList.List[id-1]);
-			// why (id - 1)
-			Card.transform.SetParent(PlayerDeck.transform);
+			Card.transform.SetParent(gameObject.transform);
+			/////////
+			Card.AddComponent<OnClickBehaviour>();
+			Card.GetComponent<OnClickBehaviour>().m_container = e_containedBy.DeckList;
+
+			/////////
 			Card.name = "Card" + i.ToString();
 			m_deck.Add(Card);
 		}

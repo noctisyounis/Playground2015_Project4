@@ -32,7 +32,7 @@ public class BoardBehaviour : MonoBehaviour
 		2,4,0,1,4,3,
 		0,1,0,2,0,4
 	} ;
-	public GameObject[] m_cubes = new GameObject[30];
+	public GameObject[,] m_cubes = new GameObject[6,5];
 
 	public bool m_player_Turn = true;
 
@@ -80,7 +80,7 @@ public class BoardBehaviour : MonoBehaviour
 		GameObject Tokken = TokkenBehaviour.CreateTokken(scriptCard,PositionVector,gameObject.transform.rotation, m_player_Turn);
 		Tokken.transform.SetParent(gameObject.transform);
 		Tokken.GetComponent<RectTransform>().Rotate(new Vector3(90,180,0));
-
+		Tokken.GetComponent<TokkenBehaviour>().SetPosition(scriptSquare.m_gridX,scriptSquare.m_gridY);
 		scriptSquare.m_tokken = Tokken;	
 		
 		scriptCard.PlayCard();
@@ -141,9 +141,9 @@ public class BoardBehaviour : MonoBehaviour
 			//rotation.y = 180;
 			GameObject item = (GameObject)Instantiate(prefab,position, rotation);
 			SquareBehaviour script = (SquareBehaviour) item.GetComponent<SquareBehaviour>();
-			script.m_gridX = 5-x;
-			script.m_gridY = 4-y;
-			m_cubes[i] = item;
+			script.m_gridX = x;
+			script.m_gridY = y;
+			m_cubes[x,y] = item;
 			
 			item.transform.SetParent(gameObject.transform);
 
@@ -176,7 +176,11 @@ public class BoardBehaviour : MonoBehaviour
 
 	public List<GameObject> FightOrder()
 	{
-		List<GameObject> Squares = m_cubes.ToList();
+		List<GameObject> Squares = new List<GameObject>();
+		foreach (var s in m_cubes) 
+		{
+			Squares.Add(s);
+		}
 		Squares.RemoveAll(x => !x.GetComponent<SquareBehaviour>().m_isOccuped);
 
 		List<GameObject> Tokkens = new List<GameObject>();
@@ -190,39 +194,117 @@ public class BoardBehaviour : MonoBehaviour
 			Tokkens.Add (Tokken);
 		}
 
-		Tokkens.OrderBy(x => x.GetComponent<TokkenBehaviour>().m_speed)
+		Tokkens.OrderBy(x => x.GetComponent<TokkenBehaviour>().speed)
 				.ThenBy(x => x.GetComponent<TokkenBehaviour>().m_playedAtTurn);
-
-		//TODO eb integrate tokken
 
 		return Tokkens;
 	}
 
 
-	public List<GameObject> Fight(bool IsFinalFight)
+	public List<GameObject> Fight(bool IsSimulation)
 	{
-		List<GameObject> Tokkens = FightOrder();
+		List<GameObject> TokkensOrder = FightOrder();
+
+		GameObject[,] Board;
+		if (IsSimulation) 
+		{
+			Board = (GameObject[,]) m_cubes.Clone();
+		}
+		else 
+		{
+			Board = m_cubes;
+		}
 
 		//TODO eb integrate tokken
-		foreach ( GameObject item in Tokkens) 
+		foreach ( GameObject item in TokkensOrder) 
 		{
-			TokkenBehaviour script = item.GetComponent<TokkenBehaviour>();
+			TokkenBehaviour TokkenScript = item.GetComponent<TokkenBehaviour>();
 
-			if (script.hp < 0) 
+			if (TokkenScript.hp < 0) 
 			{
 				//enum
 				// CC
-				if (script.type == "Close" ) 
+				if (TokkenScript.type == "Close" ) 
 				{
-
+					// UP
+					if (TokkenScript.m_gridY != 0) 
+					{
+						SquareBehaviour SquareScript = Board[TokkenScript.m_gridX,TokkenScript.m_gridY-1].GetComponent<SquareBehaviour>();
+						if(SquareScript.m_isOccuped)
+						{
+							SquareScript.m_tokken.GetComponent<TokkenBehaviour>().DealDamageTo(TokkenScript.ATK_Up);
+						}
+					}
+					// Down
+					if (TokkenScript.m_gridY != 4) 
+					{
+						SquareBehaviour SquareScript = Board[TokkenScript.m_gridX,TokkenScript.m_gridY+1].GetComponent<SquareBehaviour>();
+						if(SquareScript.m_isOccuped)
+						{
+							SquareScript.m_tokken.GetComponent<TokkenBehaviour>().DealDamageTo(TokkenScript.ATK_Down);
+						}
+					}
+					// Right
+					if (TokkenScript.m_gridX != 5) 
+					{
+						SquareBehaviour SquareScript = Board[TokkenScript.m_gridX+1,TokkenScript.m_gridY].GetComponent<SquareBehaviour>();
+						if(SquareScript.m_isOccuped)
+						{
+							SquareScript.m_tokken.GetComponent<TokkenBehaviour>().DealDamageTo(TokkenScript.ATK_Right);
+						}
+					}
+					// Left
+					if (TokkenScript.m_gridY != 0) 
+					{
+						SquareBehaviour SquareScript = Board[TokkenScript.m_gridX+1,TokkenScript.m_gridY].GetComponent<SquareBehaviour>();
+						if(SquareScript.m_isOccuped)
+						{
+							SquareScript.m_tokken.GetComponent<TokkenBehaviour>().DealDamageTo(TokkenScript.ATK_Left);
+						}
+					}
 				}
 				// Archer
-				else if (script.type == "Range") 
+				else if (TokkenScript.type == "Range") 
 				{
-					
+					// UP
+					if (TokkenScript.m_gridY != 0) 
+					{
+						SquareBehaviour SquareScript = Board[TokkenScript.m_gridX,TokkenScript.m_gridY-1].GetComponent<SquareBehaviour>();
+						if(SquareScript.m_isOccuped)
+						{
+							SquareScript.m_tokken.GetComponent<TokkenBehaviour>().DealDamageTo(TokkenScript.ATK_Up);
+						}
+					}
+					// Down
+					if (TokkenScript.m_gridY != 4) 
+					{
+						SquareBehaviour SquareScript = Board[TokkenScript.m_gridX,TokkenScript.m_gridY+1].GetComponent<SquareBehaviour>();
+						if(SquareScript.m_isOccuped)
+						{
+							SquareScript.m_tokken.GetComponent<TokkenBehaviour>().DealDamageTo(TokkenScript.ATK_Down);
+						}
+					}
+					// Right
+					if (TokkenScript.m_gridX != 5) 
+					{
+						SquareBehaviour SquareScript = Board[TokkenScript.m_gridX+1,TokkenScript.m_gridY].GetComponent<SquareBehaviour>();
+						if(SquareScript.m_isOccuped)
+						{
+							SquareScript.m_tokken.GetComponent<TokkenBehaviour>().DealDamageTo(TokkenScript.ATK_Right);
+						}
+					}
+					// Left
+					if (TokkenScript.m_gridY != 0) 
+					{
+						SquareBehaviour SquareScript = Board[TokkenScript.m_gridX+1,TokkenScript.m_gridY].GetComponent<SquareBehaviour>();
+						if(SquareScript.m_isOccuped)
+						{
+							SquareScript.m_tokken.GetComponent<TokkenBehaviour>().DealDamageTo(TokkenScript.ATK_Left);
+						}
+					}
 				}
 				// Heavy
-				else if (script.type == "BigRange") 
+				else if (TokkenScript.type == "BigRange") 
 				{
 					
 				}
@@ -234,7 +316,7 @@ public class BoardBehaviour : MonoBehaviour
 
 
 		//return Tokken still alive
-		return Tokkens;
+		return TokkensOrder;
 	}
 
 	#endregion
