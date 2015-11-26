@@ -101,10 +101,6 @@ public class TokkenBehaviour : MonoBehaviour
 		m_gridY = y;
 	}
 
-<<<<<<< HEAD
-
-=======
->>>>>>> origin/master
     #endregion
 
     #region Private Variable
