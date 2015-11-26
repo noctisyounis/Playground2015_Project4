@@ -99,11 +99,15 @@ public class BoardBehaviour : MonoBehaviour
 
 			m_player_Turn = false;
 
-			EndGameUIManager EndGame = (EndGameUIManager) GameObject.FindObjectOfType<EndGameUIManager>();
 
+			EndGameUIManager EndGame = (EndGameUIManager) GameObject.FindObjectOfType<EndGameUIManager>();
 			EndGame.ShowPointsCounter();
 
 			Debug.Log("End Game : Start Battle");
+
+			List<GameObject> TokkenAlive = Fight(false);
+
+			Debug.Log(TokkenAlive.Count);
 
 			EndGame.VictoryGameMessage(true);
 
@@ -174,10 +178,10 @@ public class BoardBehaviour : MonoBehaviour
 		m_timer.EndTurn();
 	}
 
-	public List<GameObject> FightOrder()
+	public List<GameObject> FightOrder(GameObject[,] Cubes)
 	{
 		List<GameObject> Squares = new List<GameObject>();
-		foreach (var s in m_cubes) 
+		foreach (var s in Cubes) 
 		{
 			Squares.Add(s);
 		}
@@ -203,8 +207,6 @@ public class BoardBehaviour : MonoBehaviour
 
 	public List<GameObject> Fight(bool IsSimulation)
 	{
-		List<GameObject> TokkensOrder = FightOrder();
-
 		GameObject[,] Board;
 		if (IsSimulation) 
 		{
@@ -215,12 +217,24 @@ public class BoardBehaviour : MonoBehaviour
 			Board = m_cubes;
 		}
 
+		List<GameObject> TokkensOrder = FightOrder(Board);
+
+		foreach (var item in TokkensOrder) {
+			
+		}
+
+		//Debug.Log(PointsPlayer1 + " - "+ PointsPlayer2);
+		EndGameUIManager EndGame = (EndGameUIManager) GameObject.FindObjectOfType<EndGameUIManager>();
+		//EndGame.SetPointCounter(PointsPlayer1,PointsPlayer2);
+
+
 		//TODO eb integrate tokken
 		foreach ( GameObject item in TokkensOrder) 
 		{
 			TokkenBehaviour TokkenScript = item.GetComponent<TokkenBehaviour>();
 
-			if (TokkenScript.hp < 0) 
+
+			if (TokkenScript.hp > 0) 
 			{
 				//enum
 				// CC
@@ -232,7 +246,7 @@ public class BoardBehaviour : MonoBehaviour
 						SquareBehaviour SquareScript = Board[TokkenScript.m_gridX,TokkenScript.m_gridY-1].GetComponent<SquareBehaviour>();
 						if(SquareScript.m_isOccuped)
 						{
-							SquareScript.m_tokken.GetComponent<TokkenBehaviour>().DealDamageTo(TokkenScript.ATK_Up);
+							SquareScript.m_tokken.GetComponent<TokkenBehaviour>().DealDamageTo(TokkenScript.m_playedBy,TokkenScript.ATK_Up);
 						}
 					}
 					// Down
@@ -241,7 +255,7 @@ public class BoardBehaviour : MonoBehaviour
 						SquareBehaviour SquareScript = Board[TokkenScript.m_gridX,TokkenScript.m_gridY+1].GetComponent<SquareBehaviour>();
 						if(SquareScript.m_isOccuped)
 						{
-							SquareScript.m_tokken.GetComponent<TokkenBehaviour>().DealDamageTo(TokkenScript.ATK_Down);
+							SquareScript.m_tokken.GetComponent<TokkenBehaviour>().DealDamageTo(TokkenScript.m_playedBy,TokkenScript.ATK_Down);
 						}
 					}
 					// Right
@@ -250,7 +264,7 @@ public class BoardBehaviour : MonoBehaviour
 						SquareBehaviour SquareScript = Board[TokkenScript.m_gridX+1,TokkenScript.m_gridY].GetComponent<SquareBehaviour>();
 						if(SquareScript.m_isOccuped)
 						{
-							SquareScript.m_tokken.GetComponent<TokkenBehaviour>().DealDamageTo(TokkenScript.ATK_Right);
+							SquareScript.m_tokken.GetComponent<TokkenBehaviour>().DealDamageTo(TokkenScript.m_playedBy,TokkenScript.ATK_Right);
 						}
 					}
 					// Left
@@ -259,7 +273,7 @@ public class BoardBehaviour : MonoBehaviour
 						SquareBehaviour SquareScript = Board[TokkenScript.m_gridX+1,TokkenScript.m_gridY].GetComponent<SquareBehaviour>();
 						if(SquareScript.m_isOccuped)
 						{
-							SquareScript.m_tokken.GetComponent<TokkenBehaviour>().DealDamageTo(TokkenScript.ATK_Left);
+							SquareScript.m_tokken.GetComponent<TokkenBehaviour>().DealDamageTo(TokkenScript.m_playedBy,TokkenScript.ATK_Left);
 						}
 					}
 				}
@@ -269,59 +283,199 @@ public class BoardBehaviour : MonoBehaviour
 					// UP
 					if (TokkenScript.m_gridY != 0) 
 					{
-						SquareBehaviour SquareScript = Board[TokkenScript.m_gridX,TokkenScript.m_gridY-1].GetComponent<SquareBehaviour>();
-						if(SquareScript.m_isOccuped)
+						int y = TokkenScript.m_gridY -1;
+						bool hit = false;
+						do 
 						{
-							SquareScript.m_tokken.GetComponent<TokkenBehaviour>().DealDamageTo(TokkenScript.ATK_Up);
-						}
+							SquareBehaviour SquareScript = Board[TokkenScript.m_gridX, y].GetComponent<SquareBehaviour>();
+							if(SquareScript.m_isOccuped)
+							{
+								hit = SquareScript.m_tokken.GetComponent<TokkenBehaviour>().DealDamageTo(TokkenScript.m_playedBy,TokkenScript.ATK_Up);
+							}
+							y--;
+						} while (y >= 0 && !hit);
 					}
 					// Down
 					if (TokkenScript.m_gridY != 4) 
 					{
-						SquareBehaviour SquareScript = Board[TokkenScript.m_gridX,TokkenScript.m_gridY+1].GetComponent<SquareBehaviour>();
-						if(SquareScript.m_isOccuped)
+						int y = TokkenScript.m_gridY +1;
+						bool hit = false;
+						do 
 						{
-							SquareScript.m_tokken.GetComponent<TokkenBehaviour>().DealDamageTo(TokkenScript.ATK_Down);
-						}
+							SquareBehaviour SquareScript = Board[TokkenScript.m_gridX, y].GetComponent<SquareBehaviour>();
+							if(SquareScript.m_isOccuped)
+							{
+								hit = SquareScript.m_tokken.GetComponent<TokkenBehaviour>().DealDamageTo(TokkenScript.m_playedBy,TokkenScript.ATK_Down);
+							}
+							y++;
+						} while (y <= 4 && !hit);
 					}
 					// Right
 					if (TokkenScript.m_gridX != 5) 
 					{
-						SquareBehaviour SquareScript = Board[TokkenScript.m_gridX+1,TokkenScript.m_gridY].GetComponent<SquareBehaviour>();
-						if(SquareScript.m_isOccuped)
+						int x = TokkenScript.m_gridX +1;
+						bool hit = false;
+						do 
 						{
-							SquareScript.m_tokken.GetComponent<TokkenBehaviour>().DealDamageTo(TokkenScript.ATK_Right);
-						}
+							SquareBehaviour SquareScript = Board[x, TokkenScript.m_gridY].GetComponent<SquareBehaviour>();
+							if(SquareScript.m_isOccuped)
+							{
+								hit = SquareScript.m_tokken.GetComponent<TokkenBehaviour>().DealDamageTo(TokkenScript.m_playedBy,TokkenScript.ATK_Right);
+							}
+							x++;
+						} while (x <= 5 && !hit);
+
 					}
 					// Left
-					if (TokkenScript.m_gridY != 0) 
+					if (TokkenScript.m_gridX != 0) 
 					{
-						SquareBehaviour SquareScript = Board[TokkenScript.m_gridX+1,TokkenScript.m_gridY].GetComponent<SquareBehaviour>();
-						if(SquareScript.m_isOccuped)
+						int x = TokkenScript.m_gridX -1;
+						bool hit = false;
+						do 
 						{
-							SquareScript.m_tokken.GetComponent<TokkenBehaviour>().DealDamageTo(TokkenScript.ATK_Left);
-						}
+							SquareBehaviour SquareScript = Board[x, TokkenScript.m_gridY].GetComponent<SquareBehaviour>();
+							if(SquareScript.m_isOccuped)
+							{
+								hit = SquareScript.m_tokken.GetComponent<TokkenBehaviour>().DealDamageTo(TokkenScript.m_playedBy,TokkenScript.ATK_Left);
+							}
+							x--;
+						} while (x >= 0 && !hit);
 					}
 				}
 				// Heavy
 				else if (TokkenScript.type == "BigRange") 
 				{
-					
+					// UP
+					if (TokkenScript.m_gridY != 0) 
+					{
+						int y = TokkenScript.m_gridY -1;
+						bool hit = false;
+						do 
+						{
+							SquareBehaviour SquareScript = Board[TokkenScript.m_gridX, y].GetComponent<SquareBehaviour>();
+							if(SquareScript.m_isOccuped)
+							{
+								hit = SquareScript.m_tokken.GetComponent<TokkenBehaviour>().DealDamageTo(TokkenScript.m_playedBy,TokkenScript.ATK_Up);
+							}
+							y--;
+						} 
+						while (y >= 0 && !hit);
+
+						while (y >= 0 && hit) 
+						{
+							SquareBehaviour SquareScript = Board[TokkenScript.m_gridX, y].GetComponent<SquareBehaviour>();
+							if(SquareScript.m_isOccuped)
+							{
+								hit = SquareScript.m_tokken.GetComponent<TokkenBehaviour>().DealDamageTo(TokkenScript.m_playedBy,TokkenScript.ATK_Up);
+							}
+							else 
+							{
+								hit = false;
+							}
+							y--;
+						}
+					}
+					// Down
+					if (TokkenScript.m_gridY != 4) 
+					{
+						int y = TokkenScript.m_gridY +1;
+						bool hit = false;
+						do 
+						{
+							SquareBehaviour SquareScript = Board[TokkenScript.m_gridX, y].GetComponent<SquareBehaviour>();
+							if(SquareScript.m_isOccuped)
+							{
+								hit = SquareScript.m_tokken.GetComponent<TokkenBehaviour>().DealDamageTo(TokkenScript.m_playedBy,TokkenScript.ATK_Down);
+							}
+							y++;
+						} while (y <= 4 && !hit);
+
+						while (y <= 4 && hit) 
+						{
+							SquareBehaviour SquareScript = Board[TokkenScript.m_gridX, y].GetComponent<SquareBehaviour>();
+							if(SquareScript.m_isOccuped)
+							{
+								hit = SquareScript.m_tokken.GetComponent<TokkenBehaviour>().DealDamageTo(TokkenScript.m_playedBy,TokkenScript.ATK_Up);
+							}
+							else 
+							{
+								hit = false;
+							}
+							y++;
+						}
+					}
+					// Right
+					if (TokkenScript.m_gridX != 5) 
+					{
+						int x = TokkenScript.m_gridX +1;
+						bool hit = false;
+						do 
+						{
+							SquareBehaviour SquareScript = Board[x, TokkenScript.m_gridY].GetComponent<SquareBehaviour>();
+							if(SquareScript.m_isOccuped)
+							{
+								hit = SquareScript.m_tokken.GetComponent<TokkenBehaviour>().DealDamageTo(TokkenScript.m_playedBy,TokkenScript.ATK_Right);
+							}
+							x++;
+						} while (x <= 5 && !hit);
+
+						while (x <= 5 && hit) 
+						{
+							SquareBehaviour SquareScript = Board[x, TokkenScript.m_gridY].GetComponent<SquareBehaviour>();
+							if(SquareScript.m_isOccuped)
+							{
+								hit = SquareScript.m_tokken.GetComponent<TokkenBehaviour>().DealDamageTo(TokkenScript.m_playedBy,TokkenScript.ATK_Right);
+							}
+							else 
+							{
+								hit = false	;
+							}
+							x++;
+						}
+						
+					}
+					// Left
+					if (TokkenScript.m_gridY != 0) 
+					{
+						int x = TokkenScript.m_gridX -1;
+						bool hit = false;
+						do 
+						{
+							SquareBehaviour SquareScript = Board[x, TokkenScript.m_gridY].GetComponent<SquareBehaviour>();
+							if(SquareScript.m_isOccuped)
+							{
+								hit = SquareScript.m_tokken.GetComponent<TokkenBehaviour>().DealDamageTo(TokkenScript.m_playedBy,TokkenScript.ATK_Left);
+							}
+							x++;
+						} while (x >= 0 && !hit);
+
+						while (x <= 5 && hit) 
+						{
+							SquareBehaviour SquareScript = Board[x, TokkenScript.m_gridY].GetComponent<SquareBehaviour>();
+							if(SquareScript.m_isOccuped)
+							{
+								hit = SquareScript.m_tokken.GetComponent<TokkenBehaviour>().DealDamageTo(TokkenScript.m_playedBy,TokkenScript.ATK_Right);
+							}
+							else 
+							{
+								hit = false	;
+							}
+							x--;
+						}
+					}
 				}
-
-
 			}
-
 		}
 
 
 		//return Tokken still alive
-		return TokkensOrder;
+		return TokkensOrder.Where(x => x.GetComponent<TokkenBehaviour>().hp > 0).ToList();
 	}
 
 	#endregion
 	
 	#region Private Variable
+
 
 	private TimerBehaviour m_timer;
 	private GameObject m_hand;

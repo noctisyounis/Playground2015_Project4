@@ -22,41 +22,45 @@ public class TokkenBehaviour : MonoBehaviour
     public int m_playedAtTurn;
 
     public int m_gridX;
-    public int m_gridY;
+	public int m_gridY;
+
+	public enum Player {Player1,Player2};
+	public Player m_playedBy ;
 
     #endregion
 
     #region Main Methodes
-
-
-
-
+	
     #endregion
 
     #region Utils
     public static GameObject CreateTokken(CardUnitBehaviour Card, Vector3 position, Quaternion rotation, bool playerTurn)
     {
         GameObject prefab;
+		Player PlayedBy;
         if (playerTurn)
         {
             prefab = (GameObject)Resources.Load("PlayerTokken", typeof(GameObject));
+			PlayedBy = Player.Player1;
         }
         else
         {
             prefab = (GameObject)Resources.Load("OpponentTokken", typeof(GameObject));
+			PlayedBy = Player.Player2;
         }
         TokkenBehaviour script = prefab.GetComponent<TokkenBehaviour>();
+
         
-        script.m_hp.GetComponent<Text>().text = Card.m_HP.GetComponent<Text>().text;
-        script.m_ATK_Up.GetComponent<Text>().text = Card.m_ATK_Up.GetComponent<Text>().text;
-        script.m_ATK_Right.GetComponent<Text>().text = Card.m_ATK_Right.GetComponent<Text>().text;
-        script.m_ATK_Down.GetComponent<Text>().text = Card.m_ATK_Down.GetComponent<Text>().text;
-        script.m_ATK_Left.GetComponent<Text>().text = Card.m_ATK_Left.GetComponent<Text>().text;
-        script.m_speed.GetComponent<Text>().text = Card.m_Speed.GetComponent<Text>().text;
+		script.m_hp.GetComponent<Text> ().text = Card.m_HP.GetComponent<Text> ().text;
+		script.m_ATK_Up.GetComponent<Text> ().text = Card.m_ATK_Up.GetComponent<Text> ().text;
+		script.m_ATK_Right.GetComponent<Text> ().text = Card.m_ATK_Right.GetComponent<Text> ().text;
+		script.m_ATK_Down.GetComponent<Text> ().text = Card.m_ATK_Down.GetComponent<Text> ().text;
+		script.m_ATK_Left.GetComponent<Text> ().text = Card.m_ATK_Left.GetComponent<Text> ().text;
+		script.m_speed.GetComponent<Text> ().text = Card.m_Speed.GetComponent<Text> ().text;
 
-        GameObject Tokken = (GameObject)Instantiate(prefab, position, rotation);
+		GameObject Tokken = (GameObject)Instantiate (prefab, position, rotation);
 
-        TokkenBehaviour TokkenB = (TokkenBehaviour)Tokken.GetComponent<TokkenBehaviour>();
+		TokkenB.m_playedBy = PlayedBy;
 
         TokkenB.hp = int.Parse(Card.m_HP.GetComponent<Text>().text);
         TokkenB.ATK_Up = int.Parse(Card.m_ATK_Up.GetComponent<Text>().text);
@@ -64,32 +68,37 @@ public class TokkenBehaviour : MonoBehaviour
         TokkenB.ATK_Down = int.Parse(Card.m_ATK_Down.GetComponent<Text>().text);
         TokkenB.ATK_Left = int.Parse(Card.m_ATK_Left.GetComponent<Text>().text);
 
-        TokkenB.speed = int.Parse(Card.m_Speed.GetComponent<Text>().text);
+		TokkenBehaviour TokkenB = (TokkenBehaviour)Tokken.GetComponent<TokkenBehaviour> ();
 
-        TokkenB.victoryPoint = Card.PropVictory_Point;
+		TokkenB.speed = int.Parse (Card.m_Speed.GetComponent<Text> ().text);
 
-        TokkenB.name = Card.m_name.GetComponent<Text>().text;
+		TokkenB.victoryPoint = Card.PropVictory_Point;
 
-        TokkenB.type = Card.m_type;
+		TokkenB.name = Card.m_name.GetComponent<Text> ().text;
 
-        TokkenB.descriptionL1 = Card.m_Description1.GetComponent<Text>().text;
-        TokkenB.descriptionL2 = Card.m_Description2.GetComponent<Text>().text;
-        TokkenB.descriptionL3 = Card.m_Description3.GetComponent<Text>().text;
+		TokkenB.type = Card.m_type;
 
-        return Tokken;
-    }
+		TokkenB.descriptionL1 = Card.m_Description1.GetComponent<Text> ().text;
+		TokkenB.descriptionL2 = Card.m_Description2.GetComponent<Text> ().text;
+		TokkenB.descriptionL3 = Card.m_Description3.GetComponent<Text> ().text;
+		
+		return Tokken;
+	}
 
-	public bool DealDamageTo(int Damage)
+	public bool DealDamageTo(Player AttackedBy ,int Damage)
 	{
 		bool Alive = (hp > 0);
 
 		if (Alive) 
 		{
-			hp -= Damage;
-			if (hp <= 0) {
-				gameObject.GetComponent<Canvas> ().enabled = false;
-				GameObject square = GameObject.FindObjectOfType<BoardBehaviour> ().m_cubes [m_gridX, m_gridY];
-				square.GetComponent<SquareBehaviour> ().m_isOccuped = false;
+			if (AttackedBy != m_playedBy) 
+			{
+				hp -= Damage;
+				if (hp <= 0) {
+					gameObject.GetComponent<Canvas> ().enabled = false;
+					GameObject square = GameObject.FindObjectOfType<BoardBehaviour> ().m_cubes [m_gridX, m_gridY];
+					square.GetComponent<SquareBehaviour> ().m_isOccuped = false;
+				}
 			}
 		}
 

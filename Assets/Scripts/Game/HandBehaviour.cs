@@ -9,7 +9,9 @@ using System.Linq;
 public class HandBehaviour : MonoBehaviour, IDropHandler, IPointerEnterHandler, IPointerExitHandler 
 {
 	#region Public Variable
-
+    public Sprite m_bigRange;
+    public Sprite m_range;
+    public Sprite m_cac;
 	public List<GameObject> m_deck = new List<GameObject>();
 	public GameObject PlayerDeck;
 
@@ -68,10 +70,10 @@ public class HandBehaviour : MonoBehaviour, IDropHandler, IPointerEnterHandler, 
 
 	private void LoadDeck()
 	{
-        GameObject prefab = (GameObject)Resources.Load("Card", typeof(GameObject));
+        //GameObject prefab = (GameObject)Resources.Load("Card", typeof(GameObject));
         m_deck.Clear();
         ReadDeckBehaviour deckList = new ReadDeckBehaviour();
-        ReadXmlBehaviour cardList = new ReadXmlBehaviour();    
+        ReadXmlBehaviour cardList = new ReadXmlBehaviour(m_range,m_bigRange,m_cac);    
         for (int i = 0; i < deckList.PropDeck.Count; i++)
         {
             int id = int.Parse(deckList.PropDeck[i].ToString());
@@ -94,7 +96,9 @@ public class HandBehaviour : MonoBehaviour, IDropHandler, IPointerEnterHandler, 
 			GameObject Card = m_deck [0];
 			m_deck.Remove (Card);
 			Card.transform.SetParent (gameObject.transform);
-			Card.GetComponent<RectTransform>().localScale = new Vector3(1.0f,1.0f,1.0f);
+
+			Card.GetComponent<RectTransform>().localScale = Vector3.one;
+
 		}
 	} 
 
