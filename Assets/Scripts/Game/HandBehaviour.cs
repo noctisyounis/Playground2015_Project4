@@ -119,7 +119,11 @@ public class HandBehaviour : MonoBehaviour, IDropHandler, IPointerEnterHandler, 
 
 	public void ForcePlay(BoardBehaviour scriptBoard)
 	{
-		List<GameObject> squares = m_board.m_cubes.ToList();
+		List<GameObject> squares = new List<GameObject>();
+		foreach (GameObject s in m_board.m_cubes) 
+		{
+			squares.Add(s);
+		}
 		squares.RemoveAll(x => x.GetComponent<SquareBehaviour>().m_isOccuped);
 		int index = (int)Mathf.Floor( Random.Range(0,squares.Count));
 

@@ -39,7 +39,7 @@ public class OpponentBehaviour : MonoBehaviour {
 
 		Debug.Log("Opponent start Playing");
 
-		GameObject[] Squares = scriptBoard.m_cubes;
+		GameObject[,] Squares = scriptBoard.m_cubes;
 		GameObject FocusSquare;
 
 		foreach (GameObject item in Squares) 
