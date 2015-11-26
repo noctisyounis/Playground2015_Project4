@@ -5,7 +5,9 @@ using System.Collections.Generic;
 public class InventoryBehaviour : MonoBehaviour 
 {
 	#region Public variable
-	
+    public Sprite m_bigRange;
+    public Sprite m_range;
+    public Sprite m_cac;
 	public List<GameObject> m_listCards = new List<GameObject>();
 
 
@@ -35,7 +37,7 @@ public class InventoryBehaviour : MonoBehaviour
 		m_listCards.Clear();
 		// to know all cards unlock
 		// ReadDeckBehaviour deckList = new ReadDeckBehaviour();
-		ReadXmlBehaviour cardList = new ReadXmlBehaviour();
+        ReadXmlBehaviour cardList = new ReadXmlBehaviour(m_range, m_bigRange, m_cac);
 
 		// OK? /!\
 		for (int i = 0; i < cardList.List.Count ; i++) {

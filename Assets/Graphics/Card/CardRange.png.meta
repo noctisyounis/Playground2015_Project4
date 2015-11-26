@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: 3ad50fce09d7780458f3a4255297f2a6
-timeCreated: 1448283715
+guid: 18338ee93e353e94dad75d702cef63ee
+timeCreated: 1448546344
 licenseType: Free
 TextureImporter:
   fileIDToRecycleName:
-    21300000: CardCac_0
+    21300000: CardRange_0
   serializedVersion: 2
   mipmaps:
     mipMapMode: 0
@@ -42,24 +42,24 @@ TextureImporter:
   spriteMode: 2
   spriteExtrude: 1
   spriteMeshType: 1
-  alignment: 9
+  alignment: 0
   spritePivot: {x: .5, y: .5}
-  spriteBorder: {x: 100, y: 3, z: 97, w: 22}
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spritePixelsToUnits: 100
   alphaIsTransparency: 1
   textureType: 8
   buildTargetSettings: []
   spriteSheet:
     sprites:
-    - name: CardCac_0
+    - name: CardRange_0
       rect:
         serializedVersion: 2
-        x: 100
-        y: 0
-        width: 313
-        height: 474
+        x: 103
+        y: 4
+        width: 308
+        height: 505
       alignment: 0
-      pivot: {x: .5, y: .5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
   spritePackingTag: 
   userData: 

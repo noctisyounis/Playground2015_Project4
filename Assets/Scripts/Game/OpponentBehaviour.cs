@@ -2,6 +2,8 @@ using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 
+
+
 public class OpponentBehaviour : MonoBehaviour {
 
 	#region Public Variable
@@ -36,25 +38,34 @@ public class OpponentBehaviour : MonoBehaviour {
 
 	private void Play(BoardBehaviour scriptBoard)
 	{
-
+        
 		Debug.Log("Opponent start Playing");
-
+        bool ok = false;
 		GameObject[,] Squares = scriptBoard.m_cubes;
 		GameObject FocusSquare;
+        do
+        {
 
-		foreach (GameObject item in Squares) 
-		{
-			SquareBehaviour Script = item.GetComponent<SquareBehaviour>();
-			if (!Script.m_isOccuped) 
-			{
-				FocusSquare = item;
-				GameObject PlayedCard = m_opponentDeck[0];
-				m_opponentDeck.Remove(PlayedCard);
-				scriptBoard.PutTokken(FocusSquare, PlayedCard);
 
-				return;
-			}
-		}
+            int x = (int)Random.Range(0f, 5f);
+            Debug.Log(x);
+            int y = (int)Random.Range(0f, 4f);
+            Debug.Log(y);
+
+
+
+            GameObject place = Squares[x, y];
+            SquareBehaviour Script = place.GetComponent<SquareBehaviour>();
+            if (!Script.m_isOccuped)
+            {
+                FocusSquare = place;
+                GameObject PlayedCard = m_opponentDeck[0];
+                m_opponentDeck.Remove(PlayedCard);
+                scriptBoard.PutTokken(FocusSquare, PlayedCard);
+                ok = true;
+                return;
+            }
+        } while (!ok);
 
 		Debug.Log("Impossible to Play: No Empty Square");
 
@@ -103,5 +114,6 @@ public class OpponentBehaviour : MonoBehaviour {
 
 	#region Private Variable
 	GameObject m_board;
+    
 	#endregion
 }

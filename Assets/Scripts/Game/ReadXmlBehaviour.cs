@@ -7,7 +7,9 @@ public class ReadXmlBehaviour
 {
     #region variable
     private ArrayList _list = new ArrayList();
-
+    public Sprite Range;
+    public Sprite Cac;
+    public Sprite BigRange;
     public ArrayList List
     {
         get { return _list; }
@@ -15,8 +17,11 @@ public class ReadXmlBehaviour
     }
     #endregion
     #region method
-    public ReadXmlBehaviour()
+    public ReadXmlBehaviour(Sprite range,Sprite bigRange,Sprite Cac)
     {
+        this.Range = range;
+        this.BigRange = bigRange;
+        this.Cac = Cac;
         Start();
     }
     void Start()
@@ -69,6 +74,17 @@ public class ReadXmlBehaviour
                                 script.m_Description3.GetComponent<Text>().text = reader.Value;
                                 break;
                             case "type": reader.Read();
+                               
+                                switch (reader.Value)
+                                {
+                                    case "BigRange":
+                                        prefab.GetComponent<Image>().sprite = BigRange;
+                                        break;
+                                    case "Range": prefab.GetComponent<Image>().sprite = Range;
+                                        break;
+                                    case "Close": prefab.GetComponent<Image>().sprite = Cac;
+                                        break;
+                                }
                                 script.m_type = reader.Value;
                                 break;
                             case "init": reader.Read();
