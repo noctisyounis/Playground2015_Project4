@@ -26,7 +26,6 @@ public class ReadXmlBehaviour
         this.BigRange = bigRange;
         this.Cac = Cac;
         
-
     }
 	public ReadXmlBehaviour(Sprite range,Sprite bigRange,Sprite Cac, string prefabName)
 	{

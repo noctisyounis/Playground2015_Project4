@@ -5,12 +5,19 @@ using System.Collections.Generic;
 public class DeckBehaviour : MonoBehaviour {
 
 	#region public variable
+<<<<<<< HEAD
 
 	public static List<GameObject> m_deck = new List<GameObject>();
     public Sprite m_bigRange;
     public Sprite m_range;
     public Sprite m_cac;
 
+=======
+    public Sprite m_bigRange;
+    public Sprite m_range;
+    public Sprite m_cac;
+	public List<GameObject> m_deck = new List<GameObject>();
+>>>>>>> origin/master
 	#endregion
 
 	#region Main method
