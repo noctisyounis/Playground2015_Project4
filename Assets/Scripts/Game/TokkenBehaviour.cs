@@ -23,12 +23,10 @@ public class TokkenBehaviour : MonoBehaviour
 
     public int m_gridX;
 	public int m_gridY;
-<<<<<<< HEAD
 
 	public enum Player {Player1,Player2};
 	public Player m_playedBy ;
-=======
->>>>>>> origin/master
+
 
 	
 	#endregion
@@ -63,10 +61,9 @@ public class TokkenBehaviour : MonoBehaviour
 
 		GameObject Tokken = (GameObject)Instantiate (prefab, position, rotation);
 
-		TokkenB.m_playedBy = PlayedBy;
-
-
 		TokkenBehaviour TokkenB = (TokkenBehaviour)Tokken.GetComponent<TokkenBehaviour> ();
+
+		TokkenB.m_playedBy = PlayedBy;
 
 		TokkenB.hp = int.Parse (Card.m_HP.GetComponent<Text> ().text);
 		TokkenB.ATK_Up = int.Parse (Card.m_ATK_Up.GetComponent<Text> ().text);
