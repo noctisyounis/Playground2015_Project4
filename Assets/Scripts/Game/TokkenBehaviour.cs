@@ -43,7 +43,7 @@ public class TokkenBehaviour : MonoBehaviour
         }
         else
         {
-            prefab = (GameObject)Resources.Load("PlayerTokken", typeof(GameObject));
+            prefab = (GameObject)Resources.Load("OpponentTokken", typeof(GameObject));
         }
         TokkenBehaviour script = prefab.GetComponent<TokkenBehaviour>();
         
@@ -76,10 +76,32 @@ public class TokkenBehaviour : MonoBehaviour
         TokkenB.descriptionL2 = Card.m_Description2.GetComponent<Text>().text;
         TokkenB.descriptionL3 = Card.m_Description3.GetComponent<Text>().text;
 
-
-
         return Tokken;
     }
+
+	public bool DealDamageTo(int Damage)
+	{
+		bool Alive = (hp > 0);
+
+		if (Alive) 
+		{
+			hp -= Damage;
+			if (hp <= 0) {
+				gameObject.GetComponent<Canvas> ().enabled = false;
+				GameObject square = GameObject.FindObjectOfType<BoardBehaviour> ().m_cubes [m_gridX, m_gridY];
+				square.GetComponent<SquareBehaviour> ().m_isOccuped = false;
+			}
+		}
+
+		return Alive;
+	}
+
+	public void SetPosition(int x,int y)
+	{
+		m_gridX = x;
+		m_gridY = y;
+	}
+
     #endregion
 
     #region Private Variable
@@ -139,7 +161,6 @@ public class TokkenBehaviour : MonoBehaviour
         get { return _type; }
         set { _type = value; }
     }
-
 
     private string _descriptionL1;
     public string descriptionL1
