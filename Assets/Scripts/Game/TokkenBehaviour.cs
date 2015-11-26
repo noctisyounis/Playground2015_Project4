@@ -78,7 +78,6 @@ public class TokkenBehaviour : MonoBehaviour
 		return Tokken;
 	}
 
-
 	public bool DealDamageTo(int Damage)
 	{
 		bool Alive = (hp > 0);
@@ -102,7 +101,10 @@ public class TokkenBehaviour : MonoBehaviour
 		m_gridY = y;
 	}
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> origin/master
     #endregion
 
     #region Private Variable
