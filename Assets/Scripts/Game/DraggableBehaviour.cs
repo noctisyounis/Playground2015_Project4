@@ -16,7 +16,7 @@ public class DraggableBehaviour : MonoBehaviour, IBeginDragHandler, IDragHandler
 
 	public void Start()
 	{
-		gameObject.GetComponent<RectTransform>().localScale = new Vector3(1.6f, 1.6f, 1.6f);
+		gameObject.GetComponent<RectTransform>().localScale = new Vector3(1f, 1f, 1f);
 		GameObject board = GameObject.FindObjectOfType<BoardBehaviour>().gameObject;
 		m_board = board;
 		m_hand = GameObject.FindObjectOfType<HandBehaviour>().gameObject;
@@ -27,10 +27,10 @@ public class DraggableBehaviour : MonoBehaviour, IBeginDragHandler, IDragHandler
 	{
 		//Debug.Log ("OnBeginDrag");
 
-		//if (Dummy != null) 
-		//{
-		//	GameObject.Destroy(Dummy);
-		//}
+		if (Dummy != null) 
+		{
+			GameObject.Destroy(Dummy);
+		}
 
 		CreatePlaceHolder ();
 		
@@ -87,7 +87,7 @@ public class DraggableBehaviour : MonoBehaviour, IBeginDragHandler, IDragHandler
 		transform.SetSiblingIndex( m_placeholder.transform.GetSiblingIndex() );
 		GetComponent<CanvasGroup>().blocksRaycasts = true;
 
-		transform.localScale = new Vector3(1.6f,1.6f,1.6f);
+		transform.localScale = new Vector3(1f,1f,1f);
 
 		Destroy(m_placeholder);
 	}
@@ -113,8 +113,8 @@ public class DraggableBehaviour : MonoBehaviour, IBeginDragHandler, IDragHandler
 				Vector3 NewPosition = m_oldPosition;
 				NewPosition.y += (Screen.height * 0.20f);
 				transform.position = NewPosition;
-				transform.localScale = new Vector3 (2.5f, 2.5f, 2.5f);
-				//DummyHoveredCard();
+				transform.localScale = new Vector3 (1.6f, 1.6f, 1.6f);
+				DummyHoveredCard();
 
 			}
 		}
@@ -142,13 +142,13 @@ public class DraggableBehaviour : MonoBehaviour, IBeginDragHandler, IDragHandler
 	{
 		transform.SetParent(m_hand.transform);
 		transform.position = m_oldPosition;
-		transform.localScale = new Vector3(1.6f,1.6f,1.6f);
+		transform.localScale = new Vector3(1f,1f,1f);
 		m_isHovered = false;
 
-		//if (Dummy != null) 
-		//{
-		//	GameObject.Destroy (Dummy);
-		//}
+		if (Dummy != null) 
+		{
+			GameObject.Destroy (Dummy);
+		}
 	}
 
 	void CreatePlaceHolder ()
@@ -186,7 +186,7 @@ public class DraggableBehaviour : MonoBehaviour, IBeginDragHandler, IDragHandler
 	public void ResizeDummy()
 	{
 		if (Dummy != null) {
-			Dummy.transform.localScale = new Vector3 (2.5f, 2.5f, 2.5f);
+			Dummy.transform.localScale = new Vector3 (1.6f, 1.6f, 1.6f);
 		}
 	}
 
