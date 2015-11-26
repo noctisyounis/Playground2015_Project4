@@ -23,11 +23,15 @@ public class TokkenBehaviour : MonoBehaviour
 
     public int m_gridX;
 	public int m_gridY;
+<<<<<<< HEAD
 
 	public enum Player {Player1,Player2};
 	public Player m_playedBy ;
+=======
+>>>>>>> origin/master
 
-    #endregion
+	
+	#endregion
 
     #region Main Methodes
 	
@@ -49,7 +53,6 @@ public class TokkenBehaviour : MonoBehaviour
 			PlayedBy = Player.Player2;
         }
         TokkenBehaviour script = prefab.GetComponent<TokkenBehaviour>();
-
         
 		script.m_hp.GetComponent<Text> ().text = Card.m_HP.GetComponent<Text> ().text;
 		script.m_ATK_Up.GetComponent<Text> ().text = Card.m_ATK_Up.GetComponent<Text> ().text;
@@ -62,13 +65,15 @@ public class TokkenBehaviour : MonoBehaviour
 
 		TokkenB.m_playedBy = PlayedBy;
 
-        TokkenB.hp = int.Parse(Card.m_HP.GetComponent<Text>().text);
-        TokkenB.ATK_Up = int.Parse(Card.m_ATK_Up.GetComponent<Text>().text);
-        TokkenB.ATK_Right = int.Parse(Card.m_ATK_Right.GetComponent<Text>().text);
-        TokkenB.ATK_Down = int.Parse(Card.m_ATK_Down.GetComponent<Text>().text);
-        TokkenB.ATK_Left = int.Parse(Card.m_ATK_Left.GetComponent<Text>().text);
 
 		TokkenBehaviour TokkenB = (TokkenBehaviour)Tokken.GetComponent<TokkenBehaviour> ();
+
+		TokkenB.hp = int.Parse (Card.m_HP.GetComponent<Text> ().text);
+		TokkenB.ATK_Up = int.Parse (Card.m_ATK_Up.GetComponent<Text> ().text);
+		TokkenB.ATK_Right = int.Parse (Card.m_ATK_Right.GetComponent<Text> ().text);
+		TokkenB.ATK_Down = int.Parse (Card.m_ATK_Down.GetComponent<Text> ().text);
+		TokkenB.ATK_Left = int.Parse (Card.m_ATK_Left.GetComponent<Text> ().text);
+
 
 		TokkenB.speed = int.Parse (Card.m_Speed.GetComponent<Text> ().text);
 
