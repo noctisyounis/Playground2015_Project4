@@ -27,7 +27,6 @@ public class ReadXmlBehaviour
 
     public ReadXmlBehaviour()
     {
-<<<<<<< HEAD
         Initialize("Card");       
     }
 
@@ -35,20 +34,7 @@ public class ReadXmlBehaviour
 	{
 		Initialize(prefabName);	
 	}
-=======
 
-        Initialize("Card");
-
-
-
-    }
-    public ReadXmlBehaviour(string prefabName)
-    {
-        Initialize(prefabName);
-
-
-    }
->>>>>>> origin/master
 
 
     void Initialize(string prefabName)
@@ -56,11 +42,8 @@ public class ReadXmlBehaviour
         System.Xml.XmlTextReader reader = new System.Xml.XmlTextReader("Assets\\Extrernal\\Xml\\gameCard.xml");
 
         bool card = false;
-<<<<<<< HEAD
 		bool zoneLand = false;
-        
-=======
->>>>>>> origin/master
+
 
         while (reader.Read())
         {
@@ -108,27 +91,12 @@ public class ReadXmlBehaviour
                                 switch (reader.Value)
                                 {
                                     case "BigRange":
-<<<<<<< HEAD
                                         prefab.GetComponent<Image>().sprite = script.m_bigRange;
                                         break;
                                     case "Range":
                                         prefab.GetComponent<Image>().sprite = script.m_range;
                                         break;
                                     case "Close":
-=======
-                                        Debug.Log("big");
-
-                                        prefab.GetComponent<Image>().sprite = script.m_bigRange;
-                                        break;
-                                    case "Range":
-                                        Debug.Log("range");
-
-                                        prefab.GetComponent<Image>().sprite = script.m_range;
-                                        break;
-                                    case "Close":
-                                        Debug.Log("cac");
-
->>>>>>> origin/master
                                         prefab.GetComponent<Image>().sprite = script.m_cac;
                                         break;
                                 }
