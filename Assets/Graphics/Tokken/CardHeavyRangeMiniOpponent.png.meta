@@ -1,6 +1,6 @@
 fileFormatVersion: 2
-guid: 408379d818d89ba4f80a0cf8a7038ff7
-timeCreated: 1448546405
+guid: 438ceed9f620330409c464e606bdbbe8
+timeCreated: 1448621472
 licenseType: Free
 TextureImporter:
   fileIDToRecycleName:
@@ -54,10 +54,10 @@ TextureImporter:
     - name: CardHeavyRangeMiniOpponent_0
       rect:
         serializedVersion: 2
-        x: 67
-        y: 112
-        width: 381
-        height: 396
+        x: 69
+        y: 116
+        width: 375
+        height: 388
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}

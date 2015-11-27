@@ -16,6 +16,15 @@ public class TokkenBehaviour : MonoBehaviour
 
     public GameObject m_speed;
 
+    public GameObject m_Rubis1;
+    public GameObject m_Rubis2;
+    public GameObject m_Rubis3;
+    public GameObject m_Rubis4;
+    public GameObject m_Rubis5;
+
+    public Sprite m_Cac;
+    public Sprite m_Range;
+    public Sprite m_BigRange;
 
     public string m_pictures;
 
@@ -30,32 +39,92 @@ public class TokkenBehaviour : MonoBehaviour
 	#endregion
 
     #region Main Methodes
-	
-    #endregion
-
-    #region Utils
 
 	public void Start()
 	{
 		m_board = GameObject.FindObjectOfType<BoardBehaviour>();
 	}
 
+    #endregion
+
+    #region Utils
+
+	
+
     public static GameObject CreateTokken(CardUnitBehaviour Card, Vector3 position, Quaternion rotation, bool playerTurn)
     {
         GameObject prefab;
 		Player PlayedBy;
+        
         if (playerTurn)
         {
             prefab = (GameObject)Resources.Load("PlayerTokken", typeof(GameObject));
+            
 			PlayedBy = Player.Player1;
         }
         else
         {
             prefab = (GameObject)Resources.Load("OpponentTokken", typeof(GameObject));
+            
 			PlayedBy = Player.Player2;
         }
+
         TokkenBehaviour script = prefab.GetComponent<TokkenBehaviour>();
-        
+        switch (Card.m_type)
+        {
+            case "BigRange":
+                Debug.Log("big");
+                prefab.GetComponent<Image>().sprite = script.m_BigRange;
+                break;
+            case "Range":
+                Debug.Log("range");
+                prefab.GetComponent<Image>().sprite = script.m_Range;
+                break;
+            case "Close":
+                Debug.Log("cac");
+                prefab.GetComponent<Image>().sprite = script.m_Cac;
+                
+                break;
+        }
+
+        int cost = Card.m_price; 
+        int Rubis = 1;
+        while (cost > 0)
+        {
+            Image image = script.m_Rubis1.GetComponent<Image>();
+            switch (Rubis)
+            {
+                case 1: image = script.m_Rubis1.GetComponent<Image>();
+                    break;
+                case 2: image = script.m_Rubis2.GetComponent<Image>();
+                    break;
+                case 3: image = script.m_Rubis3.GetComponent<Image>();
+                    break;
+                case 4: image = script.m_Rubis4.GetComponent<Image>();
+                    break;
+                case 5: image = script.m_Rubis5.GetComponent<Image>();
+                    break;
+            }
+            if (cost >= 10)
+            {
+                image.color = Color.red;
+                cost = cost - 10;
+                Rubis++;
+            }
+            else if (cost >= 5)
+            {
+                image.color = Color.blue;
+                cost = cost - 5;
+                Rubis++;
+            }
+            else if (cost < 5)
+            {
+                image.color = Color.green;
+                cost = cost - 1;
+                Rubis++;
+            }
+
+        }
 		script.m_hp.GetComponent<Text> ().text = Card.m_HP.GetComponent<Text> ().text;
 		script.m_ATK_Up.GetComponent<Text> ().text = Card.m_ATK_Up.GetComponent<Text> ().text;
 		script.m_ATK_Right.GetComponent<Text> ().text = Card.m_ATK_Right.GetComponent<Text> ().text;

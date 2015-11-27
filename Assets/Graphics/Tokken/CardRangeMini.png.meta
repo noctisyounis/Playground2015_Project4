@@ -1,6 +1,6 @@
 fileFormatVersion: 2
-guid: e7d6ea32294f01c43b6934aa185382cc
-timeCreated: 1448546411
+guid: a3952b8ad17443647b33bfef8ca4a965
+timeCreated: 1448621480
 licenseType: Free
 TextureImporter:
   fileIDToRecycleName:
@@ -54,10 +54,10 @@ TextureImporter:
     - name: CardRangeMini_0
       rect:
         serializedVersion: 2
-        x: 67
-        y: 112
-        width: 381
-        height: 396
+        x: 69
+        y: 116
+        width: 375
+        height: 388
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
