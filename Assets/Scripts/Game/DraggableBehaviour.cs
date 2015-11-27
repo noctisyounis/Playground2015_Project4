@@ -131,7 +131,7 @@ public class DraggableBehaviour : MonoBehaviour, IBeginDragHandler, IDragHandler
 
 		if (!eventData.dragging) 
 		{
-			Debug.Log(eventData.position.ToString());
+			//Debug.Log(eventData.position.ToString());
 			if (eventData.position.y >= 10 ) 
 			{
 				ResetPostition();

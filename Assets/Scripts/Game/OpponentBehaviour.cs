@@ -85,6 +85,7 @@ public class OpponentBehaviour : MonoBehaviour {
 			GameObject Card = (GameObject)Instantiate(prefab);
 			Card.transform.SetParent(gameObject.transform.GetChild(1));
 			Card.name = "Card"+i.ToString();
+			Card.GetComponent<CardUnitBehaviour>().m_price = 3;
 			m_opponentDeck.Add(Card);
 		}
 		Shuffle(m_opponentDeck);

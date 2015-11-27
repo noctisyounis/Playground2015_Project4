@@ -64,6 +64,8 @@ public class CardUnitBehaviour : CardBehaviour
 		this.m_ATK_Left.GetComponent<Text>().text = c1.m_ATK_Left.GetComponent<Text>().text;
 		
 		this.m_Speed.GetComponent<Text>().text = c1.m_Speed.GetComponent<Text>().text;
+
+		this.m_type = c1.m_type;
 	}
 
     #endregion

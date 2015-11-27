@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: 18338ee93e353e94dad75d702cef63ee
-timeCreated: 1448546344
+guid: c744eca80ce9c334399c09a69cec4de0
+timeCreated: 1448617345
 licenseType: Free
 TextureImporter:
   fileIDToRecycleName:
-    21300000: CardRange_0
+    21300000: Plaine_0
   serializedVersion: 2
   mipmaps:
     mipMapMode: 0
@@ -51,7 +51,7 @@ TextureImporter:
   buildTargetSettings: []
   spriteSheet:
     sprites:
-    - name: CardRange_0
+    - name: Plaine_0
       rect:
         serializedVersion: 2
         x: 103

@@ -36,8 +36,7 @@ public class BoardBehaviour : MonoBehaviour
 
 	public bool m_player_Turn = true;
 
-	public int m_finalPointsP1;
-	public int m_finalPointsP2;
+
 
 	#endregion
 	
@@ -229,24 +228,22 @@ public class BoardBehaviour : MonoBehaviour
 
 		List<GameObject> TokkensOrder = FightOrder(Board);
 
-		int PointsPlayer1 = 0;
-		int PointsPlayer2 = 0;
-
 		foreach (var item in TokkensOrder) 
 		{
 			TokkenBehaviour tb = item.GetComponent<TokkenBehaviour>();
 			if (tb.m_playedBy == TokkenBehaviour.Player.Player1) 
 			{
-				PointsPlayer1 += tb.victoryPoint;
+				m_finalPointsP1 += tb.victoryPoint;
 			}
-			else {
-				PointsPlayer2 += tb.victoryPoint;
+			else 
+			{
+				m_finalPointsP2 += tb.victoryPoint;
 			}
 		}
 
-		Debug.Log(PointsPlayer1 + " - "+ PointsPlayer2);
+		Debug.Log(m_finalPointsP1 + " - "+ m_finalPointsP2);
 		EndGameUIManager EndGame = (EndGameUIManager) GameObject.FindObjectOfType<EndGameUIManager>();
-		EndGame.SetPointCounter(PointsPlayer1,PointsPlayer2);
+		EndGame.SetPointCounter(m_finalPointsP1,m_finalPointsP2);
 
 
 		//TODO eb integrate tokken
@@ -289,9 +286,9 @@ public class BoardBehaviour : MonoBehaviour
 						}
 					}
 					// Left
-					if (TokkenScript.m_gridY != 0) 
+					if (TokkenScript.m_gridX != 0) 
 					{
-						SquareBehaviour SquareScript = Board[TokkenScript.m_gridX+1,TokkenScript.m_gridY].GetComponent<SquareBehaviour>();
+						SquareBehaviour SquareScript = Board[TokkenScript.m_gridX-1,TokkenScript.m_gridY].GetComponent<SquareBehaviour>();
 						if(SquareScript.m_isOccuped)
 						{
 							SquareScript.m_tokken.GetComponent<TokkenBehaviour>().DealDamageTo(TokkenScript.m_playedBy,TokkenScript.ATK_Left);
@@ -486,19 +483,28 @@ public class BoardBehaviour : MonoBehaviour
 					}
 				}
 			}
+			EndGame.SetPointCounter(m_finalPointsP1, m_finalPointsP2);
+
 		}
-
-		m_finalPointsP1 = PointsPlayer1;
-		m_finalPointsP2 = PointsPlayer2;
-
 		//return Tokken
 		return TokkensOrder;
+	}
+
+	public void RemoveP1(int Point)
+	{
+		m_finalPointsP1 -= Point;
+	}
+	public void RemoveP2(int Point)
+	{
+		m_finalPointsP2 -= Point;
 	}
 
 	#endregion
 	
 	#region Private Variable
 
+	private int m_finalPointsP1 = 0;
+	private int m_finalPointsP2 = 0;
 
 	private TimerBehaviour m_timer;
 	private GameObject m_hand;
