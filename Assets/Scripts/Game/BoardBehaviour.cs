@@ -83,6 +83,7 @@ public class BoardBehaviour : MonoBehaviour
 		Tokken.transform.SetParent(gameObject.transform);
 		Tokken.GetComponent<RectTransform>().Rotate(new Vector3(90,180,0));
 		Tokken.GetComponent<TokkenBehaviour>().SetPosition(scriptSquare.m_gridX,scriptSquare.m_gridY);
+		Tokken.GetComponent<TokkenBehaviour>().m_playedAtTurn = m_turnNumber;
 		scriptSquare.m_tokken = Tokken;	
 		
 		scriptCard.PlayCard();

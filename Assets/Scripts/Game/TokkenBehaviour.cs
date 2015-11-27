@@ -169,6 +169,8 @@ public class TokkenBehaviour : MonoBehaviour
 			if (AttackedBy != m_playedBy) 
 			{
 				hp -= Damage;
+				m_hp.GetComponent<Text>().text = hp.ToString();
+				m_hp.GetComponent<Text>().color = Color.blue;
 				if (hp <= 0) 
 				{
 					gameObject.GetComponent<Canvas> ().enabled = false;
