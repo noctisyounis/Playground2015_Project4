@@ -7,9 +7,7 @@ public class ReadXmlBehaviour
 {
     #region variable
     private ArrayList _list = new ArrayList();
-    public Sprite Range;
-    public Sprite Cac;
-    public Sprite BigRange;
+    
     public ArrayList List
     {
         get { return _list; }
@@ -17,23 +15,19 @@ public class ReadXmlBehaviour
     }
     #endregion
     #region method
-    public ReadXmlBehaviour(Sprite range,Sprite bigRange,Sprite Cac)
+    public ReadXmlBehaviour()
     {
 
         Initialize("Card");
 
-        this.Range = range;
-        this.BigRange = bigRange;
-        this.Cac = Cac;
+        
         
     }
-	public ReadXmlBehaviour(Sprite range,Sprite bigRange,Sprite Cac, string prefabName)
+	public ReadXmlBehaviour( string prefabName)
 	{
 		Initialize(prefabName);
 		
-		this.Range = range;
-        this.BigRange = bigRange;
-        this.Cac = Cac;
+		
 	}
 
     void Initialize(string prefabName)
@@ -90,11 +84,19 @@ public class ReadXmlBehaviour
                                 switch (reader.Value)
                                 {
                                     case "BigRange":
-                                        prefab.GetComponent<Image>().sprite = BigRange;
+                                        Debug.Log("big");
+                                       
+                                        prefab.GetComponent<Image>().sprite = script.m_bigRange;
                                         break;
-                                    case "Range": prefab.GetComponent<Image>().sprite = Range;
+                                    case "Range":
+                                        Debug.Log("range");
+                                       
+                                        prefab.GetComponent<Image>().sprite = script.m_range;
                                         break;
-                                    case "Close": prefab.GetComponent<Image>().sprite = Cac;
+                                    case "Close":
+                                        Debug.Log("cac");
+                                        
+                                        prefab.GetComponent<Image>().sprite = script.m_cac;
                                         break;
                                 }
                                 script.m_type = reader.Value;

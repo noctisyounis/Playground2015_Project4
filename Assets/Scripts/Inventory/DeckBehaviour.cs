@@ -45,7 +45,7 @@ public class DeckBehaviour : MonoBehaviour {
 		m_deck.Clear();
 		ReadDeckBehaviour deckList = new ReadDeckBehaviour();
 
-        ReadXmlBehaviour cardList = new ReadXmlBehaviour(m_range, m_bigRange, m_cac,"CardInventory");
+        ReadXmlBehaviour cardList = new ReadXmlBehaviour("CardInventory");
 
 		for (int i = 0; i < deckList.PropDeck.Count; i++) 
 		{

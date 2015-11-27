@@ -73,7 +73,7 @@ public class HandBehaviour : MonoBehaviour, IDropHandler, IPointerEnterHandler, 
         //GameObject prefab = (GameObject)Resources.Load("Card", typeof(GameObject));
         m_deck.Clear();
         ReadDeckBehaviour deckList = new ReadDeckBehaviour();
-        ReadXmlBehaviour cardList = new ReadXmlBehaviour(m_range,m_bigRange,m_cac);    
+        ReadXmlBehaviour cardList = new ReadXmlBehaviour();    
         for (int i = 0; i < deckList.PropDeck.Count; i++)
         {
             int id = int.Parse(deckList.PropDeck[i].ToString());

@@ -38,7 +38,7 @@ public class InventoryBehaviour : MonoBehaviour
 		// to know all cards unlock
 		// ReadDeckBehaviour deckList = new ReadDeckBehaviour();
 
-        ReadXmlBehaviour cardList = new ReadXmlBehaviour(m_range, m_bigRange, m_cac, "CardInventory");
+        ReadXmlBehaviour cardList = new ReadXmlBehaviour( "CardInventory");
 
 		for (int i = 0; i < cardList.List.Count ; i++) {
 			GameObject Card = GameObject.Instantiate((GameObject)cardList.List[i]);

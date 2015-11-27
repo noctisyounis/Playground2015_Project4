@@ -14,6 +14,11 @@ public class CardUnitBehaviour : CardBehaviour
     public GameObject m_ATK_Left;
 
     public GameObject m_Speed;
+
+    public Sprite m_bigRange;
+    public Sprite m_range;
+    public Sprite m_cac;
+
     public int m_price;
     public string m_type;
 
