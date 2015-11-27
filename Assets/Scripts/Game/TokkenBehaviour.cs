@@ -27,8 +27,6 @@ public class TokkenBehaviour : MonoBehaviour
 	public enum Player {Player1,Player2};
 	public Player m_playedBy ;
 
-
-	
 	#endregion
 
     #region Main Methodes
@@ -36,6 +34,12 @@ public class TokkenBehaviour : MonoBehaviour
     #endregion
 
     #region Utils
+
+	public void Start()
+	{
+		m_board = GameObject.FindObjectOfType<BoardBehaviour>();
+	}
+
     public static GameObject CreateTokken(CardUnitBehaviour Card, Vector3 position, Quaternion rotation, bool playerTurn)
     {
         GameObject prefab;
@@ -74,7 +78,7 @@ public class TokkenBehaviour : MonoBehaviour
 
 		TokkenB.speed = int.Parse (Card.m_Speed.GetComponent<Text> ().text);
 
-		TokkenB.victoryPoint = Card.PropVictory_Point;
+		TokkenB.victoryPoint =  Card.m_price;
 
 		TokkenB.name = Card.m_name.GetComponent<Text> ().text;
 
@@ -89,22 +93,32 @@ public class TokkenBehaviour : MonoBehaviour
 
 	public bool DealDamageTo(Player AttackedBy ,int Damage)
 	{
-		bool Alive = (hp > 0);
+		bool hit = (hp > 0);
 
-		if (Alive) 
+		if (hit) 
 		{
 			if (AttackedBy != m_playedBy) 
 			{
 				hp -= Damage;
-				if (hp <= 0) {
+				if (hp <= 0) 
+				{
 					gameObject.GetComponent<Canvas> ().enabled = false;
 					GameObject square = GameObject.FindObjectOfType<BoardBehaviour> ().m_cubes [m_gridX, m_gridY];
 					square.GetComponent<SquareBehaviour> ().m_isOccuped = false;
+					if (m_playedBy == Player.Player1) 
+					{
+						m_board.m_finalPointsP1 -= victoryPoint;
+					}
+					else 
+					{
+						m_board.m_finalPointsP2 -= victoryPoint;	
+					}
 				}
 			}
+
 		}
 
-		return Alive;
+		return hit;
 	}
 
 	public void SetPosition(int x,int y)
@@ -191,5 +205,7 @@ public class TokkenBehaviour : MonoBehaviour
         get { return _descriptionL3; }
         set { _descriptionL3 = value; }
     }
+
+	private BoardBehaviour m_board;
     #endregion
 }

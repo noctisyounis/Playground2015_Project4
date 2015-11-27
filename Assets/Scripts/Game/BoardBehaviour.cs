@@ -36,6 +36,9 @@ public class BoardBehaviour : MonoBehaviour
 
 	public bool m_player_Turn = true;
 
+	public int m_finalPointsP1;
+	public int m_finalPointsP2;
+
 	#endregion
 	
 	#region Main Methodes
@@ -107,9 +110,16 @@ public class BoardBehaviour : MonoBehaviour
 
 			List<GameObject> TokkenAlive = Fight(false);
 
-			Debug.Log(TokkenAlive.Count);
-
-			EndGame.VictoryGameMessage(true);
+			bool? result = null;
+			if (m_finalPointsP1 > m_finalPointsP2) 
+			{
+				result = true;
+			}
+			if (m_finalPointsP1 < m_finalPointsP2) 
+			{
+				result = false;
+			}
+			EndGame.VictoryGameMessage(result);
 
 		}
 
@@ -219,13 +229,24 @@ public class BoardBehaviour : MonoBehaviour
 
 		List<GameObject> TokkensOrder = FightOrder(Board);
 
-		foreach (var item in TokkensOrder) {
-			
+		int PointsPlayer1 = 0;
+		int PointsPlayer2 = 0;
+
+		foreach (var item in TokkensOrder) 
+		{
+			TokkenBehaviour tb = item.GetComponent<TokkenBehaviour>();
+			if (tb.m_playedBy == TokkenBehaviour.Player.Player1) 
+			{
+				PointsPlayer1 += tb.victoryPoint;
+			}
+			else {
+				PointsPlayer2 += tb.victoryPoint;
+			}
 		}
 
-		//Debug.Log(PointsPlayer1 + " - "+ PointsPlayer2);
+		Debug.Log(PointsPlayer1 + " - "+ PointsPlayer2);
 		EndGameUIManager EndGame = (EndGameUIManager) GameObject.FindObjectOfType<EndGameUIManager>();
-		//EndGame.SetPointCounter(PointsPlayer1,PointsPlayer2);
+		EndGame.SetPointCounter(PointsPlayer1,PointsPlayer2);
 
 
 		//TODO eb integrate tokken
@@ -467,9 +488,11 @@ public class BoardBehaviour : MonoBehaviour
 			}
 		}
 
+		m_finalPointsP1 = PointsPlayer1;
+		m_finalPointsP2 = PointsPlayer2;
 
-		//return Tokken still alive
-		return TokkensOrder.Where(x => x.GetComponent<TokkenBehaviour>().hp > 0).ToList();
+		//return Tokken
+		return TokkensOrder;
 	}
 
 	#endregion
@@ -479,6 +502,7 @@ public class BoardBehaviour : MonoBehaviour
 
 	private TimerBehaviour m_timer;
 	private GameObject m_hand;
+
 
 	#endregion
 }
