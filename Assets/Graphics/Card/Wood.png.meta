@@ -1,11 +1,10 @@
 fileFormatVersion: 2
-guid: d8e7b63616f27a54a98d684919484165
-timeCreated: 1448461840
+guid: 70f0de162d0c5504b806ecbcefcabbda
+timeCreated: 1448617378
 licenseType: Free
 TextureImporter:
   fileIDToRecycleName:
-    21300000: CardBallista_0
-    21300002: CardBallista_1
+    21300000: Wood_0
   serializedVersion: 2
   mipmaps:
     mipMapMode: 0
@@ -52,7 +51,7 @@ TextureImporter:
   buildTargetSettings: []
   spriteSheet:
     sprites:
-    - name: CardBallista_0
+    - name: Wood_0
       rect:
         serializedVersion: 2
         x: 103
@@ -61,16 +60,6 @@ TextureImporter:
         height: 505
       alignment: 0
       pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-    - name: CardBallista_1
-      rect:
-        serializedVersion: 2
-        x: 100
-        y: 4
-        width: 314
-        height: 508
-      alignment: 0
-      pivot: {x: .5, y: .5}
       border: {x: 0, y: 0, z: 0, w: 0}
   spritePackingTag: 
   userData: 
