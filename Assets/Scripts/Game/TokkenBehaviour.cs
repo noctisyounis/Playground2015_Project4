@@ -107,11 +107,12 @@ public class TokkenBehaviour : MonoBehaviour
 					square.GetComponent<SquareBehaviour> ().m_isOccuped = false;
 					if (m_playedBy == Player.Player1) 
 					{
-						m_board.m_finalPointsP1 -= victoryPoint;
+						m_board.RemoveP1(victoryPoint);
+
 					}
 					else 
 					{
-						m_board.m_finalPointsP2 -= victoryPoint;	
+						m_board.RemoveP2(victoryPoint);
 					}
 				}
 			}
