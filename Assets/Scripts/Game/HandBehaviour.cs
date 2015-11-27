@@ -14,6 +14,7 @@ public class HandBehaviour : MonoBehaviour, IDropHandler, IPointerEnterHandler, 
     public Sprite m_cac;
 	public List<GameObject> m_deck = new List<GameObject>();
 	public GameObject PlayerDeck;
+	public GameObject LandDeck;
 
 	#endregion
 
@@ -77,11 +78,22 @@ public class HandBehaviour : MonoBehaviour, IDropHandler, IPointerEnterHandler, 
         for (int i = 0; i < deckList.PropDeck.Count; i++)
         {
             int id = int.Parse(deckList.PropDeck[i].ToString());
-            GameObject Card = GameObject.Instantiate((GameObject)cardList.List[id - 1]);
-            Card.transform.SetParent(PlayerDeck.transform);
-			Card.AddComponent<DraggableBehaviour>();
-            Card.name = "Card" + i.ToString();
-            m_deck.Add(Card);
+			Debug.Log (id);
+			if(id < 1000)
+			{
+            	GameObject Card = GameObject.Instantiate((GameObject)cardList.List[id - 1]);
+            	Card.transform.SetParent(PlayerDeck.transform);
+				Card.AddComponent<DraggableBehaviour>();
+            	Card.name = "Card" + i.ToString();
+            	m_deck.Add(Card);
+			}
+			else
+			{
+				GameObject Card = GameObject.Instantiate((GameObject)cardList.ListLand[id - 1001]);
+				Card.transform.SetParent(LandDeck.transform);
+				//Card.AddComponent<DraggableBehaviour>();
+				Card.name = "Card" + i.ToString();
+			}
         }
 		//Debug.Log("taille du deck player :" + m_deck.Count);
         Shuffle(m_deck);

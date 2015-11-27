@@ -11,6 +11,11 @@ public class CardGroundBehaviour : CardBehaviour {
 	public Sprite m_plain;
 	public Sprite m_forest;
 
+	public string m_type;
+
+	public ArrayList xValue = new ArrayList ();
+	public ArrayList yValue = new ArrayList ();
+	
 	#endregion
 	
 	#region Main Methodes
@@ -21,6 +26,8 @@ public class CardGroundBehaviour : CardBehaviour {
 	#endregion
 	
 	#region Utils
+
+
 	
 	#endregion
 	

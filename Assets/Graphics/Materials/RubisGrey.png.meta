@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: 6b21e04706a12cd41963c7578ffa677c
-timeCreated: 1448621487
+guid: 765f6035492394a4e8a82e0ecc826264
+timeCreated: 1448621882
 licenseType: Free
 TextureImporter:
   fileIDToRecycleName:
-    21300000: CardRangeMiniOpponent_0
+    21300000: RubisGrey_0
   serializedVersion: 2
   mipmaps:
     mipMapMode: 0
@@ -51,13 +51,13 @@ TextureImporter:
   buildTargetSettings: []
   spriteSheet:
     sprites:
-    - name: CardRangeMiniOpponent_0
+    - name: RubisGrey_0
       rect:
         serializedVersion: 2
-        x: 69
-        y: 116
-        width: 375
-        height: 388
+        x: 0
+        y: 0
+        width: 128
+        height: 128
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}

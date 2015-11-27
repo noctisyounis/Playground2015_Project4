@@ -1,6 +1,6 @@
 fileFormatVersion: 2
-guid: 91b8fd8d1014fef46bb372db06fa29ad
-timeCreated: 1448546392
+guid: 3cd8f99ca2b075e4ebdf7db67aa3a992
+timeCreated: 1448621419
 licenseType: Free
 TextureImporter:
   fileIDToRecycleName:
@@ -54,10 +54,10 @@ TextureImporter:
     - name: CardCacMiniOpponent_0
       rect:
         serializedVersion: 2
-        x: 67
-        y: 112
-        width: 381
-        height: 396
+        x: 69
+        y: 116
+        width: 375
+        height: 388
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}

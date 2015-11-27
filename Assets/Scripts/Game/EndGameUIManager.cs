@@ -13,6 +13,7 @@ public class EndGameUIManager : MonoBehaviour {
 	public GameObject m_player1Point;
 	public GameObject m_player2Point;
 	public GameObject m_counter;
+	public GameObject m_CardHolderGui;
 	
 	#endregion
 	
@@ -21,7 +22,7 @@ public class EndGameUIManager : MonoBehaviour {
 	public void Start()
 	{
 		EndGameUIVisible(false);
-
+		m_CardHolderGui.SetActive(true);
 	}
 	
 	
@@ -37,6 +38,9 @@ public class EndGameUIManager : MonoBehaviour {
 		{
 				item.enabled = true;
 		}
+
+		m_CardHolderGui.SetActive(false);
+
 	}
 
 	public void EndGameUIVisible(bool IsVisible)

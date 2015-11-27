@@ -92,5 +92,25 @@
 			<type>unit</type>
 			<id>1</id>
 		</card>
+		<card>
+			<type>land</type>
+			<id>1001</id>
+		</card>
+		<card>
+			<type>land</type>
+			<id>1002</id>
+		</card>
+		<card>
+			<type>land</type>
+			<id>1003</id>
+		</card>
+		<card>
+			<type>land</type>
+			<id>1004</id>
+		</card>
+		<card>
+			<type>land</type>
+			<id>1005</id>
+		</card>
 	</deck>
 </player>

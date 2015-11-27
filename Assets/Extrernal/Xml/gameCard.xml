@@ -67,7 +67,7 @@
 	</movement>
 	
 	<land>
-		<card id="6">
+		<card id="1001">
 			<type>Forest</type>
 			<name>Sherwood</name>
 			<description>Transforme le terrain en foret</description>
@@ -93,7 +93,7 @@
 	</land>
 	<land>	
 	
-		<card id="7">
+		<card id="1002">
 			<type>Swamp</type>
 			<name>Marecage de Zangar</name>
 			<description>Transforme une ligne en marais</description>
@@ -111,7 +111,7 @@
 	</land>
 	<land>	
 	
-		<card id="8">
+		<card id="1003">
 			<type>Mountain</type>
 			<name>Le Mont Blanc</name>
 			<description>Transforme le terrain en montagne</description>
@@ -133,7 +133,7 @@
 	</land>
 	<land>	
 	
-		<card id="9">
+		<card id="1004">
 			<type>Ruin</type>
 			<name>Ruine d'If</name>
 			<description>Transforme le terrain en ruine</description>
@@ -158,7 +158,7 @@
 		</card>
 	</land>
 	<land>
-		<card id="10">
+		<card id="1005">
 			<type>Plain</type>
 			<name>Plaine du Roan</name>
 			<description>Transforme le terrain en plaine</description>

@@ -15,9 +15,16 @@ public class CardUnitBehaviour : CardBehaviour
 
     public GameObject m_Speed;
 
+    public GameObject m_Rubis1;
+    public GameObject m_Rubis2;
+    public GameObject m_Rubis3;
+    public GameObject m_Rubis4;
+    public GameObject m_Rubis5;
+
     public Sprite m_bigRange;
     public Sprite m_range;
     public Sprite m_cac;
+
 
     public int m_price;
     public string m_type;
