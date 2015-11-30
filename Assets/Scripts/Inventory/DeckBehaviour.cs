@@ -44,21 +44,29 @@ public class DeckBehaviour : MonoBehaviour {
 		GameObject prefab = (GameObject)Resources.Load("CardInventory", typeof(GameObject));
 		m_deck.Clear();
 		ReadDeckBehaviour deckList = new ReadDeckBehaviour();
-
-        ReadXmlBehaviour cardList = new ReadXmlBehaviour("CardInventory");
+        ReadXmlBehaviour cardList = new ReadXmlBehaviour("CardInventory", "CardGUILand");
 
 		for (int i = 0; i < deckList.PropDeck.Count; i++) 
 		{
 			int id = int.Parse(deckList.PropDeck[i].ToString());
-			GameObject Card = GameObject.Instantiate((GameObject)cardList.List[id-1]);
-			Card.transform.SetParent(gameObject.transform);
-			/////////
-			Card.AddComponent<OnClickBehaviour>();
-			Card.GetComponent<OnClickBehaviour>().m_container = e_containedBy.DeckList;
-
-			/////////
-			Card.name = "Card" + i.ToString();
-			m_deck.Add(Card);
+			Debug.Log (id);
+			if(id < 1000)
+			{
+				GameObject Card = GameObject.Instantiate((GameObject)cardList.List[id-1]);
+				Card.transform.SetParent(gameObject.transform);
+				Card.AddComponent<OnClickBehaviour>();
+				Card.GetComponent<OnClickBehaviour>().m_container = e_containedBy.DeckList;
+				Card.name = "Card" + i.ToString();
+				m_deck.Add(Card);
+			}
+			else
+			{
+				GameObject Card = GameObject.Instantiate((GameObject)cardList.ListLand[id - 1001]);
+				Card.transform.SetParent(gameObject.transform);
+				Card.AddComponent<OnClickBehaviour>();
+				Card.GetComponent<OnClickBehaviour>().m_container = e_containedBy.DeckList;
+				Card.name = "Card" + i.ToString();
+			}
 		}
 	}
 	#endregion
