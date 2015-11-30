@@ -51,8 +51,8 @@ public class OnClickBehaviour : MonoBehaviour
 					{
 						Debug.Log("-- Inventory into Deck (CardUnit)");
 						GameObject copy = Instantiate(gameObject);
-//						copy.m_container = e_containedBy.DeckList;
 						copy.GetComponent<OnClickBehaviour>().m_container = e_containedBy.DeckList;
+						// Change prefab /!\
 						DeckBehaviour.m_deck.Add(copy);
 						m_nbUnit ++;
 					}
@@ -68,6 +68,7 @@ public class OnClickBehaviour : MonoBehaviour
 						Debug.Log("-- Inventory into Deck (CardLand)");
 						GameObject copy = Instantiate(gameObject);
 						copy.GetComponent<OnClickBehaviour>().m_container = e_containedBy.DeckList;
+						// Change prefab /!\
 						DeckBehaviour.m_deck.Add(copy);
 						m_nbLands ++;
 						

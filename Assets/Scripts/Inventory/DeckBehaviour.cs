@@ -40,7 +40,7 @@ public class DeckBehaviour : MonoBehaviour {
 	// = method HandBehaviour, optimal? 
 	private void LoadDeck()
 	{
-		// Create  resource "Title" -> Zone text (= title) + nbr copies
+		// Create  resource/prefab "Title" -> Zone text (= title) + nbr copies
 		m_deck.Clear();
 		ReadDeckBehaviour deckList = new ReadDeckBehaviour();
 		ReadXmlBehaviour cardList = new ReadXmlBehaviour("CardInventory", "CardGUILandInventory");

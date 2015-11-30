@@ -21,6 +21,7 @@ public class InventoryBehaviour : MonoBehaviour
 		{
 			GameObject Card = m_listCards[i];
 			Card.transform.SetParent(gameObject.transform);
+			Card.GetComponent<RectTransform>().localScale = Vector3.one;
 		}
 		 
 	}
@@ -42,27 +43,18 @@ public class InventoryBehaviour : MonoBehaviour
 			GameObject Card = GameObject.Instantiate((GameObject)cardList.List[i]);
 			// Cette étape sert a transformé le prefab en GameObject
 			Card.transform.SetParent(gameObject.transform);
-			/////////
 			Card.AddComponent<OnClickBehaviour>();
 			Card.GetComponent<OnClickBehaviour>().m_container = e_containedBy.Inventory;
-
-			/////////
 			Card.name = "Card" + i.ToString();
 			m_listCards.Add(Card);
-
-			// and 
+		}
+		for (int i = 0; i < cardList.ListLand.Count; i++) {
 			GameObject CardLand = GameObject.Instantiate((GameObject)cardList.ListLand[i]);
 			CardLand.transform.SetParent(gameObject.transform);
-
-			/**
-
-						/!\ 
-							- Modifier la taille! 
-							- trier les cartes (unit/land/***) 
-
-						/!\
-	
-			 */
+			CardLand.AddComponent<OnClickBehaviour>();
+			CardLand.GetComponent<OnClickBehaviour>().m_container = e_containedBy.Inventory;
+			CardLand.name = "Card" + i.ToString();
+			m_listCards.Add(CardLand);
 		}
 	}
 	#endregion
