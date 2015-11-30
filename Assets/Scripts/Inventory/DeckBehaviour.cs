@@ -41,10 +41,9 @@ public class DeckBehaviour : MonoBehaviour {
 	private void LoadDeck()
 	{
 		// Create  resource "Title" -> Zone text (= title) + nbr copies
-		GameObject prefab = (GameObject)Resources.Load("CardInventory", typeof(GameObject));
 		m_deck.Clear();
 		ReadDeckBehaviour deckList = new ReadDeckBehaviour();
-        ReadXmlBehaviour cardList = new ReadXmlBehaviour("CardInventory", "CardGUILand");
+		ReadXmlBehaviour cardList = new ReadXmlBehaviour("CardInventory", "CardGUILandInventory");
 
 		for (int i = 0; i < deckList.PropDeck.Count; i++) 
 		{
