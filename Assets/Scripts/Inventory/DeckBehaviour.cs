@@ -65,6 +65,8 @@ public class DeckBehaviour : MonoBehaviour {
 				Card.AddComponent<OnClickBehaviour>();
 				Card.GetComponent<OnClickBehaviour>().m_container = e_containedBy.DeckList;
 				Card.name = "Card" + i.ToString();
+				m_deck.Add(Card);
+
 			}
 		}
 	}

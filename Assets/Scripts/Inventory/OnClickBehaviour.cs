@@ -11,6 +11,8 @@ public class OnClickBehaviour : MonoBehaviour
 	#region Public Variable
 	public AudioClip m_son;
 	public e_containedBy m_container;
+	public static int m_nbUnit = 18;
+	public static int m_nbLands = 5;
 
 	#endregion
 	
@@ -25,27 +27,84 @@ public class OnClickBehaviour : MonoBehaviour
 	public void OnMouseUp()
 	{
 //		audio.PlayOneShot(m_son);
-		Debug.Log("click here");
+		bool isUnit = false;
+		if(gameObject.GetComponent<CardUnitBehaviour>()!= null)
+		{
+			isUnit = true;
+		}
 
 		switch (m_container)
 		{
+
+			/* Condition : 
+			 * 		- Unit = 18
+			 * 		- Land = 5
+			 * 		(- Move = 9)
+			 */
+				
 			case e_containedBy.Inventory:
-				// prefab DeckList
-				m_container = e_containedBy.DeckList;
-//				GameObject copy = gameObject.Equals();
-				//modif gameObject? 
-				GameObject copy = Instantiate(gameObject);
-				//copy.transform.localScale = new Vector3(2.179837f, 2.179837f, 2.179837f);
-				DeckBehaviour.m_deck.Add(copy);
+				
+
+				if (isUnit)
+				{
+					if(m_nbUnit < 18)
+					{
+						Debug.Log("-- Inventory into Deck (CardUnit)");
+						GameObject copy = Instantiate(gameObject);
+//						copy.m_container = e_containedBy.DeckList;
+						copy.GetComponent<OnClickBehaviour>().m_container = e_containedBy.DeckList;
+						DeckBehaviour.m_deck.Add(copy);
+						m_nbUnit ++;
+					}
+					else
+					{
+						Debug.Log("Your units is full");
+					}
+				}
+				else if(!isUnit)
+				{
+					if(m_nbLands < 5)
+					{
+						Debug.Log("-- Inventory into Deck (CardLand)");
+						GameObject copy = Instantiate(gameObject);
+						copy.GetComponent<OnClickBehaviour>().m_container = e_containedBy.DeckList;
+						DeckBehaviour.m_deck.Add(copy);
+						m_nbLands ++;
+						
+					}
+					else
+					{
+						Debug.Log("Your cards lands is full");
+					}
+				}
+				else
+				{
+					Debug.Log(" !!! Type doesn't exist! BUG !!!");
+				}
 
 				break;
 
 			case e_containedBy.DeckList:
-				// commentaires
-				Debug.Log("--- Click on : " + gameObject);
+				// suppr GameObjet
+				if (isUnit) 
+				{
+					m_nbUnit -= 1 ;
+					Debug.Log("nombre d'unité : " + m_nbUnit);
+				}
+				else if (!isUnit)
+				{
+					m_nbLands -= 1 ;
+					Debug.Log("nombre de land : " + m_nbLands);
+				}
+				else
+				{
 
-				// suppr GameObjet?
+				}
 				DeckBehaviour.m_deck.Remove(gameObject);
+				GameObject.Destroy(gameObject);
+				
+				Debug.Log("--- Card Deleted");
+				
 				break;
 		}
 	}
