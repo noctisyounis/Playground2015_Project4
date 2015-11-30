@@ -79,7 +79,6 @@ public class HandBehaviour : MonoBehaviour, IDropHandler, IPointerEnterHandler, 
         for (int i = 0; i < deckList.PropDeck.Count; i++)
         {
             int id = int.Parse(deckList.PropDeck[i].ToString());
-			Debug.Log (id);
 			if(id < 1000)
 			{
             	GameObject Card = GameObject.Instantiate((GameObject)cardList.List[id - 1]);

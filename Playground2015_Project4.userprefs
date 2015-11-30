@@ -1,11 +1,12 @@
 ﻿<Properties>
-  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="MonoDevelop.Default" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\Game\BoardBehaviour.cs">
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Extrernal\Xml\playerCard.xml">
     <Files>
-      <File FileName="Assets\Scripts\Game\DraggableBehaviour.cs" Line="96" Column="1" />
-      <File FileName="Assets\Scripts\Game\SquareBehaviour.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\Game\BoardBehaviour.cs" Line="119" Column="25" />
-      <File FileName="Assets\Scripts\Game\OpponentBehaviour.cs" Line="78" Column="36" />
+      <File FileName="Assets\Scripts\Game\SquareBehaviour.cs" Line="64" Column="3" />
+      <File FileName="Assets\Scripts\Game\BoardBehaviour.cs" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\Game\DraggableBehaviour.cs" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\Game\OpponentBehaviour.cs" Line="1" Column="1" />
+      <File FileName="Assets\Extrernal\Xml\playerCard.xml" Line="116" Column="10" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
