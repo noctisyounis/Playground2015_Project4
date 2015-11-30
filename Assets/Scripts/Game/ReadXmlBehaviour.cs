@@ -193,6 +193,24 @@ public class ReadXmlBehaviour
 						switch (reader.Name)
 						{
 						case "type" : reader.Read ();
+								switch (reader.Value)
+								{
+								case "Forest":
+									prefabLand.GetComponent<Image>().sprite = scriptLand.m_forest;
+									break;
+								case "Mountain":
+									prefabLand.GetComponent<Image>().sprite = scriptLand.m_mountain;
+									break;
+								case "Ruin":
+									prefabLand.GetComponent<Image>().sprite = scriptLand.m_ruin;
+									break;
+								case "Plain":
+									prefabLand.GetComponent<Image>().sprite = scriptLand.m_plain;
+									break;
+								case "Swamp":
+									prefabLand.GetComponent<Image>().sprite = scriptLand.m_swamp;
+									break;
+								}
 							scriptLand.m_type = reader.Value;
 							break;
 						case "name" : reader.Read ();

@@ -38,37 +38,46 @@ public class OpponentBehaviour : MonoBehaviour {
 
 	private void Play(BoardBehaviour scriptBoard)
 	{
-        
-		Debug.Log("Opponent start Playing");
-        bool ok = false;
+		bool ok = false;
 		GameObject[,] Squares = scriptBoard.m_cubes;
 		GameObject FocusSquare;
-        do
-        {
+        
+		//Debug.Log("Opponent start Playing");
+		if (scriptBoard.m_turnType [scriptBoard.m_turnNewNumber] == 0) {
+
+			do {
+
+				int x = (int)Random.Range (0f, 5f);
+				//Debug.Log(x);
+				int y = (int)Random.Range (0f, 4f);
+				//Debug.Log(y);
 
 
-            int x = (int)Random.Range(0f, 5f);
-            Debug.Log(x);
-            int y = (int)Random.Range(0f, 4f);
-            Debug.Log(y);
 
+				GameObject place = Squares [x, y];
+				SquareBehaviour Script = place.GetComponent<SquareBehaviour> ();
+				if (!Script.m_isOccuped) {
+					FocusSquare = place;
+					GameObject PlayedCard = m_opponentDeck [0];
+					m_opponentDeck.Remove (PlayedCard);
+					scriptBoard.PutTokken (FocusSquare, PlayedCard);
+					ok = true;
+					return;
+				}
+			} while (!ok);
 
+			//Debug.Log("Impossible to Play: No Empty Square");
 
-            GameObject place = Squares[x, y];
-            SquareBehaviour Script = place.GetComponent<SquareBehaviour>();
-            if (!Script.m_isOccuped)
-            {
-                FocusSquare = place;
-                GameObject PlayedCard = m_opponentDeck[0];
-                m_opponentDeck.Remove(PlayedCard);
-                scriptBoard.PutTokken(FocusSquare, PlayedCard);
-                ok = true;
-                return;
-            }
-        } while (!ok);
-
-		Debug.Log("Impossible to Play: No Empty Square");
-
+		} else 
+		{
+			int x = (int)Random.Range (0f, 5f);
+			//Debug.Log(x);
+			int y = (int)Random.Range (0f, 4f);
+			//Debug.Log(y);
+			GameObject place = Squares [x, y];
+			scriptBoard.PutLand(place,null);
+			return;
+		}
 	}
 
 	#endregion
