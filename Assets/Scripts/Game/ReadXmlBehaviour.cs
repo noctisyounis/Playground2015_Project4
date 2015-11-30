@@ -27,17 +27,17 @@ public class ReadXmlBehaviour
 
     public ReadXmlBehaviour()
     {
-        Initialize("Card");       
+		Initialize("Card","CardGUILand");       
     }
 
-	public ReadXmlBehaviour( string prefabName)
+	public ReadXmlBehaviour( string prefabName, string prefabLandName)
 	{
-		Initialize(prefabName);	
+		Initialize(prefabName,prefabLandName);	
 	}
 
 
 
-    void Initialize(string prefabName)
+	void Initialize(string prefabName, string prefabLandName)
     {
         System.Xml.XmlTextReader reader = new System.Xml.XmlTextReader("Assets\\Extrernal\\Xml\\gameCard.xml");
 
@@ -172,7 +172,7 @@ public class ReadXmlBehaviour
 
 			if (reader.NodeType == System.Xml.XmlNodeType.Element && reader.Name == "land")
 			{
-				GameObject prefabLand = (GameObject)Resources.Load("CardGUILand", typeof(GameObject));
+				GameObject prefabLand = (GameObject)Resources.Load(prefabLandName, typeof(GameObject));
 				CardGroundBehaviour scriptLand = prefabLand.GetComponent<CardGroundBehaviour>();
 				card = true;
 				while (card && reader.Read())

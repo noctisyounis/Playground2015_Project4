@@ -31,16 +31,14 @@ public class InventoryBehaviour : MonoBehaviour
 	private void LoadListCards()
 	{
 		// WARNING actually player has all cards access /!\
-
-		//create prefab carteInventary
-		 GameObject prefab = (GameObject)Resources.Load("CardInventory", typeof(GameObject));
 		m_listCards.Clear();
 		// to know all cards unlock
 		// ReadDeckBehaviour deckList = new ReadDeckBehaviour();
 
-        ReadXmlBehaviour cardList = new ReadXmlBehaviour( "CardInventory");
+		ReadXmlBehaviour cardList = new ReadXmlBehaviour( "CardInventory","CardGUILandInventory");
 
 		for (int i = 0; i < cardList.List.Count ; i++) {
+
 			GameObject Card = GameObject.Instantiate((GameObject)cardList.List[i]);
 			// Cette étape sert a transformé le prefab en GameObject
 			Card.transform.SetParent(gameObject.transform);
@@ -51,6 +49,20 @@ public class InventoryBehaviour : MonoBehaviour
 			/////////
 			Card.name = "Card" + i.ToString();
 			m_listCards.Add(Card);
+
+			// and 
+			GameObject CardLand = GameObject.Instantiate((GameObject)cardList.ListLand[i]);
+			CardLand.transform.SetParent(gameObject.transform);
+
+			/**
+
+						/!\ 
+							- Modifier la taille! 
+							- trier les cartes (unit/land/***) 
+
+						/!\
+	
+			 */
 		}
 	}
 	#endregion
