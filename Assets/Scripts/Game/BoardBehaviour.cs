@@ -10,6 +10,7 @@ public class BoardBehaviour : MonoBehaviour
 
 	public int m_turnNumber = 1;
 	public int m_turnNewNumber = 1;
+    public AudioClip m_sonCarte;
 
 	public enum TypePlayer {Player, Computer};
 	public TypePlayer m_player1 = TypePlayer.Player;
@@ -60,6 +61,7 @@ public class BoardBehaviour : MonoBehaviour
 	// Use this for initialization
 	void Start () 
 	{
+        audio = GetComponent<AudioSource>();
 		setTextScreen ();
 		m_hand = GameObject.FindObjectOfType<HandBehaviour>().transform.gameObject;
 
@@ -239,7 +241,12 @@ public class BoardBehaviour : MonoBehaviour
 
 			// Draw at the Start of your turn;
 			HandBehaviour scriptHand = (HandBehaviour) m_hand.GetComponent<HandBehaviour>();
+
+            Debug.Log("son");
+            
+            audio.PlayOneShot(m_sonCarte);
 			scriptHand.Draw();
+            
 
 		}
 		m_timer.EndTurn();
@@ -566,7 +573,7 @@ public class BoardBehaviour : MonoBehaviour
 
 	private TimerBehaviour m_timer;
 	private GameObject m_hand;
-
+    private AudioSource audio;
 
 	#endregion
 }
