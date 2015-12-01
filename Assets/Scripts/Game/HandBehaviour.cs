@@ -17,8 +17,6 @@ public class HandBehaviour : MonoBehaviour, IDropHandler, IPointerEnterHandler, 
 	public GameObject LandDeck;
 	public GameObject UnitHand;
 
-	public CardGroundBehaviour m_cardDragLand;
-
 	#endregion
 
 	#region Main Methodes
@@ -95,8 +93,7 @@ public class HandBehaviour : MonoBehaviour, IDropHandler, IPointerEnterHandler, 
 				GameObject Card = GameObject.Instantiate((GameObject)cardList.ListLand[id - 1001]);
 				Card.transform.SetParent(LandDeck.transform);
 				//Card.AddComponent<DraggableBehaviour>();
-				Card.name = "Card" + i.ToString();	
-				Debug.Log(Card.GetComponent<CardGroundBehaviour>().m_type);
+				Card.name = "Card" + i.ToString();		
 				Card.AddComponent<DraggableBehaviour>();
 				Card.GetComponent<DraggableBehaviour>().m_currentTypeCard = "Land";
 			}

@@ -18,12 +18,13 @@ public class CardHolderBehaviour :MonoBehaviour {
 		
 		script.copy (cardToAdd);
 
-		getGoodTypePrefabUnit (script.m_type, script);
+		getGoodTypePrefab (script.m_type, script);
 
 		currentCard = GameObject.Instantiate((GameObject)CardUI);
 	
 		currentCard.transform.SetParent (transform);
 		currentCard.transform.localScale = Vector3.one;
+
 	}
 
 	public void setNewCarUnitFromTokken(TokkenBehaviour c1)
@@ -49,7 +50,7 @@ public class CardHolderBehaviour :MonoBehaviour {
 
 		script.m_type = c1.type;
 
-		getGoodTypePrefabUnit (script.m_type, script);
+		getGoodTypePrefab (script.m_type, script);
 
 		currentCard = GameObject.Instantiate((GameObject)CardUI);
 
@@ -59,65 +60,19 @@ public class CardHolderBehaviour :MonoBehaviour {
 
 	}
 
-	public void setNewCardLandFromCard(CardGroundBehaviour CGB)
+	public void getGoodTypePrefab(string type, CardUnitBehaviour script)
 	{
-		if (currentCard != null)
-			this.removeCard ();
-		
-		CardUI = (GameObject)Resources.Load("CardGUILand", typeof(GameObject));
-		CardGroundBehaviour script = CardUI.GetComponent<CardGroundBehaviour>();
-
-		script.Copy (CGB);
-
-		getGoodTypePrefabLand (script.m_type, script);
-
-
-		currentCard = GameObject.Instantiate((GameObject)CardUI);
-		
-		currentCard.transform.SetParent (transform);
-		currentCard.transform.localScale = Vector3.one;
-	}
-	
-	public void getGoodTypePrefabLand(string type, CardGroundBehaviour scriptLand)
-	{
-		if (type != null && scriptLand != null) 
+		switch (type)
 		{
-			switch (type) {
-			case "Forest":
-				CardUI.GetComponent<Image> ().sprite = scriptLand.m_forest;
-				break;
-			case "Mountain":
-				CardUI.GetComponent<Image> ().sprite = scriptLand.m_mountain;
-				break;
-			case "Plain":
-				CardUI.GetComponent<Image> ().sprite = scriptLand.m_plain;
-				break;
-			case "Ruin":
-				CardUI.GetComponent<Image> ().sprite = scriptLand.m_ruin;
-				break;
-			case "Swamp":
-				CardUI.GetComponent<Image> ().sprite = scriptLand.m_swamp;
-				break;
-			}
-		}
-	}
-
-
-	public void getGoodTypePrefabUnit(string type, CardUnitBehaviour script)
-	{
-		if (type != null && script != null) 
-		{
-			switch (type) {
-			case "BigRange":
-				CardUI.GetComponent<Image> ().sprite = script.m_bigRange;
-				break;
-			case "Range":
-				CardUI.GetComponent<Image> ().sprite = script.m_range;
-				break;
-			case "Close":
-				CardUI.GetComponent<Image> ().sprite = script.m_cac;
-				break;
-			}
+		case "BigRange":
+			CardUI.GetComponent<Image>().sprite = script.m_bigRange;
+			break;
+		case "Range":
+			CardUI.GetComponent<Image>().sprite = script.m_range;
+			break;
+		case "Close":
+			CardUI.GetComponent<Image>().sprite = script.m_cac;
+			break;
 		}
 	}
 

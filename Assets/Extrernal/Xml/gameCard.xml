@@ -70,11 +70,7 @@
 		<card id="1001">
 			<type>Forest</type>
 			<name>Sherwood</name>
-			<description>
-				<l1>Transforme le terrain</l1>
-				<l2>en foret inamicale</l2>
-				<l3></l3>
-			</description>
+			<description>Transforme le terrain en foret</description>
 			<zones>
 				<zone>
 					<y>1</y>
@@ -99,12 +95,8 @@
 	
 		<card id="1002">
 			<type>Swamp</type>
-			<name>Marecage Zangar</name>
-			<description>
-				<l1>Transforme le terrain</l1>
-				<l2>en marais</l2>
-				<l3></l3>
-			</description>
+			<name>Marecage de Zangar</name>
+			<description>Transforme une ligne en marais</description>
 			<zones>
 				<zone>
 					<y>0</y>
@@ -122,11 +114,7 @@
 		<card id="1003">
 			<type>Mountain</type>
 			<name>Le Mont Blanc</name>
-			<description>
-				<l1>Transforme le terrain</l1>
-				<l2>en montagne</l2>
-				<l3></l3>
-			</description>
+			<description>Transforme le terrain en montagne</description>
 			<zones>
 				<zone>
 					<y>0</y>
@@ -148,11 +136,7 @@
 		<card id="1004">
 			<type>Ruin</type>
 			<name>Ruine d'If</name>
-			<description>
-				<l1>Transforme le terrain</l1>
-				<l2>en ruine</l2>
-				<l3></l3>
-			</description>
+			<description>Transforme le terrain en ruine</description>
 			<zones>
 				<zone>
 					<y>1</y>
@@ -177,11 +161,7 @@
 		<card id="1005">
 			<type>Plain</type>
 			<name>Plaine du Roan</name>
-			<description>
-				<l1>Transforme le terrain</l1>
-				<l2>en plaine</l2>
-				<l3></l3>
-			</description>
+			<description>Transforme le terrain en plaine</description>
 			<zones>
 				<zone>
 					<y>1</y>

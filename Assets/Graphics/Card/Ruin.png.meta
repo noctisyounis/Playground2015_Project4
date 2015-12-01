@@ -1,6 +1,6 @@
 fileFormatVersion: 2
 guid: 0a468f6a093e52d4dbdc97f1e638fb4c
-timeCreated: 1448955492
+timeCreated: 1448617517
 licenseType: Free
 TextureImporter:
   fileIDToRecycleName:
@@ -55,13 +55,13 @@ TextureImporter:
     - name: Ruin_0
       rect:
         serializedVersion: 2
-        x: 105
+        x: 100
         y: 4
-        width: 306
-        height: 504
+        width: 317
+        height: 505
       alignment: 0
       pivot: {x: .5, y: .5}
-      border: {x: 0, y: 0, z: 1, w: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
   spritePackingTag: 
   userData: 
   assetBundleName: 

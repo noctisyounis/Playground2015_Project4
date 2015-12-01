@@ -26,7 +26,6 @@ public class SquareBehaviour : MonoBehaviour
 	public Material TiledRuinOver;
 	public Material TiledSwampOver;
 
-	private GameObject Hand;
 
 
 	#endregion
@@ -35,7 +34,6 @@ public class SquareBehaviour : MonoBehaviour
 	public void Start()
 	{
 		m_cardHolder = (CardHolderBehaviour)GameObject.FindObjectOfType<CardHolderBehaviour> ();
-		Hand = GameObject.Find ("Hand");
 	}
 
 	public void OnMouseEnter() 
@@ -46,30 +44,7 @@ public class SquareBehaviour : MonoBehaviour
 		}
 		m_isPointed = true;
 
-	/*	if (Hand.GetComponent<HandBehaviour> ().m_cardDragLand != null) {
-			CardGroundBehaviour scriptLand = Hand.GetComponent<HandBehaviour> ().m_cardDragLand;
-
-			Debug.Log (scriptLand.xValue.Count + " tot " +  scriptLand.m_type);
-
-			for (int i = 0; i < scriptLand.xValue.Count; i++) {
-				Debug.Log (scriptLand.m_type + " lol" + scriptLand.xValue[i] + "  " );
-			}
-			Debug.Log ("Okay");
-		}*/
-
-	/*	if (Hand.GetComponentInChildren<DraggableBehaviour> ().m_currentTypeCard == "Land") {
-			Debug.Log ("Okay 1");
-			foreach (DraggableBehaviour scriptLand in Hand.GetComponentsInChildren<DraggableBehaviour>()) {
-				Debug.Log(scriptLand.m_isDrag);
-				if (scriptLand.m_isDrag) {
-					Debug.Log ("Okay 2");
-				}
-			}
-		}*/
-
 		OverOn ();
-
-
 
 	}
 	

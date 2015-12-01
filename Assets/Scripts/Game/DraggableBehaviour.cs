@@ -11,7 +11,6 @@ public class DraggableBehaviour : MonoBehaviour, IBeginDragHandler, IDragHandler
 	public bool m_isHovered = false;
 	private GameObject m_cardHolder;
 	public string m_currentTypeCard;
-	public GameObject m_linkToHand;
 
 	#endregion
 	
@@ -20,7 +19,6 @@ public class DraggableBehaviour : MonoBehaviour, IBeginDragHandler, IDragHandler
 	public void Start()
 	{
 		m_cardHolder = GameObject.Find ("CardHolderLayout");
-		m_linkToHand = GameObject.Find ("Hand");
 		gameObject.GetComponent<RectTransform>().localScale = new Vector3(1f, 1f, 1f);
 		GameObject board = GameObject.FindObjectOfType<BoardBehaviour>().gameObject;
 		m_board = board;
@@ -30,15 +28,19 @@ public class DraggableBehaviour : MonoBehaviour, IBeginDragHandler, IDragHandler
 
 	public void OnBeginDrag(PointerEventData eventData) 
 	{
+		//Debug.Log ("OnBeginDrag");
+
+		/*if (Dummy != null) 
+		{
+			GameObject.Destroy(Dummy);
+		}*/
+
 		CreatePlaceHolder ();
+
 	}
 	
 	public void OnDrag(PointerEventData eventData) 
 	{
-		if (m_currentTypeCard == "Land") 
-		{
-			m_linkToHand.GetComponent<HandBehaviour>().m_cardDragLand = (this.GetComponentInParent<CardGroundBehaviour>());
-		}
 		this.transform.position = eventData.position;
 		
 		if (m_placeholder.transform.parent != m_placeholderParent) 
@@ -71,10 +73,7 @@ public class DraggableBehaviour : MonoBehaviour, IBeginDragHandler, IDragHandler
 	
 	public void OnEndDrag(PointerEventData eventData) 
 	{
-		if (m_currentTypeCard == "Land") 
-		{
-			m_linkToHand.GetComponent<HandBehaviour>().m_cardDragLand = null;
-		}
+
 		BoardBehaviour scriptBoard = (BoardBehaviour)m_board.GetComponent<BoardBehaviour>();
 		if (scriptBoard.m_player_Turn) 
 		{
@@ -109,13 +108,10 @@ public class DraggableBehaviour : MonoBehaviour, IBeginDragHandler, IDragHandler
 
 	public void OnPointerEnter(PointerEventData eventData) 
 	{
-		if (m_currentTypeCard == "Unit") 
-		{
+		if (m_currentTypeCard == "Unit") {
 			m_cardHolder.GetComponent<CardHolderBehaviour> ().setNewCardUnit (this.GetComponent<CardUnitBehaviour> ());
-		} 
-		else if (m_currentTypeCard == "Land") 
-		{
-			m_cardHolder.GetComponent<CardHolderBehaviour> ().setNewCardLandFromCard (this.GetComponent<CardGroundBehaviour> ());;
+		} else {
+			Debug.Log ("To Do OnPointerEnter Land");
 		}
 			
 		if (!m_isHovered) 
