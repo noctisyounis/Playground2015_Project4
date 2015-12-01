@@ -73,7 +73,7 @@ public class ReadXmlBehaviour
                     {
                         switch (reader.Name)
                         {
-							// LIGNE ADD 
+										// LIGNE ADD 
 							case "card": 
 							script.m_id = int.Parse(reader.GetAttribute(0));
 								break;

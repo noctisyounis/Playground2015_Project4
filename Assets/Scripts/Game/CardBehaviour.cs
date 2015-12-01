@@ -13,6 +13,8 @@ public class CardBehaviour : MonoBehaviour {
     public GameObject m_Description2;
 
     public GameObject m_Description3;
+
+	public int m_id;
 	
 	#endregion
 	
