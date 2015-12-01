@@ -52,7 +52,7 @@ public class ReadXmlBehaviour
             {
                 //Debug.Log("new");
                 GameObject prefab = (GameObject)Resources.Load(prefabName, typeof(GameObject));
-                CardUnitBehaviour script =  prefab.GetComponent<CardUnitBehaviour>();
+                CardUnitBehaviour script = GameObject.Instantiate( prefab.GetComponent<CardUnitBehaviour>());
                 card = true;
                 while (card && reader.Read())
                 {
@@ -165,7 +165,7 @@ public class ReadXmlBehaviour
                         }
                     }
                 }
-			}
+            }
             #endregion
 
 			#region card land

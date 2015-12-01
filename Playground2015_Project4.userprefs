@@ -1,16 +1,13 @@
 ﻿<Properties>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="MonoDevelop.Default" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\Game\HandBehaviour.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\Game\ReadXmlBehaviour.cs">
     <Files>
-      <File FileName="Assets\Scripts\Game\DraggableBehaviour.cs" Line="232" Column="1" />
-      <File FileName="Assets\Scripts\Game\HandBehaviour.cs" Line="79" Column="62" />
-      <File FileName="Assets\Scripts\Game\SquareBehaviour.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\Game\CardGroundBehaviour.cs" Line="1" Column="1" />
-<<<<<<< HEAD
-      <File FileName="Assets\Scripts\Game\BoardBehaviour.cs" Line="580" Column="1" />
-=======
-      <File FileName="Assets\Scripts\Game\BoardBehaviour.cs" Line="580" Column="3" />
->>>>>>> origin/master
+      <File FileName="Assets\Scripts\Game\DraggableBehaviour.cs" Line="74" Column="2" />
+      <File FileName="Assets\Scripts\Game\HandBehaviour.cs" Line="38" Column="38" />
+      <File FileName="Assets\Scripts\Game\SquareBehaviour.cs" Line="58" Column="6" />
+      <File FileName="Assets\Scripts\Game\CardGroundBehaviour.cs" Line="23" Column="1" />
+      <File FileName="Assets\Scripts\Game\BoardBehaviour.cs" Line="166" Column="22" />
+      <File FileName="Assets\Scripts\Game\ReadXmlBehaviour.cs" Line="242" Column="11" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

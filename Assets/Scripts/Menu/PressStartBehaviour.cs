@@ -1,7 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
-
-
+[RequireComponent(typeof(Rigidbody2D))]
 public class PressStartBehaviour : MonoBehaviour
 {
     #region Public Variable

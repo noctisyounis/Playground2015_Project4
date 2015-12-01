@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using UnityEngine.UI;
 
 public class CardGroundBehaviour : CardBehaviour {
 
@@ -19,9 +20,17 @@ public class CardGroundBehaviour : CardBehaviour {
 	#endregion
 	
 	#region Main Methodes
-	
-	
-	
+
+
+	public void Copy(CardGroundBehaviour CGB)
+	{
+		this.m_Description1.GetComponent<Text>().text = CGB.m_Description1.GetComponent<Text>().text;
+		this.m_Description2.GetComponent<Text>().text = CGB.m_Description2.GetComponent<Text>().text;
+		this.m_Description3.GetComponent<Text>().text = CGB.m_Description3.GetComponent<Text>().text;
+		this.m_name.GetComponent<Text>().text = CGB.m_name.GetComponent<Text>().text;
+
+		this.m_type = CGB.m_type;
+	}
 	
 	#endregion
 	
