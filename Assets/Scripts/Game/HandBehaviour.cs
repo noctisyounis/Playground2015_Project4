@@ -13,8 +13,9 @@ public class HandBehaviour : MonoBehaviour, IDropHandler, IPointerEnterHandler, 
     public Sprite m_range;
     public Sprite m_cac;
 	public List<GameObject> m_deck = new List<GameObject>();
-	public GameObject PlayerDeck;
+	public GameObject UnitDeck;
 	public GameObject LandDeck;
+	public GameObject UnitHand;
 
 	#endregion
 
@@ -82,9 +83,10 @@ public class HandBehaviour : MonoBehaviour, IDropHandler, IPointerEnterHandler, 
 			if(id < 1000)
 			{
             	GameObject Card = GameObject.Instantiate((GameObject)cardList.List[id - 1]);
-            	Card.transform.SetParent(PlayerDeck.transform);
+            	Card.transform.SetParent(UnitDeck.transform);
 				Card.AddComponent<DraggableBehaviour>();
-            	Card.name = "Card" + i.ToString();
+				Card.name = "Card" + i.ToString();
+				Card.GetComponent<DraggableBehaviour>().m_currentTypeCard = "Unit";
             	m_deck.Add(Card);
 			}
 			else
@@ -92,7 +94,9 @@ public class HandBehaviour : MonoBehaviour, IDropHandler, IPointerEnterHandler, 
 				GameObject Card = GameObject.Instantiate((GameObject)cardList.ListLand[id - 1001]);
 				Card.transform.SetParent(LandDeck.transform);
 				//Card.AddComponent<DraggableBehaviour>();
-				Card.name = "Card" + i.ToString();
+				Card.name = "Card" + i.ToString();		
+				Card.AddComponent<DraggableBehaviour>();
+				Card.GetComponent<DraggableBehaviour>().m_currentTypeCard = "Land";
 			}
         }
 		//Debug.Log("taille du deck player :" + m_deck.Count);
@@ -107,7 +111,15 @@ public class HandBehaviour : MonoBehaviour, IDropHandler, IPointerEnterHandler, 
 			//Debug.Log("Test");
 			GameObject Card = m_deck [0];
 			m_deck.Remove (Card);
-			Card.transform.SetParent (gameObject.transform);
+
+			if(UnitHand.transform.childCount > 0)
+			{
+				Card.transform.SetParent (UnitHand.transform);
+			}
+			else
+			{
+				Card.transform.SetParent (gameObject.transform);
+			}
 
 			Card.GetComponent<RectTransform>().localScale = Vector3.one;
 
@@ -144,9 +156,15 @@ public class HandBehaviour : MonoBehaviour, IDropHandler, IPointerEnterHandler, 
 		int index = (int)Mathf.Floor( Random.Range(0,squares.Count));
 
 		//Release Drag
-		int cardIndex = (int) Mathf.Floor( Random.Range(0,gameObject.transform.childCount));
+		int cardIndex = (int)Mathf.Floor (Random.Range (0, gameObject.transform.childCount));
 
-		GameObject card = gameObject.transform.GetChild(cardIndex).gameObject;
+		GameObject card;
+
+		if (UnitHand.transform.childCount > 0) {
+			card = UnitHand.transform.GetChild (cardIndex).gameObject;
+		} else {
+			card = gameObject.transform.GetChild (cardIndex).gameObject;
+		}
 
 		scriptBoard.PutTokken(squares[index],card);
 	}

@@ -11,6 +11,7 @@ public class OnClickBehaviour : MonoBehaviour
 	#region Public Variable
 	public AudioClip m_son;
 	public e_containedBy m_container;
+	public int m_id;
 	public static int m_nbUnit = 18;
 	public static int m_nbLands = 5;
 

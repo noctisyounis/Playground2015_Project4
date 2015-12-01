@@ -10,6 +10,7 @@ public class DraggableBehaviour : MonoBehaviour, IBeginDragHandler, IDragHandler
 	public Transform m_placeholderParent = null;
 	public bool m_isHovered = false;
 	private GameObject m_cardHolder;
+	public string m_currentTypeCard;
 
 	#endregion
 	
@@ -29,21 +30,17 @@ public class DraggableBehaviour : MonoBehaviour, IBeginDragHandler, IDragHandler
 	{
 		//Debug.Log ("OnBeginDrag");
 
-		if (Dummy != null) 
+		/*if (Dummy != null) 
 		{
 			GameObject.Destroy(Dummy);
-		}
+		}*/
 
 		CreatePlaceHolder ();
-		
-		
 
 	}
 	
 	public void OnDrag(PointerEventData eventData) 
 	{
-		//Debug.Log ("OnDrag");
-		
 		this.transform.position = eventData.position;
 		
 		if (m_placeholder.transform.parent != m_placeholderParent) 
@@ -66,21 +63,36 @@ public class DraggableBehaviour : MonoBehaviour, IBeginDragHandler, IDragHandler
 				break;
 			}
 		}
-		m_placeholder.transform.SetSiblingIndex(newSiblingIndex);		
+
+		if (m_currentTypeCard == "Unit") {
+			m_placeholder.transform.SetSiblingIndex (newSiblingIndex);		
+		} else {
+			Debug.Log ("To Do Place Holder Land");
+		}
 	}
 	
 	public void OnEndDrag(PointerEventData eventData) 
 	{
-		//Debug.Log ("OnEndDrag");
 
 		BoardBehaviour scriptBoard = (BoardBehaviour)m_board.GetComponent<BoardBehaviour>();
 		if (scriptBoard.m_player_Turn) 
 		{
-			GameObject cube = scriptBoard.CheckCubePointing (eventData.pointerDrag);
-			if (cube != null) 
+			if(m_currentTypeCard == "Unit" && scriptBoard.m_turnType[scriptBoard.m_turnNewNumber] == 0){
+				GameObject cube = scriptBoard.CheckCubePointing (eventData.pointerDrag);
+				if (cube != null) 
+				{
+					if (!cube.GetComponent<SquareBehaviour>().m_isOccuped) {
+						scriptBoard.PutTokken(cube,gameObject);
+					}
+				}
+			}
+
+			if(m_currentTypeCard == "Land" && scriptBoard.m_turnType[scriptBoard.m_turnNewNumber] == 1)
 			{
-				if (!cube.GetComponent<SquareBehaviour>().m_isOccuped) {
-					scriptBoard.PutTokken(cube,gameObject);
+				GameObject cube = scriptBoard.CheckCubePointing (eventData.pointerDrag);
+				if (cube != null) 
+				{
+					scriptBoard.PutLand(cube,gameObject);
 				}
 			}
 		}
@@ -96,7 +108,11 @@ public class DraggableBehaviour : MonoBehaviour, IBeginDragHandler, IDragHandler
 
 	public void OnPointerEnter(PointerEventData eventData) 
 	{
-		m_cardHolder.GetComponent<CardHolderBehaviour> ().setNewCardUnit (this.GetComponent<CardUnitBehaviour> ());
+		if (m_currentTypeCard == "Unit") {
+			m_cardHolder.GetComponent<CardHolderBehaviour> ().setNewCardUnit (this.GetComponent<CardUnitBehaviour> ());
+		} else {
+			Debug.Log ("To Do OnPointerEnter Land");
+		}
 			
 		if (!m_isHovered) 
 		{
@@ -138,8 +154,7 @@ public class DraggableBehaviour : MonoBehaviour, IBeginDragHandler, IDragHandler
 			}
 		}
 	}
-
-
+	
 
 	#endregion
 
@@ -152,10 +167,10 @@ public class DraggableBehaviour : MonoBehaviour, IBeginDragHandler, IDragHandler
 		transform.localScale = new Vector3(1f,1f,1f);
 		m_isHovered = false;
 
-		if (Dummy != null) 
+/*		if (Dummy != null) 
 		{
 			GameObject.Destroy (Dummy);
-		}
+		}*/
 	}
 
 	void CreatePlaceHolder ()

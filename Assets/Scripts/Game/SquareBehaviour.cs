@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System.Collections;
 using UnityEngine.EventSystems;
 
@@ -14,6 +14,13 @@ public class SquareBehaviour : MonoBehaviour
 	public int m_gridX;
 	public int m_gridY;
 
+	public Material TiledForest;
+	public Material TiledMountain;
+	public Material TiledPlaine;
+	public Material TiledRuin;
+	public Material TiledSwamp;
+
+	
 
 	#endregion
 
@@ -41,6 +48,27 @@ public class SquareBehaviour : MonoBehaviour
 
 		m_isPointed = false;
 
+	}
+
+	public void ChangeMaterial(string newType)
+	{
+		switch (newType) {
+			case "Mountain":
+				this.GetComponent<Renderer>().material = TiledMountain;
+			break;
+			case "Forest":
+				this.GetComponent<Renderer>().material = TiledForest;
+				break;
+			case "Ruin":
+				this.GetComponent<Renderer>().material = TiledRuin;
+				break;
+			case "Plain":
+				this.GetComponent<Renderer>().material = TiledPlaine;
+				break;
+			case "Swamp":
+			this.GetComponent<Renderer>().material = TiledSwamp;
+			break;
+		}
 	}
 
 

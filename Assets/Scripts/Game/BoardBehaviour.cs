@@ -2,12 +2,14 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using UnityEngine.UI;
 
 public class BoardBehaviour : MonoBehaviour 
 {
 	#region Public Variable
 
 	public int m_turnNumber = 1;
+	public int m_turnNewNumber = 1;
 
 	public enum TypePlayer {Player, Computer};
 	public TypePlayer m_player1 = TypePlayer.Player;
@@ -24,6 +26,17 @@ public class BoardBehaviour : MonoBehaviour
 	 * 4 = Ruin
 	 * 
 	 */
+
+	/*
+	 * Type tour
+	 * 
+	 * 0 = unit
+	 * 1 = land
+	 */
+
+	public int[] m_turnType = new int[]
+	{ 0,0, 0,0 ,1 ,0,0 ,0,0 ,1};
+
 	private int[] m_boardDesign = new int[]
 	{
 		2,1,0,0,4,0,
@@ -36,6 +49,9 @@ public class BoardBehaviour : MonoBehaviour
 
 	public bool m_player_Turn = true;
 
+	public GameObject m_panelTurn;
+	public GameObject m_panelTurnType;
+
 
 
 	#endregion
@@ -44,6 +60,7 @@ public class BoardBehaviour : MonoBehaviour
 	// Use this for initialization
 	void Start () 
 	{
+		setTextScreen ();
 		m_hand = GameObject.FindObjectOfType<HandBehaviour>().transform.gameObject;
 
 		m_timer = GameObject.FindObjectOfType<TimerBehaviour>();
@@ -88,40 +105,77 @@ public class BoardBehaviour : MonoBehaviour
 		
 		scriptCard.PlayCard();
 
+		if (m_player_Turn == false) {
+			m_turnNewNumber++;
+		}
+
 		ChangeTurn();
+		CheckEndGame ();
 
-		if (m_turnNumber > 24) 
-		{
+	}
+
+	public void CheckEndGame()
+	{
+		if (m_turnNewNumber >= m_turnType.Length) {
 			//Stop Timer
-			m_timer.CancelInvoke();
-
+			m_timer.CancelInvoke ();
+			
 			//Stop IA Playing
-			GameObject Opponent = GameObject.FindObjectOfType<OpponentBehaviour>().transform.gameObject;
-			OpponentBehaviour script = (OpponentBehaviour) Opponent.GetComponent<OpponentBehaviour>();
-			script.CancelInvoke();
-
+			GameObject Opponent = GameObject.FindObjectOfType<OpponentBehaviour> ().transform.gameObject;
+			OpponentBehaviour script = (OpponentBehaviour)Opponent.GetComponent<OpponentBehaviour> ();
+			script.CancelInvoke ();
+			
 			m_player_Turn = false;
-
-
-			EndGameUIManager EndGame = (EndGameUIManager) GameObject.FindObjectOfType<EndGameUIManager>();
-			EndGame.ShowPointsCounter();
-
-			Debug.Log("End Game : Start Battle");
-
-			List<GameObject> TokkenAlive = Fight(false);
-
+			
+			
+			EndGameUIManager EndGame = (EndGameUIManager)GameObject.FindObjectOfType<EndGameUIManager> ();
+			EndGame.ShowPointsCounter ();
+			
+			Debug.Log ("End Game : Start Battle");
+			
+			List<GameObject> TokkenAlive = Fight (false);
+			
 			bool? result = null;
-			if (m_finalPointsP1 > m_finalPointsP2) 
-			{
+			if (m_finalPointsP1 > m_finalPointsP2) {
 				result = true;
 			}
-			if (m_finalPointsP1 < m_finalPointsP2) 
-			{
+			if (m_finalPointsP1 < m_finalPointsP2) {
 				result = false;
 			}
-			EndGame.VictoryGameMessage(result);
-
+			EndGame.VictoryGameMessage (result);
+		} else 
+		{
+			setTextScreen();
 		}
+	}
+
+	public void setTextScreen()
+	{
+		m_panelTurn.GetComponent<Text>().text = "Turn n°" + m_turnNewNumber.ToString();
+
+		if(m_turnType[m_turnNewNumber] == 0)
+		{
+			m_panelTurnType.GetComponent<Text>().text = "Unités";
+		}
+		else if(m_turnType[m_turnNewNumber] == 1)
+		{
+			m_panelTurnType.GetComponent<Text>().text = "Terrains";
+		}
+	}
+
+	public void PutLand(GameObject cube, GameObject card)
+	{
+		if (card != null)
+			cube.GetComponent<SquareBehaviour> ().ChangeMaterial (card.GetComponentInParent<CardGroundBehaviour> ().m_type);
+		else
+			cube.GetComponent<SquareBehaviour> ().ChangeMaterial ("Forest");
+
+		if (m_player_Turn == false) {
+			m_turnNewNumber++;
+		}
+		
+		ChangeTurn();
+		CheckEndGame ();
 
 	}
 
@@ -163,6 +217,7 @@ public class BoardBehaviour : MonoBehaviour
 
 		}	
 	}
+	
 
 	public void ChangeTurn()
 	{
@@ -180,10 +235,12 @@ public class BoardBehaviour : MonoBehaviour
 			{
 				//Action Player 2
 			}
-			
+
+
 			// Draw at the Start of your turn;
 			HandBehaviour scriptHand = (HandBehaviour) m_hand.GetComponent<HandBehaviour>();
 			scriptHand.Draw();
+
 		}
 		m_timer.EndTurn();
 	}

@@ -1,36 +1,48 @@
 ﻿using UnityEngine;
 using System.Collections.Generic;
 using System.Xml;
-using System.Xml.Serialization;
 using System.IO;
 
 public class deck
 {
-	[XmlArray("deck"),XmlArrayItem("card")]
-	public card[] m_cards;
-	
-	public void Save(string path)
+	public List<GameObject> m_cards;
+
+	public deck ()
 	{
-		var serializer = new XmlSerializer(typeof(deck));
-		using(var stream = new FileStream(path, FileMode.Create))
-		{
-			serializer.Serialize(stream, this);
-		}
+		m_cards = DeckBehaviour.m_deck;
 	}
 	
-	public static deck Load(string path)
+	public void SaveXml()
 	{
-		var serializer = new XmlSerializer(typeof(deck));
-		using(var stream = new FileStream(path, FileMode.Open))
+		string filepath = Application.dataPath + "\\\\Extrernal\\Xml\\playerCard.xml";
+		XmlDocument xmlDoc = new XmlDocument();
+		if(File.Exists (filepath))
 		{
-			return serializer.Deserialize(stream) as deck;
+			xmlDoc.Load(filepath);
+
+			XmlElement elm_Deck = xmlDoc.DocumentElement;
+			elm_Deck.RemoveAll();
+
+			for (int i = 0; i < m_cards.Count; i++) {
+
+				XmlElement element_card = xmlDoc.CreateElement("card");
+				XmlElement card_id = xmlDoc.CreateElement("id");
+				XmlElement card_type = xmlDoc.CreateElement("type");
+
+				if (m_cards[i].GetComponent<CardUnitBehaviour>()) {
+					card_id.InnerText = (m_cards[i].GetComponent<CardUnitBehaviour>().m_id).ToString();
+					card_type.InnerText = m_cards[i].GetComponent<CardUnitBehaviour>().m_type;
+				}
+				else if (m_cards[i].GetComponent<CardGroundBehaviour>())
+				{
+					card_id.InnerText = (m_cards[i].GetComponent<CardGroundBehaviour>().m_id).ToString();
+					card_type.InnerText = m_cards[i].GetComponent<CardGroundBehaviour>().m_type;
+				}
+				element_card.AppendChild(card_id);
+				element_card.AppendChild(card_type);
+				elm_Deck.AppendChild(element_card);
+			}
+			xmlDoc.Save(filepath);
 		}
-	}
-	
-	//Loads the xml directly from the given string. Useful in combination with www.text.
-	public static deck LoadFromText(string text) 
-	{
-		var serializer = new XmlSerializer(typeof(deck));
-		return serializer.Deserialize(new StringReader(text)) as deck;
 	}
 }

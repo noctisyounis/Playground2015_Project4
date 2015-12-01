@@ -37,7 +37,6 @@ public class DeckBehaviour : MonoBehaviour {
 	#endregion
 
 	#region Utils
-	// = method HandBehaviour, optimal? 
 	private void LoadDeck()
 	{
 		// Create  resource/prefab "Title" -> Zone text (= title) + nbr copies
@@ -48,7 +47,6 @@ public class DeckBehaviour : MonoBehaviour {
 		for (int i = 0; i < deckList.PropDeck.Count; i++) 
 		{
 			int id = int.Parse(deckList.PropDeck[i].ToString());
-			Debug.Log (id);
 			if(id < 1000)
 			{
 				GameObject Card = GameObject.Instantiate((GameObject)cardList.List[id-1]);

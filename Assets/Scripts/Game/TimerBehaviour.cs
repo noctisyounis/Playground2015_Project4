@@ -11,8 +11,6 @@ public class TimerBehaviour : MonoBehaviour
 
 	public int m_time;
 
-	public GameObject m_turnCounter;
-
 	#endregion
 	
 	#region Main Methodes
@@ -52,9 +50,6 @@ public class TimerBehaviour : MonoBehaviour
 		{
 			gameObject.GetComponent<Image>().color = Color.red;
 		}
-		int i = (m_board.m_turnNumber+1)/2;
-		m_turnCounter.GetComponent<Text>().text = "Turn n°" + i.ToString();
-
 	}
 
 	
