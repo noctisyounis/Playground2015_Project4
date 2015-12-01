@@ -35,7 +35,7 @@ public class BoardBehaviour : MonoBehaviour
 	 */
 
 	public int[] m_turnType = new int[]
-	{ 0,0, 0,0 ,1 ,0,0 ,0,0 ,1, 4};
+	{ 0,1, 0,0 ,1 ,0,0 ,0,0 ,1, 4};
 
 	private int[] m_boardDesign = new int[]
 	{
@@ -163,10 +163,14 @@ public class BoardBehaviour : MonoBehaviour
 
 	public void PutLand(GameObject cube, GameObject card)
 	{
-		if (card != null)
+		if (card != null) {
 			cube.GetComponent<SquareBehaviour> ().ChangeMaterial (card.GetComponentInParent<CardGroundBehaviour> ().m_type);
-		else
+			//Destroy (card);
+		} 
+		else 
+		{
 			cube.GetComponent<SquareBehaviour> ().ChangeMaterial ("Forest");
+		}
 
 
 		CheckEndGame ();

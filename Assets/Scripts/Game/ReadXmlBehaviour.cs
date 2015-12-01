@@ -52,7 +52,7 @@ public class ReadXmlBehaviour
             {
                 //Debug.Log("new");
                 GameObject prefab = (GameObject)Resources.Load(prefabName, typeof(GameObject));
-                CardUnitBehaviour script = prefab.GetComponent<CardUnitBehaviour>();
+                CardUnitBehaviour script = GameObject.Instantiate( prefab.GetComponent<CardUnitBehaviour>());
                 card = true;
                 while (card && reader.Read())
                 {
@@ -173,10 +173,14 @@ public class ReadXmlBehaviour
 			if (reader.NodeType == System.Xml.XmlNodeType.Element && reader.Name == "land")
 			{
 				GameObject prefabLand = (GameObject)Resources.Load(prefabLandName, typeof(GameObject));
-				CardGroundBehaviour scriptLand = prefabLand.GetComponent<CardGroundBehaviour>();
+				CardGroundBehaviour scriptLand =  prefabLand.GetComponent<CardGroundBehaviour>();
+
 				card = true;
 				while (card && reader.Read())
 				{
+					scriptLand.xValue = new ArrayList();
+					scriptLand.yValue = new ArrayList();
+
 					if (reader.NodeType == System.Xml.XmlNodeType.EndElement)
 					{
 						if (reader.Name == "card")
@@ -216,8 +220,14 @@ public class ReadXmlBehaviour
 						case "name" : reader.Read ();
 							scriptLand.m_name.GetComponent<Text>().text = reader.Value;
 							break;
-						case "description" : reader.Read ();
+						case "l1": reader.Read();
 							scriptLand.m_Description1.GetComponent<Text>().text = reader.Value;
+							break;
+						case "l2": reader.Read();
+							scriptLand.m_Description2.GetComponent<Text>().text = reader.Value;
+							break;
+						case "l3": reader.Read();
+							scriptLand.m_Description3.GetComponent<Text>().text = reader.Value;
 							break;
 						case "zones" : reader.Read ();
 
@@ -246,6 +256,7 @@ public class ReadXmlBehaviour
 									}
 								}
 							}
+							Debug.Log (scriptLand.xValue.Count);
 							break;
 						}
 					}

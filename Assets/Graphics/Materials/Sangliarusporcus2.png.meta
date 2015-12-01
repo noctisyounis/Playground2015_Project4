@@ -1,11 +1,9 @@
 fileFormatVersion: 2
-guid: 0a468f6a093e52d4dbdc97f1e638fb4c
-timeCreated: 1448955492
+guid: d72f1b309ad953e44bc17f2f93bfbf94
+timeCreated: 1448966090
 licenseType: Free
 TextureImporter:
-  fileIDToRecycleName:
-    21300000: Ruin_0
-    21300002: Ruin_1
+  fileIDToRecycleName: {}
   serializedVersion: 2
   mipmaps:
     mipMapMode: 0
@@ -40,7 +38,7 @@ TextureImporter:
   rGBM: 0
   compressionQuality: 50
   allowsAlphaSplitting: 0
-  spriteMode: 2
+  spriteMode: 1
   spriteExtrude: 1
   spriteMeshType: 1
   alignment: 0
@@ -51,17 +49,7 @@ TextureImporter:
   textureType: 8
   buildTargetSettings: []
   spriteSheet:
-    sprites:
-    - name: Ruin_0
-      rect:
-        serializedVersion: 2
-        x: 105
-        y: 4
-        width: 306
-        height: 504
-      alignment: 0
-      pivot: {x: .5, y: .5}
-      border: {x: 0, y: 0, z: 1, w: 0}
+    sprites: []
   spritePackingTag: 
   userData: 
   assetBundleName: 
