@@ -7,8 +7,10 @@ using UnityEngine.UI;
 public class BoardBehaviour : MonoBehaviour 
 {
 	#region Public Variable
-	
-	public int m_turnNewNumber = 0;
+
+	public int m_turnNumber = 1;
+	public int m_turnNewNumber = 1;
+    public AudioClip m_sonCarte;
 
 	public enum TypePlayer {Player, Computer};
 	public TypePlayer m_player1 = TypePlayer.Player;
@@ -31,11 +33,10 @@ public class BoardBehaviour : MonoBehaviour
 	 * 
 	 * 0 = unit
 	 * 1 = land
-	 * 4 = endGame
 	 */
 
 	public int[] m_turnType = new int[]
-	{ 0,1, 0,0 ,1 ,0,0 ,0,0 ,1, 4};
+	{ 0,0, 0,0 ,1 ,0,0 ,0,0 ,1};
 
 	private int[] m_boardDesign = new int[]
 	{
@@ -60,11 +61,13 @@ public class BoardBehaviour : MonoBehaviour
 	// Use this for initialization
 	void Start () 
 	{
+        audio = GetComponent<AudioSource>();
 		setTextScreen ();
 		m_hand = GameObject.FindObjectOfType<HandBehaviour>().transform.gameObject;
 
 		m_timer = GameObject.FindObjectOfType<TimerBehaviour>();
 		Generate ();
+
 	}
 
 	public GameObject CheckCubePointing (GameObject card)
@@ -99,19 +102,23 @@ public class BoardBehaviour : MonoBehaviour
 		Tokken.transform.SetParent(gameObject.transform);
 		Tokken.GetComponent<RectTransform>().Rotate(new Vector3(90,180,0));
 		Tokken.GetComponent<TokkenBehaviour>().SetPosition(scriptSquare.m_gridX,scriptSquare.m_gridY);
-		Tokken.GetComponent<TokkenBehaviour>().m_playedAtTurn = m_turnNewNumber;
+		Tokken.GetComponent<TokkenBehaviour>().m_playedAtTurn = m_turnNumber;
 		scriptSquare.m_tokken = Tokken;	
 		
 		scriptCard.PlayCard();
 
-		CheckEndGame ();
+		if (m_player_Turn == false) {
+			m_turnNewNumber++;
+		}
+
 		ChangeTurn();
+		CheckEndGame ();
+
 	}
 
 	public void CheckEndGame()
 	{
-
-		if (m_turnNewNumber ==  m_turnType.Length-1 && m_player_Turn == false) {
+		if (m_turnNewNumber >= m_turnType.Length) {
 			//Stop Timer
 			m_timer.CancelInvoke ();
 			
@@ -126,7 +133,7 @@ public class BoardBehaviour : MonoBehaviour
 			EndGameUIManager EndGame = (EndGameUIManager)GameObject.FindObjectOfType<EndGameUIManager> ();
 			EndGame.ShowPointsCounter ();
 			
-			//Debug.Log ("End Game : Start Battle");
+			Debug.Log ("End Game : Start Battle");
 			
 			List<GameObject> TokkenAlive = Fight (false);
 			
@@ -140,16 +147,13 @@ public class BoardBehaviour : MonoBehaviour
 			EndGame.VictoryGameMessage (result);
 		} else 
 		{
-			if (m_player_Turn == false) {
-				m_turnNewNumber++;
-			}
 			setTextScreen();
 		}
 	}
 
 	public void setTextScreen()
 	{
-		m_panelTurn.GetComponent<Text>().text = "Turn n°" + (m_turnNewNumber + 1);
+		m_panelTurn.GetComponent<Text>().text = "Turn n°" + m_turnNewNumber.ToString();
 
 		if(m_turnType[m_turnNewNumber] == 0)
 		{
@@ -163,18 +167,18 @@ public class BoardBehaviour : MonoBehaviour
 
 	public void PutLand(GameObject cube, GameObject card)
 	{
-		if (card != null) {
+		if (card != null)
 			cube.GetComponent<SquareBehaviour> ().ChangeMaterial (card.GetComponentInParent<CardGroundBehaviour> ().m_type);
-			//Destroy (card);
-		} 
-		else 
-		{
+		else
 			cube.GetComponent<SquareBehaviour> ().ChangeMaterial ("Forest");
+
+		if (m_player_Turn == false) {
+			m_turnNewNumber++;
 		}
-
-
-		CheckEndGame ();
+		
 		ChangeTurn();
+		CheckEndGame ();
+
 	}
 
 	#endregion
@@ -221,10 +225,12 @@ public class BoardBehaviour : MonoBehaviour
 	{
 		if (m_player_Turn) 
 		{
+			m_turnNumber++;
 			m_player_Turn = false;
 		}
 		else 
 		{
+			m_turnNumber++;
 			m_player_Turn = true;
 			
 			if (m_player2 == TypePlayer.Player) 
@@ -232,12 +238,16 @@ public class BoardBehaviour : MonoBehaviour
 				//Action Player 2
 			}
 
-			if(m_turnType[m_turnNewNumber-1] == 0)
-			{
+
 			// Draw at the Start of your turn;
 			HandBehaviour scriptHand = (HandBehaviour) m_hand.GetComponent<HandBehaviour>();
+
+            Debug.Log("son");
+            
+            audio.PlayOneShot(m_sonCarte);
 			scriptHand.Draw();
-			}
+            
+
 		}
 		m_timer.EndTurn();
 	}
@@ -296,7 +306,7 @@ public class BoardBehaviour : MonoBehaviour
 			}
 		}
 
-		//Debug.Log(m_finalPointsP1 + " - "+ m_finalPointsP2);
+		Debug.Log(m_finalPointsP1 + " - "+ m_finalPointsP2);
 		EndGameUIManager EndGame = (EndGameUIManager) GameObject.FindObjectOfType<EndGameUIManager>();
 		EndGame.SetPointCounter(m_finalPointsP1,m_finalPointsP2);
 
@@ -563,7 +573,7 @@ public class BoardBehaviour : MonoBehaviour
 
 	private TimerBehaviour m_timer;
 	private GameObject m_hand;
-
+    private AudioSource audio;
 
 	#endregion
 }
