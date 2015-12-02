@@ -16,7 +16,7 @@ public class LoadScript : MonoBehaviour
         audio = GetComponent<AudioSource>();
     }
 
-    void OnMouseUp()
+    public void OnMouseUp()
     {
         audio.PlayOneShot(m_son);
         if (m_levelSuivant == "Quitter")
