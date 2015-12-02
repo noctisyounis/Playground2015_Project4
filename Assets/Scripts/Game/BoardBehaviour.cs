@@ -164,7 +164,7 @@ public class BoardBehaviour : MonoBehaviour
 	{
 		if (card != null) {
 			cube.GetComponent<SquareBehaviour> ().ChangeMaterial (card.GetComponentInParent<CardGroundBehaviour> ().m_type);
-			//Destroy (card);
+			Destroy (card);
 		} 
 		else 
 		{
