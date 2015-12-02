@@ -7,11 +7,13 @@ public class CardHolderBehaviour :MonoBehaviour {
 
 	private GameObject currentCard;
 	private GameObject CardUI;
+	public GameObject CardViewer;
 
 	public void setNewCardUnit(CardUnitBehaviour cardToAdd)
 	{
 		if (currentCard != null)
 			this.removeCard ();
+		CardViewer.GetComponent<CardViewerBehaviour> ().setAllyTexture ();
 
 		CardUI = (GameObject)Resources.Load("CardGUIUnit", typeof(GameObject));
 		CardUnitBehaviour script = CardUI.GetComponent<CardUnitBehaviour>();
@@ -22,6 +24,8 @@ public class CardHolderBehaviour :MonoBehaviour {
 
 		currentCard = GameObject.Instantiate((GameObject)CardUI);
 	
+
+
 		currentCard.transform.SetParent (transform);
 		currentCard.transform.localScale = Vector3.one;
 	}
@@ -53,7 +57,12 @@ public class CardHolderBehaviour :MonoBehaviour {
 
 		currentCard = GameObject.Instantiate((GameObject)CardUI);
 
-		
+		if (c1.m_playedBy == TokkenBehaviour.Player.Player1) {
+			CardViewer.GetComponent<CardViewerBehaviour> ().setAllyTexture ();
+		} else {
+			CardViewer.GetComponent<CardViewerBehaviour> ().setEnnemyTexture();
+		}
+
 		currentCard.transform.SetParent (transform);
 		currentCard.transform.localScale = Vector3.one;
 
@@ -63,6 +72,8 @@ public class CardHolderBehaviour :MonoBehaviour {
 	{
 		if (currentCard != null)
 			this.removeCard ();
+
+		CardViewer.GetComponent<CardViewerBehaviour> ().setAllyTexture ();
 		
 		CardUI = (GameObject)Resources.Load("CardGUILand", typeof(GameObject));
 		CardGroundBehaviour script = CardUI.GetComponent<CardGroundBehaviour>();
@@ -124,5 +135,6 @@ public class CardHolderBehaviour :MonoBehaviour {
 	public void removeCard()
 	{
 		Destroy (currentCard);
+		CardViewer.GetComponent<CardViewerBehaviour> ().setBaseTexture();
 	}
 }
