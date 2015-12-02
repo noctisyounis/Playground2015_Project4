@@ -104,8 +104,7 @@ public class BoardBehaviour : MonoBehaviour
 		
 		scriptCard.PlayCard();
 
-		CheckEndGame ();
-		ChangeTurn();
+		routineEndTurn ();
 	}
 
 	public void CheckEndGame()
@@ -172,9 +171,7 @@ public class BoardBehaviour : MonoBehaviour
 			cube.GetComponent<SquareBehaviour> ().ChangeMaterial ("Forest");
 		}
 
-
-		CheckEndGame ();
-		ChangeTurn();
+		routineEndTurn ();
 	}
 
 	#endregion
@@ -240,6 +237,12 @@ public class BoardBehaviour : MonoBehaviour
 			}
 		}
 		m_timer.EndTurn();
+	}
+
+	public void routineEndTurn()
+	{
+		CheckEndGame ();
+		ChangeTurn();
 	}
 
 	public List<GameObject> FightOrder(GameObject[,] Cubes)

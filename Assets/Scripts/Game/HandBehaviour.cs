@@ -149,26 +149,31 @@ public class HandBehaviour : MonoBehaviour, IDropHandler, IPointerEnterHandler, 
 
 	public void ForcePlay(BoardBehaviour scriptBoard)
 	{
-		List<GameObject> squares = new List<GameObject>();
-		foreach (GameObject s in m_board.m_cubes) 
+		if (scriptBoard.m_turnType [scriptBoard.m_turnNewNumber] == 0) {
+			List<GameObject> squares = new List<GameObject> ();
+			foreach (GameObject s in m_board.m_cubes) {
+				squares.Add (s);
+			}
+			squares.RemoveAll (x => x.GetComponent<SquareBehaviour> ().m_isOccuped);
+			int index = (int)Mathf.Floor (Random.Range (0, squares.Count));
+
+			//Release Drag
+			int cardIndex = (int)Mathf.Floor (Random.Range (0, gameObject.transform.childCount));
+
+			GameObject card;
+
+			if (UnitHand.transform.childCount > 0) {
+				card = UnitHand.transform.GetChild (cardIndex).gameObject;
+			} else {
+				card = gameObject.transform.GetChild (cardIndex).gameObject;
+			}
+
+			scriptBoard.PutTokken (squares [index], card);
+		} 
+		else 
 		{
-			squares.Add(s);
+			scriptBoard.routineEndTurn();
 		}
-		squares.RemoveAll(x => x.GetComponent<SquareBehaviour>().m_isOccuped);
-		int index = (int)Mathf.Floor( Random.Range(0,squares.Count));
-
-		//Release Drag
-		int cardIndex = (int)Mathf.Floor (Random.Range (0, gameObject.transform.childCount));
-
-		GameObject card;
-
-		if (UnitHand.transform.childCount > 0) {
-			card = UnitHand.transform.GetChild (cardIndex).gameObject;
-		} else {
-			card = gameObject.transform.GetChild (cardIndex).gameObject;
-		}
-
-		scriptBoard.PutTokken(squares[index],card);
 	}
 
 	#endregion

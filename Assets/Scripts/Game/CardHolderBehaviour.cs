@@ -13,6 +13,7 @@ public class CardHolderBehaviour :MonoBehaviour {
 	{
 		if (currentCard != null)
 			this.removeCard ();
+
 		CardViewer.GetComponent<CardViewerBehaviour> ().setAllyTexture ();
 
 		CardUI = (GameObject)Resources.Load("CardGUIUnit", typeof(GameObject));
@@ -35,7 +36,7 @@ public class CardHolderBehaviour :MonoBehaviour {
 		if (currentCard != null)
 			this.removeCard ();
 
-		GameObject CardUI = (GameObject)Resources.Load("CardGUIUnit", typeof(GameObject));
+		CardUI = (GameObject)Resources.Load("CardGUIUnit", typeof(GameObject));
 		CardUnitBehaviour script = CardUI.GetComponent<CardUnitBehaviour>();
 
 		script.m_ATK_Down.GetComponent<Text>().text = c1.m_ATK_Down.GetComponent<Text>().text;
@@ -91,7 +92,7 @@ public class CardHolderBehaviour :MonoBehaviour {
 	
 	public void getGoodTypePrefabLand(string type, CardGroundBehaviour scriptLand)
 	{
-		if (type != null && scriptLand != null) 
+		if (scriptLand != null) 
 		{
 			switch (type) {
 			case "Forest":
@@ -116,7 +117,7 @@ public class CardHolderBehaviour :MonoBehaviour {
 
 	public void getGoodTypePrefabUnit(string type, CardUnitBehaviour script)
 	{
-		if (type != null && script != null) 
+		if (script != null) 
 		{
 			switch (type) {
 			case "BigRange":
