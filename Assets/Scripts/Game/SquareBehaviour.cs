@@ -9,6 +9,7 @@ public class SquareBehaviour : MonoBehaviour
 
 	public bool m_isPointed= false;
 	public bool m_isOccuped = false;
+
 	public GameObject m_tokken;
 	private CardHolderBehaviour m_cardHolder;
 	public int m_gridX;
@@ -25,6 +26,14 @@ public class SquareBehaviour : MonoBehaviour
 	public Material TiledPlaineOver;
 	public Material TiledRuinOver;
 	public Material TiledSwampOver;
+
+	
+	
+	public Material TiledForestBlack;
+	public Material TiledMountainBlack;
+	public Material TiledPlaineBlack;
+	public Material TiledRuinBlack;
+	public Material TiledSwampBlack;
 
 	private GameObject Hand;
 
@@ -139,6 +148,34 @@ public class SquareBehaviour : MonoBehaviour
 		if (GetComponent<Renderer> ().material.ToString().Contains("TiledSwamp") ) 
 		{
 			this.GetComponent<Renderer>().material = TiledSwamp;
+		}
+	}
+
+	public void BlackOn()
+	{
+		if (GetComponent<Renderer> ().material.ToString().Contains("TiledForest") ) 
+		{
+			this.GetComponent<Renderer>().material = TiledForestBlack;
+		}
+		
+		if (GetComponent<Renderer> ().material.ToString().Contains("TiledMoun") ) 
+		{
+			this.GetComponent<Renderer>().material = TiledMountainBlack;
+		}
+		
+		if (GetComponent<Renderer> ().material.ToString().Contains("TiledPlain") ) 
+		{
+			this.GetComponent<Renderer>().material = TiledPlaineBlack;
+		}
+		
+		if (GetComponent<Renderer> ().material.ToString().Contains("TiledRuin") ) 
+		{
+			this.GetComponent<Renderer>().material = TiledRuinBlack;
+		}
+		
+		if (GetComponent<Renderer> ().material.ToString().Contains("TiledSwamp") ) 
+		{
+			this.GetComponent<Renderer>().material = TiledSwampBlack;
 		}
 	}
 

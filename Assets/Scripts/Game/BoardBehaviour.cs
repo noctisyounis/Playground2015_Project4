@@ -52,7 +52,7 @@ public class BoardBehaviour : MonoBehaviour
 	public GameObject m_panelTurn;
 	public GameObject m_panelTurnType;
 
-
+	private GameObject lastCubeDark;
 
 	#endregion
 	
@@ -103,6 +103,18 @@ public class BoardBehaviour : MonoBehaviour
 		scriptSquare.m_tokken = Tokken;	
 		
 		scriptCard.PlayCard();
+
+		if (m_player_Turn == false) 
+		{
+			if(lastCubeDark != null)
+			{
+				lastCubeDark.GetComponent<SquareBehaviour>().OverOff();
+			}
+
+			scriptSquare.BlackOn();
+
+			lastCubeDark = cube;
+		}
 
 		routineEndTurn ();
 	}
@@ -211,6 +223,13 @@ public class BoardBehaviour : MonoBehaviour
 			item.transform.SetParent(gameObject.transform);
 
 		}	
+	}
+
+	public void cleanAllCube ()
+	{
+
+
+
 	}
 	
 
