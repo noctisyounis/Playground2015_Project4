@@ -513,7 +513,7 @@ public class BoardBehaviour : MonoBehaviour
 					// Left
 					if (TokkenScript.m_gridY != 0) 
 					{
-						int x = TokkenScript.m_gridX -1;
+						int x = TokkenScript.m_gridY -1;
 						bool hit = false;
 						do 
 						{
