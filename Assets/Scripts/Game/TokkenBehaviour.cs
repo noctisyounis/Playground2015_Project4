@@ -163,33 +163,26 @@ public class TokkenBehaviour : MonoBehaviour
 	public bool DealDamageTo(Player AttackedBy ,int Damage)
 	{
 		bool hit = (hp > 0);
-
+		
 		if (hit) 
 		{
 			if (AttackedBy != m_playedBy) 
 			{
 				hp -= Damage;
-				m_hp.GetComponent<Text>().text = hp.ToString();
-				m_hp.GetComponent<Text>().color = Color.blue;
+				StartCoroutine(DelayDamage(hp));
 				if (hp <= 0) 
 				{
-					gameObject.GetComponent<Canvas> ().enabled = false;
 					GameObject square = GameObject.FindObjectOfType<BoardBehaviour> ().m_cubes [m_gridX, m_gridY];
 					square.GetComponent<SquareBehaviour> ().m_isOccuped = false;
-					if (m_playedBy == Player.Player1) 
-					{
-						m_board.RemoveP1(victoryPoint);
-
-					}
-					else 
-					{
-						m_board.RemoveP2(victoryPoint);
-					}
 				}
 			}
-
+			else 
+			{
+				hit = false;
+			}
+			
 		}
-
+		
 		return hit;
 	}
 
@@ -197,6 +190,35 @@ public class TokkenBehaviour : MonoBehaviour
 	{
 		m_gridX = x;
 		m_gridY = y;
+	}
+
+	IEnumerator DelayDamage(int hp)
+	{
+		int HP = hp;
+		yield return new WaitForSeconds((m_board.m_animCount+2) * (BoardBehaviour.m_delay-0.025f));
+		//Todo
+		m_hp.GetComponent<Text>().text = HP.ToString();
+		m_hp.GetComponent<Text>().color = Color.blue;
+		if (HP <= 0) 
+		{
+			yield return new WaitForSeconds(0.4f);
+			DelayDie();
+		}
+	}
+	
+	void DelayDie()
+	{
+		//hide Tokken
+		gameObject.GetComponent<Canvas> ().enabled = false;
+		if (m_playedBy == Player.Player1) 
+		{
+			m_board.RemoveP1(victoryPoint);
+			
+		}
+		else 
+		{
+			m_board.RemoveP2(victoryPoint);
+		}
 	}
 
     #endregion

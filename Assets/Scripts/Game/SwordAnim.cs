@@ -4,33 +4,12 @@ using System.Collections;
 public class SwordAnim : MonoBehaviour 
 {
 
-	private BoardBehaviour m_board;
-
-	public AnimationState m_right;
-
-	void Start()
+	void Hide()
 	{
-		m_board = GameObject.FindObjectOfType<BoardBehaviour>();
+		transform.localScale = new Vector3(0,0,0);
 	}
-
-	void IsFinishedRight () 
+	void Show()
 	{
-		Debug.Log("Finish");
-		GetComponent<Animator>().SetBool("Right",false);
-	}
-	void IsFinishedLeft () 
-	{
-		Debug.Log("Finish");
-		GetComponent<Animator>().SetBool("Left",false);
-	}
-	void IsFinishedUp () 
-	{
-		Debug.Log("Finish");
-		GetComponent<Animator>().SetBool("Up",false);
-	}
-	void IsFinishedDown () 
-	{
-		Debug.Log("Finish");
-		GetComponent<Animator>().SetBool("Down",false);
+		transform.localScale = new Vector3(0.2f,0.2f,0.2f);
 	}
 }
