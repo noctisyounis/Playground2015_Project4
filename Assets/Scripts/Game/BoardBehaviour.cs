@@ -37,14 +37,8 @@ public class BoardBehaviour : MonoBehaviour
 	public int[] m_turnType = new int[]
 	{ 0,1, 0,0 ,1 ,0,0 ,0,0 ,1, 4};
 
-	private int[] m_boardDesign = new int[]
-	{
-		2,1,0,0,4,0,
-		0,0,4,4,0,1,
-		0,1,2,3,1,2,
-		2,4,0,1,4,3,
-		0,1,0,2,0,4
-	} ;
+    private int[] m_boardDesign;
+
 	public GameObject[,] m_cubes = new GameObject[6,5];
 
 	public bool m_player_Turn = true;
@@ -197,8 +191,73 @@ public class BoardBehaviour : MonoBehaviour
 		prefabs[2] = (GameObject)Resources.Load ("SquareMountain", typeof(GameObject));
 		prefabs[3] = (GameObject)Resources.Load ("SquarePlaine", typeof(GameObject));
 		prefabs[4] = (GameObject)Resources.Load ("SquareRuin", typeof(GameObject));
-			
-		int[] Tiles = m_boardDesign;
+
+        int rand = (int)Random.Range(0f, 5f);
+        switch (rand)
+        {
+
+            case 1:
+                m_boardDesign = new int[]
+	                      {
+	                    	3,2,0,1,4,2,
+		                    0,0,4,1,0,1,
+		                    0,3,1,3,1,2,
+		                    2,4,2,1,4,3,
+	                      	0,3,1,2,0,2
+	                     };
+                break;
+            case 2:
+                m_boardDesign = new int[]
+	                      {
+	                    	0,0,0,0,0,0,
+		                    0,2,3,4,2,0,
+		                    0,3,1,1,3,0,
+		                    0,2,4,3,2,0,
+	                      	0,0,0,0,0,0
+	                     };
+                break;
+            case 3:
+                m_boardDesign = new int[]
+	                      {
+	                    	2,3,2,1,4,3,
+		                    1,3,0,2,3,0,
+		                    0,3,2,2,1,1,
+		                    4,4,4,1,2,3,
+	                      	0,1,0,2,0,4
+	                     };
+                break;
+            case 4:
+                m_boardDesign = new int[]
+	                      {
+	                    	1,1,2,3,4,1,
+		                    0,2,4,4,2,1,
+		                    3,1,2,3,1,3,
+		                    2,4,0,1,4,3,
+	                      	1,1,3,2,0,1
+	                     };
+                break;
+            case 5:
+                m_boardDesign = new int[]
+	                      {
+	                    	0,1,2,0,4,0,
+		                    0,0,4,4,2,1,
+		                    2,1,0,1,1,2,
+		                    0,4,0,1,2,3,
+	                      	0,1,0,2,0,1
+	                     };
+                break;
+            default:
+                m_boardDesign = new int[]
+	                      {
+	                    	2,1,0,0,4,0,
+		                    0,0,4,4,0,1,
+		                    0,1,2,3,1,2,
+		                    2,4,0,1,4,3,
+	                      	0,1,0,2,0,4
+	                     };
+                break;
+        }
+        int[] Tiles = m_boardDesign;
 		//System.Array.Reverse(Tiles);
 		
 		for (int i = 0; i < Tiles.Length; i++) 
