@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using UnityEngine.UI;
+using System.Collections.Generic;
 
 public class CardGroundBehaviour : CardBehaviour {
 
@@ -14,8 +15,8 @@ public class CardGroundBehaviour : CardBehaviour {
 
 	public string m_type;
 
-	public ArrayList xValue = new ArrayList ();
-	public ArrayList yValue = new ArrayList ();
+	public List<int> xValue = new List<int> ();
+	public List<int> yValue = new List<int> ();
 	
 	#endregion
 	

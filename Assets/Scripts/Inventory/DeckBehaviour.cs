@@ -7,39 +7,43 @@ public class DeckBehaviour : MonoBehaviour {
 	#region public variable
 
 	public static List<GameObject> m_deck = new List<GameObject>();
-    public Sprite m_bigRange;
-    public Sprite m_range;
-    public Sprite m_cac;
 
 	#endregion
 
 	#region Main method
-	// Use this for initialization
 	void Start () {
 		LoadDeck();
 		for(int i = 0; i < m_deck.Count; i++)
 		{
 				GameObject Card = m_deck[i];
-				Card.transform.SetParent(gameObject.transform);
+				if (Card != null) 
+				{
+					Card.transform.SetParent(gameObject.transform);
+					Card.GetComponent<RectTransform>().localScale = Vector3.one;
+				}
 		}
 	
 	}
-	// Utility? OnClick? 
+
+	// Use when we add card into deck
+
 	void Update()
 	{
 		for (int i = 0; i < m_deck.Count; i++) 
 		{
 			GameObject Card = m_deck[i];
-			Card.transform.SetParent(gameObject.transform);
+			if (Card != null) 
+			{
+				Card.transform.SetParent(gameObject.transform);
+			}
 		}
 	}
 
 	#endregion
 
 	#region Utils
-	private void LoadDeck()
+	public void LoadDeck()
 	{
-		// Create  resource/prefab "Title" -> Zone text (= title) + nbr copies
 		m_deck.Clear();
 		ReadDeckBehaviour deckList = new ReadDeckBehaviour();
 		ReadXmlBehaviour cardList = new ReadXmlBehaviour("CardInventory", "CardGUILandInventory");
@@ -50,8 +54,6 @@ public class DeckBehaviour : MonoBehaviour {
 			if(id < 1000)
 			{
 				GameObject Card = GameObject.Instantiate((GameObject)cardList.List[id-1]);
-				Card.transform.SetParent(gameObject.transform);
-				Card.AddComponent<OnClickBehaviour>();
 				Card.GetComponent<OnClickBehaviour>().m_container = e_containedBy.DeckList;
 				Card.name = "Card" + i.ToString();
 				m_deck.Add(Card);
@@ -59,8 +61,6 @@ public class DeckBehaviour : MonoBehaviour {
 			else
 			{
 				GameObject Card = GameObject.Instantiate((GameObject)cardList.ListLand[id - 1001]);
-				Card.transform.SetParent(gameObject.transform);
-				Card.AddComponent<OnClickBehaviour>();
 				Card.GetComponent<OnClickBehaviour>().m_container = e_containedBy.DeckList;
 				Card.name = "Card" + i.ToString();
 				m_deck.Add(Card);

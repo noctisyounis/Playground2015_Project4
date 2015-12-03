@@ -78,6 +78,7 @@ public class HandBehaviour : MonoBehaviour, IDropHandler, IPointerEnterHandler, 
         m_deck.Clear();
         ReadDeckBehaviour deckList = new ReadDeckBehaviour();
         ReadXmlBehaviour cardList = new ReadXmlBehaviour();    
+
         for (int i = 0; i < deckList.PropDeck.Count; i++)
         {
             int id = int.Parse(deckList.PropDeck[i].ToString());
@@ -94,9 +95,7 @@ public class HandBehaviour : MonoBehaviour, IDropHandler, IPointerEnterHandler, 
 			{
 				GameObject Card = GameObject.Instantiate((GameObject)cardList.ListLand[id - 1001]);
 				Card.transform.SetParent(LandDeck.transform);
-				//Card.AddComponent<DraggableBehaviour>();
 				Card.name = "Card" + i.ToString();	
-				Debug.Log(Card.GetComponent<CardGroundBehaviour>().m_type);
 				Card.AddComponent<DraggableBehaviour>();
 				Card.GetComponent<DraggableBehaviour>().m_currentTypeCard = "Land";
 			}
@@ -149,26 +148,31 @@ public class HandBehaviour : MonoBehaviour, IDropHandler, IPointerEnterHandler, 
 
 	public void ForcePlay(BoardBehaviour scriptBoard)
 	{
-		List<GameObject> squares = new List<GameObject>();
-		foreach (GameObject s in m_board.m_cubes) 
+		if (scriptBoard.m_turnType [scriptBoard.m_turnNewNumber] == 0) {
+			List<GameObject> squares = new List<GameObject> ();
+			foreach (GameObject s in m_board.m_cubes) {
+				squares.Add (s);
+			}
+			squares.RemoveAll (x => x.GetComponent<SquareBehaviour> ().m_isOccuped);
+			int index = (int)Mathf.Floor (Random.Range (0, squares.Count));
+
+			//Release Drag
+			int cardIndex = (int)Mathf.Floor (Random.Range (0, gameObject.transform.childCount));
+
+			GameObject card;
+
+			if (UnitHand.transform.childCount > 0) {
+				card = UnitHand.transform.GetChild (cardIndex).gameObject;
+			} else {
+				card = gameObject.transform.GetChild (cardIndex).gameObject;
+			}
+
+			scriptBoard.PutTokken (squares [index], card);
+		} 
+		else 
 		{
-			squares.Add(s);
+			scriptBoard.routineEndTurn();
 		}
-		squares.RemoveAll(x => x.GetComponent<SquareBehaviour>().m_isOccuped);
-		int index = (int)Mathf.Floor( Random.Range(0,squares.Count));
-
-		//Release Drag
-		int cardIndex = (int)Mathf.Floor (Random.Range (0, gameObject.transform.childCount));
-
-		GameObject card;
-
-		if (UnitHand.transform.childCount > 0) {
-			card = UnitHand.transform.GetChild (cardIndex).gameObject;
-		} else {
-			card = gameObject.transform.GetChild (cardIndex).gameObject;
-		}
-
-		scriptBoard.PutTokken(squares[index],card);
 	}
 
 	#endregion

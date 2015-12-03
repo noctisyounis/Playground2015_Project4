@@ -35,16 +35,10 @@ public class BoardBehaviour : MonoBehaviour
 	 */
 
 	public int[] m_turnType = new int[]
-	{ 0,1, 0,0 ,1 ,0,0 ,0,0 ,1, 4};
+	{ 0,1,0,0,1,0,0,0,0,1,4};
 
-	private int[] m_boardDesign = new int[]
-	{
-		2,1,0,0,4,0,
-		0,0,4,4,0,1,
-		0,1,2,3,1,2,
-		2,4,0,1,4,3,
-		0,1,0,2,0,4
-	} ;
+    private int[] m_boardDesign;
+
 	public GameObject[,] m_cubes = new GameObject[6,5];
 
 	public bool m_player_Turn = true;
@@ -52,7 +46,7 @@ public class BoardBehaviour : MonoBehaviour
 	public GameObject m_panelTurn;
 	public GameObject m_panelTurnType;
 
-
+	private GameObject lastCubeDark;
 
 	#endregion
 	
@@ -104,8 +98,19 @@ public class BoardBehaviour : MonoBehaviour
 		
 		scriptCard.PlayCard();
 
-		CheckEndGame ();
-		ChangeTurn();
+		if (m_player_Turn == false) 
+		{
+			if(lastCubeDark != null)
+			{
+				lastCubeDark.GetComponent<SquareBehaviour>().OverOff();
+			}
+
+			scriptSquare.BlackOn();
+
+			lastCubeDark = cube;
+		}
+
+		routineEndTurn ();
 	}
 
 	public void CheckEndGame()
@@ -165,16 +170,15 @@ public class BoardBehaviour : MonoBehaviour
 	{
 		if (card != null) {
 			cube.GetComponent<SquareBehaviour> ().ChangeMaterial (card.GetComponentInParent<CardGroundBehaviour> ().m_type);
-			//Destroy (card);
+			cube.GetComponent<SquareBehaviour> ().ChangeTextureClose();
+			Destroy (card);
 		} 
 		else 
 		{
 			cube.GetComponent<SquareBehaviour> ().ChangeMaterial ("Forest");
 		}
 
-
-		CheckEndGame ();
-		ChangeTurn();
+		routineEndTurn ();
 	}
 
 	#endregion
@@ -188,8 +192,73 @@ public class BoardBehaviour : MonoBehaviour
 		prefabs[2] = (GameObject)Resources.Load ("SquareMountain", typeof(GameObject));
 		prefabs[3] = (GameObject)Resources.Load ("SquarePlaine", typeof(GameObject));
 		prefabs[4] = (GameObject)Resources.Load ("SquareRuin", typeof(GameObject));
-			
-		int[] Tiles = m_boardDesign;
+
+        int rand = (int)Random.Range(0f, 5f);
+        switch (rand)
+        {
+
+            case 1:
+                m_boardDesign = new int[]
+	                      {
+	                    	3,2,0,1,4,2,
+		                    0,0,4,1,0,1,
+		                    0,3,1,3,1,2,
+		                    2,4,2,1,4,3,
+	                      	0,3,1,2,0,2
+	                     };
+                break;
+            case 2:
+                m_boardDesign = new int[]
+	                      {
+	                    	0,0,0,0,0,0,
+		                    0,2,3,4,2,0,
+		                    0,3,1,1,3,0,
+		                    0,2,4,3,2,0,
+	                      	0,0,0,0,0,0
+	                     };
+                break;
+            case 3:
+                m_boardDesign = new int[]
+	                      {
+	                    	2,3,2,1,4,3,
+		                    1,3,0,2,3,0,
+		                    0,3,2,2,1,1,
+		                    4,4,4,1,2,3,
+	                      	0,1,0,2,0,4
+	                     };
+                break;
+            case 4:
+                m_boardDesign = new int[]
+	                      {
+	                    	1,1,2,3,4,1,
+		                    0,2,4,4,2,1,
+		                    3,1,2,3,1,3,
+		                    2,4,0,1,4,3,
+	                      	1,1,3,2,0,1
+	                     };
+                break;
+            case 5:
+                m_boardDesign = new int[]
+	                      {
+	                    	0,1,2,0,4,0,
+		                    0,0,4,4,2,1,
+		                    2,1,0,1,1,2,
+		                    0,4,0,1,2,3,
+	                      	0,1,0,2,0,1
+	                     };
+                break;
+            default:
+                m_boardDesign = new int[]
+	                      {
+	                    	2,1,0,0,4,0,
+		                    0,0,4,4,0,1,
+		                    0,1,2,3,1,2,
+		                    2,4,0,1,4,3,
+	                      	0,1,0,2,0,4
+	                     };
+                break;
+        }
+        int[] Tiles = m_boardDesign;
 		//System.Array.Reverse(Tiles);
 		
 		for (int i = 0; i < Tiles.Length; i++) 
@@ -215,7 +284,6 @@ public class BoardBehaviour : MonoBehaviour
 
 		}	
 	}
-	
 
 	public void ChangeTurn()
 	{
@@ -240,6 +308,12 @@ public class BoardBehaviour : MonoBehaviour
 			}
 		}
 		m_timer.EndTurn();
+	}
+
+	public void routineEndTurn()
+	{
+		CheckEndGame ();
+		ChangeTurn();
 	}
 
 	public List<GameObject> FightOrder(GameObject[,] Cubes)
@@ -510,7 +584,7 @@ public class BoardBehaviour : MonoBehaviour
 					// Left
 					if (TokkenScript.m_gridY != 0) 
 					{
-						int x = TokkenScript.m_gridX -1;
+						int x = TokkenScript.m_gridY -1;
 						bool hit = false;
 						do 
 						{
@@ -553,6 +627,44 @@ public class BoardBehaviour : MonoBehaviour
 	{
 		m_finalPointsP2 -= Point;
 	}
+
+	public void HoverCubeOn(int x, int y)
+	{
+		int xMax = m_cubes.GetLength (0);
+		int yMax = m_cubes.GetLength (1);
+		
+		if (x >= 0 && y >= 0 && x < xMax && y < yMax) 
+		{
+			if (m_cubes [x, y] != null) {
+				m_cubes [x, y].GetComponent<SquareBehaviour> ().OverOn ();
+			}
+		}
+	}
+
+	public void HoverCubeOff(int x, int y)
+	{
+		int xMax = m_cubes.GetLength (0);
+		int yMax = m_cubes.GetLength (1);
+
+		if (x >= 0 && y >= 0 && x < xMax && y < yMax) 
+		{
+			if (m_cubes [x, y] != null) {
+				m_cubes [x, y].GetComponent<SquareBehaviour> ().OverOff ();
+			}
+		}
+	}
+
+	public void ChangeTextureCubes(int x, int y, Material texture)
+	{
+		int xMax = m_cubes.GetLength (0);
+		int yMax = m_cubes.GetLength (1);
+		
+		if (x >= 0 && y >= 0 && x < xMax && y < yMax) 
+		{
+			m_cubes [x, y].GetComponent<SquareBehaviour> ().ChangeMaterialFast (texture);
+		}
+	}
+
 
 	#endregion
 	

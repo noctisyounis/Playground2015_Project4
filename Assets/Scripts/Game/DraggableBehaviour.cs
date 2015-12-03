@@ -65,7 +65,7 @@ public class DraggableBehaviour : MonoBehaviour, IBeginDragHandler, IDragHandler
 		if (m_currentTypeCard == "Unit") {
 			m_placeholder.transform.SetSiblingIndex (newSiblingIndex);		
 		} else {
-			Debug.Log ("To Do Place Holder Land");
+			m_placeholder.transform.SetSiblingIndex (newSiblingIndex);
 		}
 	}
 	
