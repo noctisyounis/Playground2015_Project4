@@ -25,8 +25,6 @@ public class DeckBehaviour : MonoBehaviour {
 	
 	}
 
-	// Use when we add card into deck
-
 	void Update()
 	{
 		for (int i = 0; i < m_deck.Count; i++) 
