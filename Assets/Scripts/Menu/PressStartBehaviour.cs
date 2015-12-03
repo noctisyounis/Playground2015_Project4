@@ -1,6 +1,8 @@
 ﻿using UnityEngine;
 using System.Collections;
-[RequireComponent(typeof(Rigidbody2D))]
+using UnityEngine.UI;
+using UnityEngine.EventSystems;
+
 public class PressStartBehaviour : MonoBehaviour
 {
     #region Public Variable
@@ -14,8 +16,21 @@ public class PressStartBehaviour : MonoBehaviour
     
     void Start()
     {
-        iTween.ColorTo(this.gameObject, iTween.Hash("a", 0, "time", tempsAnimation, "looptype", iTween.LoopType.pingPong));
+       // iTween.ColorTo(this.gameObject, iTween.Hash("a", 0, "time", tempsAnimation, "looptype", iTween.LoopType.pingPong));
+
+		/*GameObject.FindObjectOfType<AnimationMenuBehaviour>().Move();
+		
+		GameObject.FindObjectOfType<MoveTitleBehaviour>().Move();
+		
+		Destroy(GameObject.FindObjectOfType<PressStartBehaviour>().gameObject);*/
     }
+
+	/*void Update()
+	{
+		if (Input.GetMouseButton (0)) {
+			OnMouseUp();
+		}
+	}*/
 
     void OnMouseUp()
     {
@@ -25,6 +40,13 @@ public class PressStartBehaviour : MonoBehaviour
         
         Destroy(GameObject.FindObjectOfType<PressStartBehaviour>().gameObject);
     }
+
+
+
+	public void ClickMe()
+	{
+		OnMouseUp ();
+	}
 
     #endregion
 

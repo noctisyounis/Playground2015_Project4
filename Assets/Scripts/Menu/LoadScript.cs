@@ -1,5 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
+using UnityEngine.UI;
+
 
 public class LoadScript : MonoBehaviour
 {
@@ -16,8 +18,9 @@ public class LoadScript : MonoBehaviour
         audio = GetComponent<AudioSource>();
     }
 
-    public void OnMouseUp()
+    public void OnClick()
     {
+		Debug.Log ("Test");
         audio.PlayOneShot(m_son);
         if (m_levelSuivant == "Quitter")
         {
