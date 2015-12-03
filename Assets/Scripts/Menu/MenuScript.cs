@@ -7,11 +7,7 @@ public class MenuScript : MonoBehaviour
     
     #region Public Variable
 
-    public Color m_couleurEntrer = Color.white;
-    public Color m_couleurSortie = Color.black;
-    public int m_tailleEntrer = 45;
-    public int m_tailleSortie = 45;
-
+    
 
     #endregion
 
@@ -24,15 +20,15 @@ public class MenuScript : MonoBehaviour
 
     void OnMouseEnter()
     {
-        GetComponent<GUIText>().material.color= m_couleurEntrer;
-        GetComponent<GUIText>().fontSize = m_tailleEntrer;
+
+        GetComponent<GUITexture>().transform.localScale = new Vector3(0.2f, 0.15f); 
 
     }
 
     void OnMouseExit()
     {
-        GetComponent<GUIText>().material.color = m_couleurSortie;
-        GetComponent<GUIText>().fontSize = m_tailleSortie;
+
+        GetComponent<GUITexture>().transform.localScale = new Vector3(0.15f, 0.1f); 
 
     }
 

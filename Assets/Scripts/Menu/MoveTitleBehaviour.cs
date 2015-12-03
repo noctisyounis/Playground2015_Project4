@@ -18,7 +18,7 @@ public class MoveTitleBehaviour : MonoBehaviour {
     }
     void Update()
     {
-        GetComponent<GUIText>().fontSize = i;
+       
     }
 
     #endregion
@@ -34,15 +34,10 @@ public class MoveTitleBehaviour : MonoBehaviour {
     }
     public void Move()
     {
-        //m_rb2d.velocity = Vector2.up * 0.2f;
-        //for (int i = 150; i >= 64; i--)
-        //{
-
-        //    GetComponent<GUIText>().fontSize = i;
-        //}
-        iTween.MoveTo(gameObject, new Vector3(0.5f, 0.96f, 0), 3f);
-        iTween.ScaleTo(gameObject, new Vector3(1, 1, 1), 2f);
-        InvokeRepeating("resize", 0, 0.03f);
+        
+        iTween.MoveTo(gameObject, new Vector3(0.5f, 0.85f, 0), 3f);
+        iTween.ScaleTo(gameObject, new Vector3(0.45f, 0.28f, 1), 3f);
+        
 
     }
 
