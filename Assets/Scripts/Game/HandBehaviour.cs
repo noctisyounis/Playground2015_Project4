@@ -78,6 +78,7 @@ public class HandBehaviour : MonoBehaviour, IDropHandler, IPointerEnterHandler, 
         m_deck.Clear();
         ReadDeckBehaviour deckList = new ReadDeckBehaviour();
         ReadXmlBehaviour cardList = new ReadXmlBehaviour();    
+
         for (int i = 0; i < deckList.PropDeck.Count; i++)
         {
             int id = int.Parse(deckList.PropDeck[i].ToString());
@@ -94,9 +95,7 @@ public class HandBehaviour : MonoBehaviour, IDropHandler, IPointerEnterHandler, 
 			{
 				GameObject Card = GameObject.Instantiate((GameObject)cardList.ListLand[id - 1001]);
 				Card.transform.SetParent(LandDeck.transform);
-				//Card.AddComponent<DraggableBehaviour>();
 				Card.name = "Card" + i.ToString();	
-				Debug.Log(Card.GetComponent<CardGroundBehaviour>().m_type);
 				Card.AddComponent<DraggableBehaviour>();
 				Card.GetComponent<DraggableBehaviour>().m_currentTypeCard = "Land";
 			}

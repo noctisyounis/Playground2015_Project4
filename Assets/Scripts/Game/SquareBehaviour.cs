@@ -27,8 +27,6 @@ public class SquareBehaviour : MonoBehaviour
 	public Material TiledRuinOver;
 	public Material TiledSwampOver;
 
-	
-	
 	public Material TiledForestBlack;
 	public Material TiledMountainBlack;
 	public Material TiledPlaineBlack;
@@ -36,6 +34,8 @@ public class SquareBehaviour : MonoBehaviour
 	public Material TiledSwampBlack;
 
 	private GameObject Hand;
+	private CardGroundBehaviour scriptLand;
+
 
 
 	#endregion
@@ -55,18 +55,18 @@ public class SquareBehaviour : MonoBehaviour
 		}
 		m_isPointed = true;
 
-	/*	if (Hand.GetComponent<HandBehaviour> ().m_cardDragLand != null) {
-			CardGroundBehaviour scriptLand = Hand.GetComponent<HandBehaviour> ().m_cardDragLand;
+		if (Hand.GetComponent<HandBehaviour> ().m_cardDragLand != null) {
 
-			Debug.Log (scriptLand.xValue.Count + " tot " +  scriptLand.m_type);
+			scriptLand = Hand.GetComponent<HandBehaviour> ().m_cardDragLand;
+			BoardBehaviour boardBehaviour = GameObject.FindObjectOfType<BoardBehaviour>().GetComponent<BoardBehaviour>();
 
-			for (int i = 0; i < scriptLand.xValue.Count; i++) {
-				Debug.Log (scriptLand.m_type + " lol" + scriptLand.xValue[i] + "  " );
+			for (int i = 0; i < scriptLand.xValue.Count; i++) 
+			{
+				boardBehaviour.HoverCubeOn((m_gridX + scriptLand.xValue[i]),(m_gridY +  scriptLand.yValue[i]));
 			}
-			Debug.Log ("Okay");
-		}*/
+		}
 
-	/*	if (Hand.GetComponentInChildren<DraggableBehaviour> ().m_currentTypeCard == "Land") {
+		/*if (Hand.GetComponentInChildren<DraggableBehaviour> ().m_currentTypeCard == "Land") {
 			Debug.Log ("Okay 1");
 			foreach (DraggableBehaviour scriptLand in Hand.GetComponentsInChildren<DraggableBehaviour>()) {
 				Debug.Log(scriptLand.m_isDrag);
@@ -77,13 +77,22 @@ public class SquareBehaviour : MonoBehaviour
 		}*/
 
 		OverOn ();
-
-
-
 	}
 	
 	public void OnMouseExit() 
 	{
+		if (Hand.GetComponent<HandBehaviour> ().m_cardDragLand != null) 
+		{
+			
+			scriptLand = Hand.GetComponent<HandBehaviour> ().m_cardDragLand;
+			BoardBehaviour boardBehaviour = GameObject.FindObjectOfType<BoardBehaviour>().GetComponent<BoardBehaviour>();
+
+			for (int i = 0; i < scriptLand.xValue.Count; i++) 
+			{
+				boardBehaviour.HoverCubeOff((m_gridX + scriptLand.xValue[i]),(m_gridY +  scriptLand.yValue[i]));
+			}
+		}
+
 		if (m_isOccuped) 
 		{
 			m_cardHolder.GetComponent<CardHolderBehaviour> ().removeCard ();
@@ -92,6 +101,16 @@ public class SquareBehaviour : MonoBehaviour
 		m_isPointed = false;
 
 		OverOff ();
+	}
+
+	public void ChangeTextureClose()
+	{
+		BoardBehaviour boardBehaviour = GameObject.FindObjectOfType<BoardBehaviour>().GetComponent<BoardBehaviour>();
+		
+		for (int i = 0; i < scriptLand.xValue.Count; i++) 
+		{
+			boardBehaviour.ChangeTextureCubes((m_gridX + scriptLand.xValue[i]),(m_gridY +  scriptLand.yValue[i]),this.GetComponent<Renderer>().material);
+		}
 	}
 
 	public void OverOn()
@@ -198,6 +217,11 @@ public class SquareBehaviour : MonoBehaviour
 			this.GetComponent<Renderer>().material = TiledSwamp;
 			break;
 		}
+	}
+
+	public void ChangeMaterialFast(Material mat)
+	{
+		this.GetComponent<Renderer>().material = mat;
 	}
 
 

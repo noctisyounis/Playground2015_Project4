@@ -24,7 +24,6 @@ public class DeckBehaviour : MonoBehaviour {
 		}
 	
 	}
-	// Utility? OnClick? 
 	void Update()
 	{
 		for (int i = 0; i < m_deck.Count; i++) 

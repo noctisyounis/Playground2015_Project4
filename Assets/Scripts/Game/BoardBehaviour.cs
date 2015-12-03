@@ -35,7 +35,7 @@ public class BoardBehaviour : MonoBehaviour
 	 */
 
 	public int[] m_turnType = new int[]
-	{ 0,1, 0,0 ,1 ,0,0 ,0,0 ,1, 4};
+	{ 0,1,0,0,1,0,0,0,0,1,4};
 
     private int[] m_boardDesign;
 
@@ -170,6 +170,7 @@ public class BoardBehaviour : MonoBehaviour
 	{
 		if (card != null) {
 			cube.GetComponent<SquareBehaviour> ().ChangeMaterial (card.GetComponentInParent<CardGroundBehaviour> ().m_type);
+			cube.GetComponent<SquareBehaviour> ().ChangeTextureClose();
 			Destroy (card);
 		} 
 		else 
@@ -283,14 +284,6 @@ public class BoardBehaviour : MonoBehaviour
 
 		}	
 	}
-
-	public void cleanAllCube ()
-	{
-
-
-
-	}
-	
 
 	public void ChangeTurn()
 	{
@@ -634,6 +627,44 @@ public class BoardBehaviour : MonoBehaviour
 	{
 		m_finalPointsP2 -= Point;
 	}
+
+	public void HoverCubeOn(int x, int y)
+	{
+		int xMax = m_cubes.GetLength (0);
+		int yMax = m_cubes.GetLength (1);
+		
+		if (x >= 0 && y >= 0 && x < xMax && y < yMax) 
+		{
+			if (m_cubes [x, y] != null) {
+				m_cubes [x, y].GetComponent<SquareBehaviour> ().OverOn ();
+			}
+		}
+	}
+
+	public void HoverCubeOff(int x, int y)
+	{
+		int xMax = m_cubes.GetLength (0);
+		int yMax = m_cubes.GetLength (1);
+
+		if (x >= 0 && y >= 0 && x < xMax && y < yMax) 
+		{
+			if (m_cubes [x, y] != null) {
+				m_cubes [x, y].GetComponent<SquareBehaviour> ().OverOff ();
+			}
+		}
+	}
+
+	public void ChangeTextureCubes(int x, int y, Material texture)
+	{
+		int xMax = m_cubes.GetLength (0);
+		int yMax = m_cubes.GetLength (1);
+		
+		if (x >= 0 && y >= 0 && x < xMax && y < yMax) 
+		{
+			m_cubes [x, y].GetComponent<SquareBehaviour> ().ChangeMaterialFast (texture);
+		}
+	}
+
 
 	#endregion
 	
