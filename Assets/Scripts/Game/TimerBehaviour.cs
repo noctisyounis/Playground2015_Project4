@@ -28,7 +28,7 @@ public class TimerBehaviour : MonoBehaviour
 
 	public void FixedUpdate()
 	{
-		gameObject.transform.GetComponentInChildren<Text>().text = m_time.ToString();
+        //gameObject.transform.GetComponentInChildren<Text>().text = m_time.ToString();
 	}
 
 	public void TimerOut()
@@ -44,11 +44,13 @@ public class TimerBehaviour : MonoBehaviour
 		BoardBehaviour script = (BoardBehaviour) m_board.GetComponent<BoardBehaviour>();
 		if (script.m_player_Turn) 
 		{
-			gameObject.GetComponent<Image>().color = Color.blue;
+            //gameObject.GetComponent<Image>().color = Color.blue;
+            iTween.RotateTo(gameObject, new Vector3(40,0,0), 1);
 		}
 		else 
 		{
-			gameObject.GetComponent<Image>().color = Color.red;
+            //gameObject.GetComponent<Image>().color = Color.red;
+            iTween.RotateTo(gameObject, new Vector3(220, 0, 0), 1);
 		}
 	}
 

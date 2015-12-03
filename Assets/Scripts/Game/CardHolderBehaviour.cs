@@ -23,6 +23,44 @@ public class CardHolderBehaviour :MonoBehaviour {
 
 		getGoodTypePrefabUnit (script.m_type, script);
 
+        int cost = int.Parse(script.PropVictory_Point.ToString());
+        int Rubis = 1;
+        while (cost > 0)
+        {
+            Image image = script.m_Rubis1.GetComponent<Image>();
+            switch (Rubis)
+            {
+                case 1: image = script.m_Rubis1.GetComponent<Image>();
+                    break;
+                case 2: image = script.m_Rubis2.GetComponent<Image>();
+                    break;
+                case 3: image = script.m_Rubis3.GetComponent<Image>();
+                    break;
+                case 4: image = script.m_Rubis4.GetComponent<Image>();
+                    break;
+                case 5: image = script.m_Rubis5.GetComponent<Image>();
+                    break;
+            }
+            if (cost >= 10)
+            {
+                image.color = Color.red;
+                cost = cost - 10;
+                Rubis++;
+            }
+            else if (cost >= 5)
+            {
+                image.color = Color.blue;
+                cost = cost - 5;
+                Rubis++;
+            }
+            else if (cost < 5)
+            {
+                image.color = Color.green;
+                cost = cost - 1;
+                Rubis++;
+            }
+
+        }
 		currentCard = GameObject.Instantiate((GameObject)CardUI);
 	
 
@@ -51,6 +89,44 @@ public class CardHolderBehaviour :MonoBehaviour {
 		script.m_Description1.GetComponent<Text> ().text = c1.descriptionL1;
 		script.m_Description2.GetComponent<Text> ().text = c1.descriptionL2;
 		script.m_Description3.GetComponent<Text> ().text = c1.descriptionL3;
+        int cost = int.Parse(c1.victoryPoint.ToString());
+        int Rubis = 1;
+        while (cost > 0)
+        {
+            Image image = script.m_Rubis1.GetComponent<Image>();
+            switch (Rubis)
+            {
+                case 1: image = script.m_Rubis1.GetComponent<Image>();
+                    break;
+                case 2: image = script.m_Rubis2.GetComponent<Image>();
+                    break;
+                case 3: image = script.m_Rubis3.GetComponent<Image>();
+                    break;
+                case 4: image = script.m_Rubis4.GetComponent<Image>();
+                    break;
+                case 5: image = script.m_Rubis5.GetComponent<Image>();
+                    break;
+            }
+            if (cost >= 10)
+            {
+                image.color = Color.red;
+                cost = cost - 10;
+                Rubis++;
+            }
+            else if (cost >= 5)
+            {
+                image.color = Color.blue;
+                cost = cost - 5;
+                Rubis++;
+            }
+            else if (cost < 5)
+            {
+                image.color = Color.green;
+                cost = cost - 1;
+                Rubis++;
+            }
+
+        }
 
 		script.m_type = c1.type;
 
