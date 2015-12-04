@@ -38,7 +38,10 @@ public class AnimationMenuBehaviour : MonoBehaviour
 
     public void Move()
     {
-        iTween.MoveTo(gameObject, new Vector3(m_initialPosition.x, m_initialPosition.y + 1, m_initialPosition.z), m_time);
+		int heightScreen = Screen.height;
+		double position10 = (heightScreen / 10 )* 6.5;
+      //  iTween.MoveTo(gameObject, new Vector3(m_initialPosition.x, m_initialPosition.y + 1, m_initialPosition.z), m_time);
+		iTween.MoveTo(gameObject, iTween.Hash("y",position10,"time",2f));
     }
    
     #endregion

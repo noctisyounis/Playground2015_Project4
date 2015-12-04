@@ -1,10 +1,12 @@
 ﻿using UnityEngine;
 using System.Collections;
+using UnityEngine.UI;
 
 public enum e_containedBy
 {
 	Inventory,
-	DeckList
+	DeckList,
+	DeckVisual
 }
 public class OnClickBehaviour : MonoBehaviour 
 {
@@ -53,13 +55,14 @@ public class OnClickBehaviour : MonoBehaviour
 						Debug.Log("-- Inventory into Deck (CardUnit)");
 						GameObject copy = Instantiate(gameObject);
 						copy.GetComponent<OnClickBehaviour>().m_container = e_containedBy.DeckList;
-						// Change prefab /!\
+						copy.GetComponent<RectTransform>().localScale = Vector3.one;
 						DeckBehaviour.m_deck.Add(copy);
 						m_nbUnit ++;
 					}
 					else
 					{
 						Debug.Log("Your units is full");
+						// Popup : Vous n'avez plus de place pour ce type de carte !
 					}
 				}
 				else if(!isUnit)
@@ -69,7 +72,7 @@ public class OnClickBehaviour : MonoBehaviour
 						Debug.Log("-- Inventory into Deck (CardLand)");
 						GameObject copy = Instantiate(gameObject);
 						copy.GetComponent<OnClickBehaviour>().m_container = e_containedBy.DeckList;
-						// Change prefab /!\
+						copy.GetComponent<RectTransform>().localScale = Vector3.one;
 						DeckBehaviour.m_deck.Add(copy);
 						m_nbLands ++;
 						
@@ -77,6 +80,7 @@ public class OnClickBehaviour : MonoBehaviour
 					else
 					{
 						Debug.Log("Your cards lands is full");
+						// Popup : Vous n'avez plus de place pour ce type de carte !
 					}
 				}
 				else
@@ -87,7 +91,6 @@ public class OnClickBehaviour : MonoBehaviour
 				break;
 
 			case e_containedBy.DeckList:
-				// suppr GameObjet
 				if (isUnit) 
 				{
 					m_nbUnit -= 1 ;
@@ -107,6 +110,34 @@ public class OnClickBehaviour : MonoBehaviour
 				
 				Debug.Log("--- Card Deleted");
 				
+				break;
+
+			case e_containedBy.DeckVisual:
+
+				for (int i = 0; i < DeckBehaviour.m_deck.Count; i++) 
+				{
+					if (DeckBehaviour.m_deck[i] != null && DeckBehaviour.m_deck[i].GetComponent<CardBehaviour>().m_id == gameObject.GetComponent<OnClickBehaviour>().m_id) 
+					{
+						Debug.Log("I found card with ID : " + DeckBehaviour.m_deck[i].GetComponent<CardBehaviour>().m_id.ToString());
+						GameObject.Destroy(DeckBehaviour.m_deck[i]);
+						DeckBehaviour.m_deck.Remove(DeckBehaviour.m_deck[i]);
+						if (gameObject.GetComponent<OnClickBehaviour>().m_id < 1000) 
+						{
+							m_nbUnit -= 1 ;
+							Debug.Log("nombre d'unité : " + m_nbUnit);
+						}
+						else if (gameObject.GetComponent<OnClickBehaviour>().m_id > 1000)
+						{
+							m_nbLands -= 1 ;
+							Debug.Log("nombre de land : " + m_nbLands);
+						}
+						else
+						{
+							
+						}
+						break;
+					}
+				}
 				break;
 		}
 	}

@@ -8,7 +8,8 @@ public class InventoryBehaviour : MonoBehaviour
     public Sprite m_bigRange;
     public Sprite m_range;
     public Sprite m_cac;
-	public List<GameObject> m_listCards = new List<GameObject>();
+	public static List<GameObject> m_listCards = new List<GameObject>();
+	public static GameObject m_storage;
 
 
 	#endregion
@@ -16,6 +17,7 @@ public class InventoryBehaviour : MonoBehaviour
 	#region Main method
 	void Start () {
 	
+		m_storage = new GameObject();
 		LoadListCards();
 	for(int i = 0; i < m_listCards.Count; i++)
 		{
@@ -23,13 +25,11 @@ public class InventoryBehaviour : MonoBehaviour
 			Card.transform.SetParent(gameObject.transform);
 			Card.GetComponent<RectTransform>().localScale = Vector3.one;
 		}
-		 
 	}
-
 	#endregion
 
 	#region Utils
-	private void LoadListCards()
+	public void LoadListCards()
 	{
 		// WARNING actually player has all cards access /!\
 		m_listCards.Clear();

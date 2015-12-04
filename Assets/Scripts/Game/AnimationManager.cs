@@ -10,7 +10,7 @@ public static class AnimationManager
 	
 	#region Main Methodes
 
-	public static Animation SwordAttack(int x, int y )
+	public static GameObject SwordAttack(int x, int y )
 	{
 		float FloatX = (float)(5-x);
 		float FloatY = (float)(y); 
@@ -30,13 +30,37 @@ public static class AnimationManager
 		Quaternion Rotation = new Quaternion(315f,0f,0f,0f);
 		GameObject prefab = (GameObject) Resources.Load("SwordAnim");
 		GameObject holder = (GameObject) GameObject.Instantiate(prefab);
-		Animation sword = holder.GetComponentInChildren<Animation>();
 		holder.transform.position = Position;
 
-		return sword;
+		return holder.transform.GetChild(0).gameObject;
 
 	}
-
+	public static GameObject ArrowAttack(int x, int y )
+	{
+		float FloatX = (float)(5-x);
+		float FloatY = (float)(y); 
+				
+		Vector3 Position = new Vector3(FloatX,0f, FloatY);
+		GameObject prefab = (GameObject) Resources.Load("ArrowAnim");
+		GameObject holder = (GameObject) GameObject.Instantiate(prefab);
+		holder.transform.position = Position;
+		
+		return holder.transform.GetChild(0).gameObject;
+		
+	}
+	public static GameObject RockAttack(int x, int y )
+	{
+		float FloatX = (float)(5-x);
+		float FloatY = (float)(y); 
+		
+		Vector3 Position = new Vector3(FloatX,0f, FloatY);
+		GameObject prefab = (GameObject) Resources.Load("RockAnim");
+		GameObject holder = (GameObject) GameObject.Instantiate(prefab);
+		holder.transform.position = Position;
+		
+		return holder.transform.GetChild(0).gameObject;
+		
+	}
 
 	#endregion
 	

@@ -34,11 +34,13 @@ public class MoveTitleBehaviour : MonoBehaviour {
     }
     public void Move()
     {
+		
+		int heightScreen = Screen.height;
+		int position10 = (heightScreen / 10 )*8;
         
-        iTween.MoveTo(gameObject, new Vector3(0.5f, 0.85f, 0), 3f);
-        iTween.ScaleTo(gameObject, new Vector3(0.45f, 0.28f, 1), 3f);
+        iTween.MoveTo(gameObject, iTween.Hash("y",position10,"time",2f));
+		iTween.ScaleTo(gameObject,iTween.Hash("y",5,"x",6.3));
         
-
     }
 
 

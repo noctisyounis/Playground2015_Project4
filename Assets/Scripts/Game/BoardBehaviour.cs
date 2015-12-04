@@ -7,7 +7,9 @@ using UnityEngine.UI;
 public class BoardBehaviour : MonoBehaviour 
 {
 	#region Public Variable
-	
+
+	public const float m_delay = 1.05f;
+
 	public int m_turnNewNumber = 0;
 
 	public enum TypePlayer {Player, Computer};
@@ -48,6 +50,8 @@ public class BoardBehaviour : MonoBehaviour
 
 	private GameObject lastCubeDark;
 
+	public int m_animCount = 0;
+
 	#endregion
 	
 	#region Main Methodes
@@ -57,8 +61,15 @@ public class BoardBehaviour : MonoBehaviour
 		setTextScreen ();
 		m_hand = GameObject.FindObjectOfType<HandBehaviour>().transform.gameObject;
 
+		m_endGame = (EndGameUIManager) GameObject.FindObjectOfType<EndGameUIManager>();
+
 		m_timer = GameObject.FindObjectOfType<TimerBehaviour>();
 		Generate ();
+	}
+
+	void FixedUpdate()
+	{
+		m_endGame.SetPointCounter(m_finalPointsP1, m_finalPointsP2);
 	}
 
 	public GameObject CheckCubePointing (GameObject card)
@@ -142,7 +153,7 @@ public class BoardBehaviour : MonoBehaviour
 			if (m_finalPointsP1 < m_finalPointsP2) {
 				result = false;
 			}
-			EndGame.VictoryGameMessage (result);
+			StartCoroutine(DelayEndGameMessage(result));
 		} else 
 		{
 			if (m_player_Turn == false) {
@@ -336,8 +347,7 @@ public class BoardBehaviour : MonoBehaviour
 			Tokkens.Add (Tokken);
 		}
 
-		Tokkens.OrderBy(x => x.GetComponent<TokkenBehaviour>().speed)
-				.ThenBy(x => x.GetComponent<TokkenBehaviour>().m_playedAtTurn);
+		Tokkens = Tokkens.OrderByDescending(x => x.GetComponent<TokkenBehaviour>().speed).ThenBy(x => x.GetComponent<TokkenBehaviour>().m_playedAtTurn).ToList();
 
 		return Tokkens;
 	}
@@ -354,9 +364,9 @@ public class BoardBehaviour : MonoBehaviour
 		{
 			Board = m_cubes;
 		}
-
+		
 		List<GameObject> TokkensOrder = FightOrder(Board);
-
+		
 		foreach (var item in TokkensOrder) 
 		{
 			TokkenBehaviour tb = item.GetComponent<TokkenBehaviour>();
@@ -369,86 +379,126 @@ public class BoardBehaviour : MonoBehaviour
 				m_finalPointsP2 += tb.victoryPoint;
 			}
 		}
-
-		//Debug.Log(m_finalPointsP1 + " - "+ m_finalPointsP2);
-		EndGameUIManager EndGame = (EndGameUIManager) GameObject.FindObjectOfType<EndGameUIManager>();
-		EndGame.SetPointCounter(m_finalPointsP1,m_finalPointsP2);
-
-
+		
 		//TODO eb integrate tokken
 		foreach ( GameObject item in TokkensOrder) 
 		{
 			TokkenBehaviour TokkenScript = item.GetComponent<TokkenBehaviour>();
-
-
+			
 			if (TokkenScript.hp > 0) 
 			{
 				//enum
 				// CC
 				if (TokkenScript.type == "Close" ) 
 				{
+
 					// UP
 					if (TokkenScript.m_gridY != 0) 
 					{
+						Animation sword = AnimationManager.SwordAttack (TokkenScript.m_gridX, TokkenScript.m_gridY).GetComponent<Animation>();
+
 						SquareBehaviour SquareScript = Board[TokkenScript.m_gridX,TokkenScript.m_gridY-1].GetComponent<SquareBehaviour>();
 						if(SquareScript.m_isOccuped)
 						{
-							SquareScript.m_tokken.GetComponent<TokkenBehaviour>().DealDamageTo(TokkenScript.m_playedBy,TokkenScript.ATK_Up);
+							bool hit = SquareScript.m_tokken.GetComponent<TokkenBehaviour>().DealDamageTo(TokkenScript.m_playedBy,TokkenScript.ATK_Up);
+							if (hit) 
+							{
+								StartCoroutine( DelayAnimation(sword, "SwordUp"));
+							}
 						}
 					}
 					// Down
 					if (TokkenScript.m_gridY != 4) 
 					{
+						Animation sword = AnimationManager.SwordAttack (TokkenScript.m_gridX, TokkenScript.m_gridY).GetComponent<Animation>();
+
 						SquareBehaviour SquareScript = Board[TokkenScript.m_gridX,TokkenScript.m_gridY+1].GetComponent<SquareBehaviour>();
 						if(SquareScript.m_isOccuped)
 						{
-							SquareScript.m_tokken.GetComponent<TokkenBehaviour>().DealDamageTo(TokkenScript.m_playedBy,TokkenScript.ATK_Down);
+							bool hit = SquareScript.m_tokken.GetComponent<TokkenBehaviour>().DealDamageTo(TokkenScript.m_playedBy,TokkenScript.ATK_Down);
+							if (hit) 
+							{
+								StartCoroutine( DelayAnimation(sword, "SwordDown"));
+							}
 						}
 					}
 					// Right
 					if (TokkenScript.m_gridX != 5) 
 					{
+						Animation sword = AnimationManager.SwordAttack (TokkenScript.m_gridX, TokkenScript.m_gridY).GetComponent<Animation>();
+
 						SquareBehaviour SquareScript = Board[TokkenScript.m_gridX+1,TokkenScript.m_gridY].GetComponent<SquareBehaviour>();
 						if(SquareScript.m_isOccuped)
 						{
-							SquareScript.m_tokken.GetComponent<TokkenBehaviour>().DealDamageTo(TokkenScript.m_playedBy,TokkenScript.ATK_Right);
+							
+							bool hit = SquareScript.m_tokken.GetComponent<TokkenBehaviour>().DealDamageTo(TokkenScript.m_playedBy,TokkenScript.ATK_Right);
+							if (hit) 
+							{
+								StartCoroutine( DelayAnimation(sword, "SwordRight"));
+							}
 						}
 					}
 					// Left
 					if (TokkenScript.m_gridX != 0) 
 					{
+						Animation sword = AnimationManager.SwordAttack (TokkenScript.m_gridX, TokkenScript.m_gridY).GetComponent<Animation>();
+
 						SquareBehaviour SquareScript = Board[TokkenScript.m_gridX-1,TokkenScript.m_gridY].GetComponent<SquareBehaviour>();
 						if(SquareScript.m_isOccuped)
 						{
-							SquareScript.m_tokken.GetComponent<TokkenBehaviour>().DealDamageTo(TokkenScript.m_playedBy,TokkenScript.ATK_Left);
+							bool hit = SquareScript.m_tokken.GetComponent<TokkenBehaviour>().DealDamageTo(TokkenScript.m_playedBy,TokkenScript.ATK_Left);
+							if (hit) 
+							{
+								StartCoroutine( DelayAnimation(sword, "SwordLeft"));
+							}
 						}
 					}
 				}
 				// Archer
 				else if (TokkenScript.type == "Range") 
 				{
+
 					// UP
 					if (TokkenScript.m_gridY != 0) 
 					{
+						Animation arrow = AnimationManager.ArrowAttack (TokkenScript.m_gridX, TokkenScript.m_gridY).GetComponent<Animation>();
+
+						int CountSquare = 0;
 						int y = TokkenScript.m_gridY -1;
 						bool hit = false;
 						do 
 						{
+							m_animCount++;
+							CountSquare++;
 							SquareBehaviour SquareScript = Board[TokkenScript.m_gridX, y].GetComponent<SquareBehaviour>();
 							if(SquareScript.m_isOccuped)
 							{
 								hit = SquareScript.m_tokken.GetComponent<TokkenBehaviour>().DealDamageTo(TokkenScript.m_playedBy,TokkenScript.ATK_Up);
+								
 							}
 							y--;
 						} while (y >= 0 && !hit);
+						m_animCount -= CountSquare;
+						if (hit) 
+						{
+							for (int i = 0; i < CountSquare; i++) 
+							{
+								StartCoroutine(DelayAnimation(arrow, "ArrowUp"));
+							}
+						}
 					}
 					// Down
 					if (TokkenScript.m_gridY != 4) 
 					{
+						Animation arrow = AnimationManager.ArrowAttack (TokkenScript.m_gridX, TokkenScript.m_gridY).GetComponent<Animation>();
+
+						int CountSquare = 0;
 						int y = TokkenScript.m_gridY +1;
 						bool hit = false;
 						do 
 						{
+							m_animCount++;
+							CountSquare++;
 							SquareBehaviour SquareScript = Board[TokkenScript.m_gridX, y].GetComponent<SquareBehaviour>();
 							if(SquareScript.m_isOccuped)
 							{
@@ -456,14 +506,27 @@ public class BoardBehaviour : MonoBehaviour
 							}
 							y++;
 						} while (y <= 4 && !hit);
+						m_animCount -= CountSquare;
+						if (hit) 
+						{
+							for (int i = 0; i < CountSquare; i++) 
+							{
+								StartCoroutine(DelayAnimation(arrow, "ArrowDown"));
+							}
+						}
 					}
 					// Right
 					if (TokkenScript.m_gridX != 5) 
 					{
+						Animation arrow = AnimationManager.ArrowAttack (TokkenScript.m_gridX, TokkenScript.m_gridY).GetComponent<Animation>();
+
+						int CountSquare = 0;
 						int x = TokkenScript.m_gridX +1;
 						bool hit = false;
 						do 
 						{
+							m_animCount++;
+							CountSquare++;
 							SquareBehaviour SquareScript = Board[x, TokkenScript.m_gridY].GetComponent<SquareBehaviour>();
 							if(SquareScript.m_isOccuped)
 							{
@@ -471,15 +534,27 @@ public class BoardBehaviour : MonoBehaviour
 							}
 							x++;
 						} while (x <= 5 && !hit);
-
+						m_animCount -= CountSquare;
+						if (hit) 
+						{
+							for (int i = 0; i < CountSquare; i++) 
+							{
+								StartCoroutine(DelayAnimation(arrow, "ArrowRight"));
+							}
+						}
 					}
 					// Left
 					if (TokkenScript.m_gridX != 0) 
 					{
+						Animation arrow = AnimationManager.ArrowAttack (TokkenScript.m_gridX, TokkenScript.m_gridY).GetComponent<Animation>();
+
+						int CountSquare = 0;
 						int x = TokkenScript.m_gridX -1;
 						bool hit = false;
 						do 
 						{
+							m_animCount++;
+							CountSquare++;
 							SquareBehaviour SquareScript = Board[x, TokkenScript.m_gridY].GetComponent<SquareBehaviour>();
 							if(SquareScript.m_isOccuped)
 							{
@@ -487,18 +562,34 @@ public class BoardBehaviour : MonoBehaviour
 							}
 							x--;
 						} while (x >= 0 && !hit);
+						m_animCount -= CountSquare;
+						if (hit) 
+						{
+							for (int i = 0; i < CountSquare; i++) 
+							{
+								StartCoroutine(DelayAnimation(arrow, "ArrowLeft"));
+							}
+						}
 					}
 				}
 				// Heavy
 				else if (TokkenScript.type == "BigRange") 
 				{
+
 					// UP
 					if (TokkenScript.m_gridY != 0) 
 					{
+						Animation rock = AnimationManager.RockAttack (TokkenScript.m_gridX, TokkenScript.m_gridY).GetComponent<Animation>();
+
+						int CountSquareTravel = 0;
+						int CountSquareHit = 0;
+						bool HaveHit = false;
 						int y = TokkenScript.m_gridY -1;
 						bool hit = false;
 						do 
 						{
+							m_animCount++;
+							CountSquareTravel++;
 							SquareBehaviour SquareScript = Board[TokkenScript.m_gridX, y].GetComponent<SquareBehaviour>();
 							if(SquareScript.m_isOccuped)
 							{
@@ -507,9 +598,11 @@ public class BoardBehaviour : MonoBehaviour
 							y--;
 						} 
 						while (y >= 0 && !hit);
-
+						HaveHit = hit;
 						while (y >= 0 && hit) 
 						{
+							m_animCount++;
+							CountSquareHit++;
 							SquareBehaviour SquareScript = Board[TokkenScript.m_gridX, y].GetComponent<SquareBehaviour>();
 							if(SquareScript.m_isOccuped)
 							{
@@ -521,24 +614,50 @@ public class BoardBehaviour : MonoBehaviour
 							}
 							y--;
 						}
+						
+						m_animCount = m_animCount - CountSquareHit - CountSquareTravel;
+						if (HaveHit) 
+						{
+							//travel animation
+							for (int i = 0; i < CountSquareTravel; i++) 
+							{
+								StartCoroutine(DelayAnimation(rock, "RockUp"));
+							}
+							//Hit animation
+							for (int i = 0; i < CountSquareHit; i++) 
+							{
+								StartCoroutine(DelayAnimation(rock, "RockUp"));
+							}
+						}
+						
 					}
 					// Down
 					if (TokkenScript.m_gridY != 4) 
 					{
+						Animation rock = AnimationManager.RockAttack (TokkenScript.m_gridX, TokkenScript.m_gridY).GetComponent<Animation>();
+
+						int CountSquareTravel = 0;
+						int CountSquareHit = 0;
+						bool HaveHit = false;
 						int y = TokkenScript.m_gridY +1;
 						bool hit = false;
 						do 
 						{
+							m_animCount++;
+							CountSquareTravel++;
 							SquareBehaviour SquareScript = Board[TokkenScript.m_gridX, y].GetComponent<SquareBehaviour>();
 							if(SquareScript.m_isOccuped)
 							{
 								hit = SquareScript.m_tokken.GetComponent<TokkenBehaviour>().DealDamageTo(TokkenScript.m_playedBy,TokkenScript.ATK_Down);
 							}
 							y++;
-						} while (y <= 4 && !hit);
-
+						} 
+						while (y <= 4 && !hit);
+						HaveHit = hit;
 						while (y <= 4 && hit) 
 						{
+							m_animCount++;
+							CountSquareHit++;
 							SquareBehaviour SquareScript = Board[TokkenScript.m_gridX, y].GetComponent<SquareBehaviour>();
 							if(SquareScript.m_isOccuped)
 							{
@@ -550,24 +669,49 @@ public class BoardBehaviour : MonoBehaviour
 							}
 							y++;
 						}
+						
+						m_animCount = m_animCount - CountSquareHit - CountSquareTravel;
+						if (HaveHit) 
+						{
+							//travel animation
+							for (int i = 0; i < CountSquareTravel; i++) 
+							{
+								StartCoroutine(DelayAnimation(rock, "RockDown"));
+							}
+							//Hit animation
+							for (int i = 0; i < CountSquareHit; i++) 
+							{
+								StartCoroutine(DelayAnimation(rock, "RockDown"));
+							}
+						}
 					}
 					// Right
 					if (TokkenScript.m_gridX != 5) 
 					{
+						Animation rock = AnimationManager.RockAttack (TokkenScript.m_gridX, TokkenScript.m_gridY).GetComponent<Animation>();
+
+						int CountSquareTravel = 0;
+						int CountSquareHit = 0;
+						bool HaveHit = false;
 						int x = TokkenScript.m_gridX +1;
 						bool hit = false;
 						do 
 						{
+							m_animCount++;
+							CountSquareTravel++;
 							SquareBehaviour SquareScript = Board[x, TokkenScript.m_gridY].GetComponent<SquareBehaviour>();
 							if(SquareScript.m_isOccuped)
 							{
 								hit = SquareScript.m_tokken.GetComponent<TokkenBehaviour>().DealDamageTo(TokkenScript.m_playedBy,TokkenScript.ATK_Right);
 							}
 							x++;
-						} while (x <= 5 && !hit);
-
+						} 
+						while (x <= 5 && !hit);
+						HaveHit = hit;
 						while (x <= 5 && hit) 
 						{
+							m_animCount++;
+							CountSquareHit++;
 							SquareBehaviour SquareScript = Board[x, TokkenScript.m_gridY].GetComponent<SquareBehaviour>();
 							if(SquareScript.m_isOccuped)
 							{
@@ -580,24 +724,49 @@ public class BoardBehaviour : MonoBehaviour
 							x++;
 						}
 						
+						m_animCount = m_animCount - CountSquareHit - CountSquareTravel;
+						if (HaveHit) 
+						{
+							//travel animation
+							for (int i = 0; i < CountSquareTravel; i++) 
+							{
+								StartCoroutine(DelayAnimation(rock, "RockRight"));
+							}
+							//Hit animation
+							for (int i = 0; i < CountSquareHit; i++) 
+							{
+								StartCoroutine(DelayAnimation(rock, "RockRight"));
+							}
+						}
+						
 					}
 					// Left
-					if (TokkenScript.m_gridY != 0) 
+					if (TokkenScript.m_gridX != 0) 
 					{
-						int x = TokkenScript.m_gridY -1;
+						Animation rock = AnimationManager.RockAttack (TokkenScript.m_gridX, TokkenScript.m_gridY).GetComponent<Animation>();
+
+						int CountSquareTravel = 0;
+						int CountSquareHit = 0;
+						bool HaveHit = false;
+						int x = TokkenScript.m_gridX -1;
 						bool hit = false;
 						do 
 						{
+							m_animCount++;
+							CountSquareTravel++;
 							SquareBehaviour SquareScript = Board[x, TokkenScript.m_gridY].GetComponent<SquareBehaviour>();
 							if(SquareScript.m_isOccuped)
 							{
 								hit = SquareScript.m_tokken.GetComponent<TokkenBehaviour>().DealDamageTo(TokkenScript.m_playedBy,TokkenScript.ATK_Left);
 							}
-							x++;
-						} while (x >= 0 && !hit);
-
-						while (x <= 5 && hit) 
+							x--;
+						} 
+						while (x >= 0 && !hit);
+						HaveHit = hit;
+						while (x >= 0 && hit) 
 						{
+							m_animCount++;
+							CountSquareHit++;
 							SquareBehaviour SquareScript = Board[x, TokkenScript.m_gridY].GetComponent<SquareBehaviour>();
 							if(SquareScript.m_isOccuped)
 							{
@@ -609,11 +778,26 @@ public class BoardBehaviour : MonoBehaviour
 							}
 							x--;
 						}
+						
+						m_animCount = m_animCount - CountSquareHit - CountSquareTravel;
+						if (HaveHit) 
+						{
+							//travel animation
+							for (int i = 0; i < CountSquareTravel; i++) 
+							{
+								StartCoroutine(DelayAnimation(rock, "RockLeft"));
+							}
+							//Hit animation
+							for (int i = 0; i < CountSquareHit; i++) 
+							{
+								StartCoroutine(DelayAnimation(rock, "RockLeft"));
+							}
+						}
 					}
 				}
 			}
-			EndGame.SetPointCounter(m_finalPointsP1, m_finalPointsP2);
-
+			//EndGame.SetPointCounter(m_finalPointsP1, m_finalPointsP2);
+			
 		}
 		//return Tokken
 		return TokkensOrder;
@@ -626,6 +810,19 @@ public class BoardBehaviour : MonoBehaviour
 	public void RemoveP2(int Point)
 	{
 		m_finalPointsP2 -= Point;
+	}
+
+	IEnumerator DelayAnimation(Animation Anim, string Name)
+	{
+		m_animCount++;
+		yield return new WaitForSeconds(m_animCount * m_delay);
+		Anim.PlayQueued(Name, QueueMode.CompleteOthers);
+	}
+	
+	IEnumerator DelayEndGameMessage(bool? result)
+	{
+		yield return new WaitForSeconds((m_animCount * m_delay) + 3f);
+		m_endGame.VictoryGameMessage(result);
 	}
 
 	public void HoverCubeOn(int x, int y)
@@ -675,6 +872,8 @@ public class BoardBehaviour : MonoBehaviour
 
 	private TimerBehaviour m_timer;
 	private GameObject m_hand;
+
+	private EndGameUIManager m_endGame;
 
 
 	#endregion
