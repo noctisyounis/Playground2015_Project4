@@ -45,12 +45,16 @@ public class TimerBehaviour : MonoBehaviour
 		if (script.m_player_Turn) 
 		{
             //gameObject.GetComponent<Image>().color = Color.blue;
-            iTween.RotateTo(gameObject, new Vector3(40,0,0), 1);
+            iTween.ShakeRotation(gameObject, new Vector3(120, 0, 0), 1f);
+            //iTween.RotateTo(gameObject, new Vector3(120, 0, 0), 0.5f);
+            //iTween.RotateTo(gameObject, new Vector3(300, 0, 0), 0.5f);
 		}
 		else 
 		{
             //gameObject.GetComponent<Image>().color = Color.red;
-            iTween.RotateTo(gameObject, new Vector3(220, 0, 0), 1);
+            iTween.ShakeRotation(gameObject, new Vector3(120, 0, 0), 1f);
+            //iTween.RotateTo(gameObject, new Vector3(120, 0, 0), 0.5f);
+            //iTween.RotateTo(gameObject, new Vector3(300, 0, 0), 0.5f);
 		}
 	}
 
