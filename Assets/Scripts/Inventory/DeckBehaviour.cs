@@ -7,6 +7,7 @@ public class DeckBehaviour : MonoBehaviour {
 	#region public variable
 
 	public static List<GameObject> m_deck = new List<GameObject>();
+	public GameObject m_textError;
 
 	#endregion
 

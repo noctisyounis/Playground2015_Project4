@@ -16,6 +16,8 @@ public class OnClickBehaviour : MonoBehaviour
 	public int m_id;
 	public static int m_nbUnit = 18;
 	public static int m_nbLands = 5;
+	public GameObject m_textError;
+	public Text m_stringError;
 
 	#endregion
 	
@@ -25,6 +27,8 @@ public class OnClickBehaviour : MonoBehaviour
 	void Start()
 	{
 //		audio = GetComponent<AudioSource>();
+		m_textError = GameObject.Find("TextError");
+		m_stringError = m_textError.GetComponent<Text>();
 	}
 	
 	public void OnMouseUp()
@@ -61,6 +65,7 @@ public class OnClickBehaviour : MonoBehaviour
 					}
 					else
 					{
+						m_stringError.text = "Plus de place pour ce type de carte!";
 						Debug.Log("Your units is full");
 						// Popup : Vous n'avez plus de place pour ce type de carte !
 					}
@@ -79,7 +84,9 @@ public class OnClickBehaviour : MonoBehaviour
 					}
 					else
 					{
+						m_stringError.text = "Plus de place pour ce type de carte!";
 						Debug.Log("Your cards lands is full");
+						
 						// Popup : Vous n'avez plus de place pour ce type de carte !
 					}
 				}
