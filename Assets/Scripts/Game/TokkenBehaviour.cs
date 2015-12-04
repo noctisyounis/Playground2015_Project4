@@ -221,6 +221,156 @@ public class TokkenBehaviour : MonoBehaviour
 		}
 	}
 
+	public void SetBonus(string Ground)
+	{
+		Reset();
+		switch (Ground) {
+		case "Mountain":
+			if (type == "Close") 
+			{
+
+			}
+			else if (type == "Range") 
+			{
+				SetAttack(1,Color.green);
+				SetSpeed(1,Color.green);
+			}
+			else if (type == "BigRange") 
+			{
+				SetAttack(1,Color.green);
+			}
+			break;
+		case "Forest":
+			if (type == "Close") 
+			{
+				SetAttack(1,Color.green);
+				SetSpeed(1,Color.green);
+			}
+			else if (type == "Range") 
+			{
+				SetAttack(-1,Color.red);
+			}
+			else if (type == "BigRange") 
+			{
+				SetAttack(-1,Color.red);
+				SetSpeed(-1,Color.red);
+			}
+			break;
+		case "Ruin":
+			if (type == "Close") 
+			{
+				SetAttack(-1,Color.red);
+			}
+			else if (type == "Range") 
+			{
+				
+			}
+			else if (type == "BigRange") 
+			{
+				
+			}
+			break;
+		case "Plain":
+			if (type == "Close") 
+			{
+				
+			}
+			else if (type == "Range") 
+			{
+				
+			}
+			else if (type == "BigRange") 
+			{
+				
+			}
+			break;
+		case "Swamp":
+			if (type == "Close") 
+			{
+				SetAttack(-1,Color.red);
+			}
+			else if (type == "Range") 
+			{
+				SetAttack(-1,Color.red);
+			}
+			else if (type == "BigRange") 
+			{
+				SetAttack(-1,Color.red);
+			}
+			break;
+		}
+	}
+	void SetAttack(int i, Color c)
+	{
+		ATK_Up = int.Parse (m_ATK_Up.GetComponent<Text> ().text) + i;
+		m_ATK_Up.GetComponent<Text> ().text = ATK_Up.ToString();
+		m_ATK_Up.GetComponent<Text> ().color = c;
+		ATK_Right = int.Parse (m_ATK_Right.GetComponent<Text> ().text) + i;
+		m_ATK_Right.GetComponent<Text> ().text = ATK_Right.ToString();
+		m_ATK_Right.GetComponent<Text> ().color = c;
+		ATK_Down = int.Parse (m_ATK_Down.GetComponent<Text> ().text) + i;
+		m_ATK_Down.GetComponent<Text> ().text = ATK_Down.ToString();
+		m_ATK_Down.GetComponent<Text> ().color = c;
+		ATK_Left = int.Parse (m_ATK_Left.GetComponent<Text> ().text) + i;
+		m_ATK_Left.GetComponent<Text> ().text = ATK_Left.ToString();
+		m_ATK_Left.GetComponent<Text> ().color = c;
+
+		if (i > 0) 
+		{
+			BonusAttack = true;
+			MalusAttack = false;
+		}
+		else if (i < 0) 
+		{
+			BonusAttack = false;
+			MalusAttack = false;
+		}
+	}
+
+	void SetSpeed(int i, Color c)
+	{
+		speed = int.Parse (m_speed.GetComponent<Text> ().text) + i;
+		m_speed.GetComponent<Text> ().text = speed.ToString();
+		m_speed.GetComponent<Text> ().color = c;
+
+		if (i > 0) 
+		{
+			BonusSpeed = true;
+			MalusSpeed = false;
+		}
+		else if (i < 0) 
+		{
+			BonusSpeed = false;
+			MalusSpeed = true;
+		}
+	}
+
+	void Reset( )
+	{
+		if (BonusAttack) 
+		{
+			SetAttack(-1,Color.black);
+		}
+		else if (MalusAttack) 
+		{
+			SetAttack(1,Color.black);
+		}
+		if (BonusSpeed) 
+		{
+			SetSpeed(-1,Color.black);
+		}
+		else if (MalusSpeed) 
+		{
+			SetSpeed(1,Color.black);
+		}
+
+		BonusAttack = false;
+		BonusSpeed = false;
+		MalusSpeed = false;
+		MalusAttack = false;
+
+	}
+
     #endregion
 
     #region Private Variable
@@ -301,5 +451,11 @@ public class TokkenBehaviour : MonoBehaviour
     }
 
 	private BoardBehaviour m_board;
+
+
+	private bool BonusAttack ;
+	private bool BonusSpeed ;
+	private bool MalusAttack ;
+	private bool MalusSpeed ;
     #endregion
 }

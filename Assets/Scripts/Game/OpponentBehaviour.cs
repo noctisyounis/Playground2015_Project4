@@ -8,7 +8,8 @@ public class OpponentBehaviour : MonoBehaviour {
 
 	#region Public Variable
 
-	public List<GameObject> m_opponentDeck = new List<GameObject>();
+	public List<GameObject> m_opponentDeckUnit = new List<GameObject>();
+	public List<GameObject> m_opponentDeckLand = new List<GameObject>();
 
 	public int CheckTime = 15;
 
@@ -58,8 +59,8 @@ public class OpponentBehaviour : MonoBehaviour {
 				SquareBehaviour Script = place.GetComponent<SquareBehaviour> ();
 				if (!Script.m_isOccuped) {
 					FocusSquare = place;
-					GameObject PlayedCard = m_opponentDeck [0];
-					m_opponentDeck.Remove (PlayedCard);
+					GameObject PlayedCard = m_opponentDeckUnit [0];
+					m_opponentDeckUnit.Remove (PlayedCard);
 					scriptBoard.PutTokken (FocusSquare, PlayedCard);
 					ok = true;
 					return;
@@ -75,7 +76,7 @@ public class OpponentBehaviour : MonoBehaviour {
 			int y = (int)Random.Range (0f, 4f);
 			//Debug.Log(y);
 			GameObject place = Squares [x, y];
-			scriptBoard.PutLand(place,null);
+			scriptBoard.PutLand(place,m_opponentDeckLand[0]);
 			return;
 		}
 	}
@@ -88,16 +89,36 @@ public class OpponentBehaviour : MonoBehaviour {
 	private void LoadDeck()
 	{
 		GameObject prefab = (GameObject)Resources.Load ("Card", typeof(GameObject));
-		m_opponentDeck.Clear();
-		for (int i = 1 ; i < 19; i++) 
+		m_opponentDeckUnit.Clear();
+		m_opponentDeckLand.Clear();
+
+		ReadDeckBehaviour deckList = new ReadDeckBehaviour("opponentCard.xml");
+		ReadXmlBehaviour cardList = new ReadXmlBehaviour();    
+		
+		for (int i = 0; i < deckList.PropDeck.Count; i++)
 		{
-			GameObject Card = (GameObject)Instantiate(prefab);
-			Card.transform.SetParent(gameObject.transform.GetChild(1));
-			Card.name = "Card"+i.ToString();
-			Card.GetComponent<CardUnitBehaviour>().m_price = 3;
-			m_opponentDeck.Add(Card);
+			int id = int.Parse(deckList.PropDeck[i].ToString());
+			if(id < 1000)
+			{
+				GameObject Card = GameObject.Instantiate((GameObject)cardList.List[id - 1]);
+
+				Card.AddComponent<DraggableBehaviour>();
+				Card.name = "Card" + i.ToString();
+				Card.GetComponent<DraggableBehaviour>().m_currentTypeCard = "Unit";
+				m_opponentDeckUnit.Add(Card);
+			}
+			else
+			{
+				GameObject Card = GameObject.Instantiate((GameObject)cardList.ListLand[id - 1001]);
+				Card.name = "Card" + i.ToString();	
+				Card.AddComponent<DraggableBehaviour>();
+				Card.GetComponent<DraggableBehaviour>().m_currentTypeCard = "Land";
+				m_opponentDeckLand.Add(Card);
+			}
 		}
-		Shuffle(m_opponentDeck);
+
+		Shuffle(m_opponentDeckLand);
+		Shuffle(m_opponentDeckUnit);
 	}
 
 	

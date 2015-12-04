@@ -103,13 +103,13 @@ public class SquareBehaviour : MonoBehaviour
 		OverOff ();
 	}
 
-	public void ChangeTextureClose()
+	public void ChangeTextureClose(CardGroundBehaviour LandScript)
 	{
 		BoardBehaviour boardBehaviour = GameObject.FindObjectOfType<BoardBehaviour>().GetComponent<BoardBehaviour>();
 		
-		for (int i = 0; i < scriptLand.xValue.Count; i++) 
+		for (int i = 0; i < LandScript.xValue.Count; i++) 
 		{
-			boardBehaviour.ChangeTextureCubes((m_gridX + scriptLand.xValue[i]),(m_gridY +  scriptLand.yValue[i]),this.GetComponent<Renderer>().material);
+			boardBehaviour.ChangeTextureCubes((m_gridX + LandScript.xValue[i]),(m_gridY +  LandScript.yValue[i]),this.GetComponent<Renderer>().material);
 		}
 	}
 
@@ -202,8 +202,8 @@ public class SquareBehaviour : MonoBehaviour
 	{
 		switch (newType) {
 			case "Mountain":
-				this.GetComponent<Renderer>().material = TiledMountain;
-			break;
+				this.GetComponent<Renderer>().material = TiledMountain;		
+				break;
 			case "Forest":
 				this.GetComponent<Renderer>().material = TiledForest;
 				break;
@@ -217,14 +217,51 @@ public class SquareBehaviour : MonoBehaviour
 			this.GetComponent<Renderer>().material = TiledSwamp;
 			break;
 		}
+		if (m_tokken != null) 
+		{
+			m_tokken.GetComponent<TokkenBehaviour> ().SetBonus (newType);
+		}
 	}
 
 	public void ChangeMaterialFast(Material mat)
 	{
 		this.GetComponent<Renderer>().material = mat;
+		string s = this.GetStringType();
+		if (m_tokken != null) 
+		{
+			m_tokken.GetComponent<TokkenBehaviour> ().SetBonus (s);
+		}
 	}
 
+	public string GetStringType()
+	{
+		if (GetComponent<Renderer> ().material.ToString().Contains("TiledForest") ) 
+		{
+			return "Forest";
+		}		
+		if (GetComponent<Renderer> ().material.ToString().Contains("TiledMoun") ) 
+		{
+			return "Mountain";		
+		}	
+		if (GetComponent<Renderer> ().material.ToString().Contains("TiledPlain") ) 
+		{
+			return "Plain";		
+		}
+		
+		if (GetComponent<Renderer> ().material.ToString().Contains("TiledRuin") ) 
+		{
+			return "Ruin";		
+		}
+		
+		if (GetComponent<Renderer> ().material.ToString().Contains("TiledSwamp") ) 
+		{
+			return "Swamp";		
+		}
 
+		Debug.Log("Error NameTile");
+		return null;
+
+	}
 
 	#endregion
 
