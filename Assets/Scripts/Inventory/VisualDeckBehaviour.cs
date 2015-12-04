@@ -12,7 +12,10 @@ public class VisualDeckBehaviour : MonoBehaviour {
 	public GameObject m_mountain;
 	public GameObject m_swamp;
 	public GameObject m_ruin;
-	
+
+	public GameObject m_totalUnit;
+	public GameObject m_totalLand;
+
 	void Start () 
 	{
 		InvokeRepeating("loadVisual",0.5f,0.5f);
@@ -98,5 +101,8 @@ public class VisualDeckBehaviour : MonoBehaviour {
 		m_ruin.GetComponent<Text>().text = "" + m_nbRuin;
 		m_plain.GetComponent<Text>().text = "" + m_nbPlain;
 		m_wood.GetComponent<Text>().text = "" + m_nbWood;
+
+		m_totalUnit.GetComponent<Text>().text = "" + OnClickBehaviour.m_nbUnit;
+		m_totalLand.GetComponent<Text>().text = "" + OnClickBehaviour.m_nbLands;
 	}
 }

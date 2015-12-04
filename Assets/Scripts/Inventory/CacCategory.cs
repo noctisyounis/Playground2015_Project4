@@ -12,7 +12,9 @@ public class CacCategory : InventoryBehaviour
 
 	public void OnMouseUp()
 	{
-		for (int i = 0; i < InventoryBehaviour.m_storage.transform.childCount; i++) {
+		int j = InventoryBehaviour.m_storage.transform.childCount;
+		for (int i = 0; i < j; i++)  
+		{
 			InventoryBehaviour.m_storage.transform.GetChild(0).transform.SetParent(m_Inventory.transform);
 		}
 		for(int i = 0; i < m_listCards.Count; i++)

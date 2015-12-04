@@ -16,7 +16,8 @@ public class InventoryBehaviour : MonoBehaviour
 
 	#region Main method
 	void Start () {
-	
+		OnClickBehaviour.m_nbUnit = 18;
+		OnClickBehaviour.m_nbLands = 5;
 		m_storage = new GameObject();
 		LoadListCards();
 	for(int i = 0; i < m_listCards.Count; i++)
