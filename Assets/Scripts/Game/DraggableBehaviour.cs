@@ -76,7 +76,7 @@ public class DraggableBehaviour : MonoBehaviour, IBeginDragHandler, IDragHandler
 			m_linkToHand.GetComponent<HandBehaviour>().m_cardDragLand = null;
 		}
 		BoardBehaviour scriptBoard = (BoardBehaviour)m_board.GetComponent<BoardBehaviour>();
-		if (scriptBoard.m_player_Turn) 
+		if (scriptBoard.m_player_Turn && !scriptBoard.m_gameIsFinished) 
 		{
 			if(m_currentTypeCard == "Unit" && scriptBoard.m_turnType[scriptBoard.m_turnNewNumber] == 0){
 				GameObject cube = scriptBoard.CheckCubePointing (eventData.pointerDrag);
@@ -137,7 +137,7 @@ public class DraggableBehaviour : MonoBehaviour, IBeginDragHandler, IDragHandler
 				Vector3 NewPosition = m_oldPosition;
 				NewPosition.y += (Screen.height * 0.10f);
 				transform.position = NewPosition;
-			//	transform.localScale = new Vector3 (1.6f, 1.6f, 1.6f);
+				//transform.localScale = new Vector3 (1.6f, 1.6f, 1.6f);
 				//DummyHoveredCard();
 
 			}

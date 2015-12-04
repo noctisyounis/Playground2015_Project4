@@ -50,6 +50,8 @@ public class BoardBehaviour : MonoBehaviour
 
 	private GameObject lastCubeDark;
 
+	public bool m_gameIsFinished;
+
 	public int m_animCount = 0;
 
 	#endregion
@@ -141,6 +143,8 @@ public class BoardBehaviour : MonoBehaviour
 			script.CancelInvoke ();
 			
 			m_player_Turn = false;
+
+			m_gameIsFinished = true;
 			
 			
 			EndGameUIManager EndGame = (EndGameUIManager)GameObject.FindObjectOfType<EndGameUIManager> ();
@@ -821,6 +825,8 @@ public class BoardBehaviour : MonoBehaviour
 	
 	IEnumerator DelayEndGameMessage()
 	{
+
+		yield return new WaitForSeconds((m_animCount * m_delay) + 2f);
 		bool? result = null;
 		if (m_finalPointsP1 > m_finalPointsP2) 
 		{
@@ -830,7 +836,6 @@ public class BoardBehaviour : MonoBehaviour
 		{
 			result = false;
 		}
-		yield return new WaitForSeconds((m_animCount * m_delay) + 4f);
 		m_endGame.VictoryGameMessage(result);
 	}
 

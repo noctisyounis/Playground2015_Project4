@@ -12,4 +12,9 @@ public class SwordAnim : MonoBehaviour
 	{
 		transform.localScale = new Vector3(0.2f,0.2f,0.2f);
 	}
+	void PlaySFX()
+	{
+		AudioSource audio = GetComponent<AudioSource>();
+		audio.Play();
+	}
 }

@@ -236,7 +236,7 @@ public class SquareBehaviour : MonoBehaviour
 
 	public string GetStringType()
 	{
-		if (GetComponent<Renderer> ().material.ToString().Contains("TiledForest") ) 
+		if (GetComponent<Renderer> ().material.ToString().Contains("TiledForest")) 
 		{
 			return "Forest";
 		}		

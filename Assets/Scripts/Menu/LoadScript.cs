@@ -8,6 +8,7 @@ public class LoadScript : MonoBehaviour
 {
     #region Public Variable
     public AudioClip m_son;
+	public AudioSource m_over;
     public string m_levelSuivant = "Quitter";
     #endregion
 
@@ -39,6 +40,7 @@ public class LoadScript : MonoBehaviour
 	{
 		//GetComponent<Image>().transform.localScale = new Vector3(0.2f, 0.15f); 
 		iTween.ScaleTo(gameObject,iTween.Hash("y",1,"x",3.5));
+		m_over.Play();
 		
 	}
 	
@@ -46,6 +48,7 @@ public class LoadScript : MonoBehaviour
 	{
 		iTween.ScaleTo(gameObject,iTween.Hash("y",0.8,"x",3));
 	//	GetComponent<GUITexture>().transform.localScale = new Vector3(0.15f, 0.1f); 
+		//m_over.Stop();
 		
 	}
 

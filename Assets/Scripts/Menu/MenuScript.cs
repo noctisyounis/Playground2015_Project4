@@ -6,13 +6,14 @@ public class MenuScript : MonoBehaviour
 
     
     #region Public Variable
-
-    
+	
+	public AudioSource m_click;
+	public AudioSource m_overSound;
 
     #endregion
 
     #region Main methode
-
+	
 
     #endregion
 
@@ -23,12 +24,14 @@ public class MenuScript : MonoBehaviour
 		Debug.Log ("Test");
         GetComponent<GUITexture>().transform.localScale = new Vector3(0.2f, 0.15f); 
 
+
     }
 
     void OnMouseExit()
     {
 
         GetComponent<GUITexture>().transform.localScale = new Vector3(0.15f, 0.1f); 
+
 
     }
 
