@@ -105,8 +105,12 @@ public class BoardBehaviour : MonoBehaviour
 		Tokken.GetComponent<RectTransform>().Rotate(new Vector3(90,180,0));
 		Tokken.GetComponent<TokkenBehaviour>().SetPosition(scriptSquare.m_gridX,scriptSquare.m_gridY);
 		Tokken.GetComponent<TokkenBehaviour>().m_playedAtTurn = m_turnNewNumber;
+
+		string type = scriptSquare.GetStringType();
+		Tokken.GetComponent<TokkenBehaviour>().SetBonus(type);
+
 		scriptSquare.m_tokken = Tokken;	
-		
+
 		scriptCard.PlayCard();
 
 		if (m_player_Turn == false) 
@@ -146,14 +150,8 @@ public class BoardBehaviour : MonoBehaviour
 			
 			List<GameObject> TokkenAlive = Fight (false);
 			
-			bool? result = null;
-			if (m_finalPointsP1 > m_finalPointsP2) {
-				result = true;
-			}
-			if (m_finalPointsP1 < m_finalPointsP2) {
-				result = false;
-			}
-			StartCoroutine(DelayEndGameMessage(result));
+
+			StartCoroutine(DelayEndGameMessage());
 		} else 
 		{
 			if (m_player_Turn == false) {
@@ -179,9 +177,11 @@ public class BoardBehaviour : MonoBehaviour
 
 	public void PutLand(GameObject cube, GameObject card)
 	{
-		if (card != null) {
-			cube.GetComponent<SquareBehaviour> ().ChangeMaterial (card.GetComponentInParent<CardGroundBehaviour> ().m_type);
-			cube.GetComponent<SquareBehaviour> ().ChangeTextureClose();
+		if (card != null) 
+		{
+			CardGroundBehaviour scriptland = card.GetComponentInParent<CardGroundBehaviour> ();
+			cube.GetComponent<SquareBehaviour> ().ChangeMaterial (scriptland.m_type);
+			cube.GetComponent<SquareBehaviour> ().ChangeTextureClose(scriptland);
 			Destroy (card);
 		} 
 		else 
@@ -819,9 +819,18 @@ public class BoardBehaviour : MonoBehaviour
 		Anim.PlayQueued(Name, QueueMode.CompleteOthers);
 	}
 	
-	IEnumerator DelayEndGameMessage(bool? result)
+	IEnumerator DelayEndGameMessage()
 	{
-		yield return new WaitForSeconds((m_animCount * m_delay) + 3f);
+		bool? result = null;
+		if (m_finalPointsP1 > m_finalPointsP2) 
+		{
+			result = true;
+		}
+		if (m_finalPointsP1 < m_finalPointsP2) 
+		{
+			result = false;
+		}
+		yield return new WaitForSeconds((m_animCount * m_delay) + 4f);
 		m_endGame.VictoryGameMessage(result);
 	}
 
@@ -867,8 +876,8 @@ public class BoardBehaviour : MonoBehaviour
 	
 	#region Private Variable
 
-	private int m_finalPointsP1 = 0;
-	private int m_finalPointsP2 = 0;
+	public int m_finalPointsP1 = 0;
+	public int m_finalPointsP2 = 0;
 
 	private TimerBehaviour m_timer;
 	private GameObject m_hand;

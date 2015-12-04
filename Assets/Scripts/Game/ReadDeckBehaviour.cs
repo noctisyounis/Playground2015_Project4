@@ -21,10 +21,15 @@ public class ReadDeckBehaviour
 
     public ReadDeckBehaviour()
     {
-        Start();
+		Start("playerCard.xml");
     }
-	void Start () {
-        System.Xml.XmlTextReader reader = new System.Xml.XmlTextReader("Assets\\Extrernal\\Xml\\playerCard.xml");
+	public ReadDeckBehaviour(string deckName)
+	{
+		Start(deckName);
+	}
+
+	void Start (string deckName) {
+        System.Xml.XmlTextReader reader = new System.Xml.XmlTextReader("Assets\\Extrernal\\Xml\\"+deckName);
 
         while (reader.Read())
         {
