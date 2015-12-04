@@ -14,6 +14,9 @@ public class EndGameUIManager : MonoBehaviour {
 	public GameObject m_player2Point;
 	public GameObject m_counter;
 	public GameObject m_CardHolderGui;
+	public Sprite m_victory;
+	public Sprite m_tie;
+	public Sprite m_defait;
 	
 	#endregion
 	
@@ -75,20 +78,19 @@ public class EndGameUIManager : MonoBehaviour {
 
 	public void VictoryGameMessage(bool? IsVictory)
 	{
-		string Message = "";
+
 		switch (IsVictory) 
 		{
 			case null:
-				Message = "Egalité";
+				m_resultText.GetComponent<Image>().sprite = m_tie;
 				break;
 			case true:
-				Message = "Victoire";
+				m_resultText.GetComponent<Image>().sprite = m_victory;
 				break;
 			case false:
-				Message = "Défaite";
+				m_resultText.GetComponent<Image>().sprite = m_defait ;
 				break;
 		}
-		m_resultText.GetComponent<Text>().text = Message;
 
 		EndGameUIVisible(true);
 
