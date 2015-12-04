@@ -825,6 +825,8 @@ public class BoardBehaviour : MonoBehaviour
 	
 	IEnumerator DelayEndGameMessage()
 	{
+
+		yield return new WaitForSeconds((m_animCount * m_delay) + 4f);
 		bool? result = null;
 		if (m_finalPointsP1 > m_finalPointsP2) 
 		{
@@ -834,7 +836,6 @@ public class BoardBehaviour : MonoBehaviour
 		{
 			result = false;
 		}
-		yield return new WaitForSeconds((m_animCount * m_delay) + 4f);
 		m_endGame.VictoryGameMessage(result);
 	}
 
