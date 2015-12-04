@@ -9,8 +9,44 @@
     <type>BigRange</type>
   </card>
   <card>
-    <id>2</id>
-    <type>BigRange</type>
+    <id>1</id>
+    <type>Close</type>
+  </card>
+  <card>
+    <id>1</id>
+    <type>Close</type>
+  </card>
+  <card>
+    <id>1</id>
+    <type>Close</type>
+  </card>
+  <card>
+    <id>3</id>
+    <type>Range</type>
+  </card>
+  <card>
+    <id>3</id>
+    <type>Range</type>
+  </card>
+  <card>
+    <id>3</id>
+    <type>Range</type>
+  </card>
+  <card>
+    <id>3</id>
+    <type>Range</type>
+  </card>
+  <card>
+    <id>3</id>
+    <type>Range</type>
+  </card>
+  <card>
+    <id>3</id>
+    <type>Range</type>
+  </card>
+  <card>
+    <id>3</id>
+    <type>Range</type>
   </card>
   <card>
     <id>2</id>
@@ -19,14 +55,22 @@
   <card>
     <id>2</id>
     <type>BigRange</type>
+  </card>
+  <card>
+    <id>2</id>
+    <type>BigRange</type>
+  </card>
+  <card>
+    <id>1002</id>
+    <type>Swamp</type>
   </card>
   <card>
     <id>1001</id>
     <type>Forest</type>
   </card>
   <card>
-    <id>1002</id>
-    <type>Swamp</type>
+    <id>1005</id>
+    <type>Plain</type>
   </card>
   <card>
     <id>1003</id>
@@ -37,10 +81,6 @@
     <type>Ruin</type>
   </card>
   <card>
-    <id>1005</id>
-    <type>Plain</type>
-  </card>
-  <card>
     <id>1</id>
     <type>Close</type>
   </card>
@@ -51,45 +91,5 @@
   <card>
     <id>1</id>
     <type>Close</type>
-  </card>
-  <card>
-    <id>1</id>
-    <type>Close</type>
-  </card>
-  <card>
-    <id>1</id>
-    <type>Close</type>
-  </card>
-  <card>
-    <id>1</id>
-    <type>Close</type>
-  </card>
-  <card>
-    <id>3</id>
-    <type>Range</type>
-  </card>
-  <card>
-    <id>3</id>
-    <type>Range</type>
-  </card>
-  <card>
-    <id>3</id>
-    <type>Range</type>
-  </card>
-  <card>
-    <id>3</id>
-    <type>Range</type>
-  </card>
-  <card>
-    <id>3</id>
-    <type>Range</type>
-  </card>
-  <card>
-    <id>3</id>
-    <type>Range</type>
-  </card>
-  <card>
-    <id>3</id>
-    <type>Range</type>
   </card>
 </player>

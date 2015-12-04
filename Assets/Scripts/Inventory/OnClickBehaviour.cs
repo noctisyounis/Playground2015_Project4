@@ -62,6 +62,7 @@ public class OnClickBehaviour : MonoBehaviour
 					else
 					{
 						Debug.Log("Your units is full");
+						// Popup : Vous n'avez plus de place pour ce type de carte !
 					}
 				}
 				else if(!isUnit)
@@ -79,6 +80,7 @@ public class OnClickBehaviour : MonoBehaviour
 					else
 					{
 						Debug.Log("Your cards lands is full");
+						// Popup : Vous n'avez plus de place pour ce type de carte !
 					}
 				}
 				else
