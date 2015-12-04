@@ -73,15 +73,15 @@ public class TokkenBehaviour : MonoBehaviour
         switch (Card.m_type)
         {
             case "BigRange":
-                Debug.Log("big");
+                //Debug.Log("big");
                 prefab.GetComponent<Image>().sprite = script.m_BigRange;
                 break;
             case "Range":
-                Debug.Log("range");
+                //Debug.Log("range");
                 prefab.GetComponent<Image>().sprite = script.m_Range;
                 break;
             case "Close":
-                Debug.Log("cac");
+                //Debug.Log("cac");
                 prefab.GetComponent<Image>().sprite = script.m_Cac;
                 
                 break;
@@ -201,7 +201,7 @@ public class TokkenBehaviour : MonoBehaviour
 		m_hp.GetComponent<Text>().color = Color.blue;
 		if (HP <= 0) 
 		{
-			yield return new WaitForSeconds(0.4f);
+			yield return new WaitForSeconds(0.45f);
 			DelayDie();
 		}
 	}
@@ -248,18 +248,18 @@ public class TokkenBehaviour : MonoBehaviour
 			}
 			else if (type == "Range") 
 			{
-				SetAttack(-1,Color.red);
+				SetAttack(-1,Color.white);
 			}
 			else if (type == "BigRange") 
 			{
-				SetAttack(-1,Color.red);
+				SetAttack(-1,Color.white);
 				SetSpeed(-1,Color.red);
 			}
 			break;
 		case "Ruin":
 			if (type == "Close") 
 			{
-				SetAttack(-1,Color.red);
+				SetAttack(-1,Color.white);
 			}
 			else if (type == "Range") 
 			{
@@ -287,15 +287,15 @@ public class TokkenBehaviour : MonoBehaviour
 		case "Swamp":
 			if (type == "Close") 
 			{
-				SetAttack(-1,Color.red);
+				SetAttack(-1,Color.white);
 			}
 			else if (type == "Range") 
 			{
-				SetAttack(-1,Color.red);
+				SetAttack(-1,Color.white);
 			}
 			else if (type == "BigRange") 
 			{
-				SetAttack(-1,Color.red);
+				SetAttack(-1,Color.white);
 			}
 			break;
 		}
@@ -317,13 +317,11 @@ public class TokkenBehaviour : MonoBehaviour
 
 		if (i > 0) 
 		{
-			Debug.Log("1");
 			BonusAttack = true;
 			MalusAttack = false;
 		}
 		else if (i < 0) 
 		{
-			Debug.Log("-1");
 			BonusAttack = false;
 			MalusAttack = true;
 		}

@@ -75,17 +75,19 @@ public class EndGameUIManager : MonoBehaviour {
 
 	public void VictoryGameMessage(bool? IsVictory)
 	{
-		string Message;
-		switch (IsVictory) {
-		case null:
+		string Message = "";
+		if (IsVictory == null) 
+		{
 			Message = "Tie";
-			break;
-		case false:
-			Message = "Defait";
-			break;
-		default:
+		}
+		else if (IsVictory.Value) 
+		{
 			Message = "Victory";
-			break;
+
+		}
+		else 
+		{
+			Message = "Defait";
 		}
 		m_resultText.GetComponent<Text>().text = Message;
 

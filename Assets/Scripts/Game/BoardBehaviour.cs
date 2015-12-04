@@ -50,6 +50,8 @@ public class BoardBehaviour : MonoBehaviour
 
 	private GameObject lastCubeDark;
 
+	public bool m_gameIsFinished;
+
 	public int m_animCount = 0;
 
 	#endregion
@@ -141,6 +143,8 @@ public class BoardBehaviour : MonoBehaviour
 			script.CancelInvoke ();
 			
 			m_player_Turn = false;
+
+			m_gameIsFinished = true;
 			
 			
 			EndGameUIManager EndGame = (EndGameUIManager)GameObject.FindObjectOfType<EndGameUIManager> ();
