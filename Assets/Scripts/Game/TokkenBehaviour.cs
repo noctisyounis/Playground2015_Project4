@@ -317,13 +317,15 @@ public class TokkenBehaviour : MonoBehaviour
 
 		if (i > 0) 
 		{
+			Debug.Log("1");
 			BonusAttack = true;
 			MalusAttack = false;
 		}
 		else if (i < 0) 
 		{
+			Debug.Log("-1");
 			BonusAttack = false;
-			MalusAttack = false;
+			MalusAttack = true;
 		}
 	}
 
@@ -453,9 +455,9 @@ public class TokkenBehaviour : MonoBehaviour
 	private BoardBehaviour m_board;
 
 
-	private bool BonusAttack ;
-	private bool BonusSpeed ;
-	private bool MalusAttack ;
-	private bool MalusSpeed ;
+	public bool BonusAttack ;
+	public bool BonusSpeed ;
+	public bool MalusAttack ;
+	public bool MalusSpeed ;
     #endregion
 }

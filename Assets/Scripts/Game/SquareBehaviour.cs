@@ -229,7 +229,8 @@ public class SquareBehaviour : MonoBehaviour
 		string s = this.GetStringType();
 		if (m_tokken != null) 
 		{
-			m_tokken.GetComponent<TokkenBehaviour> ().SetBonus (s);
+			Debug.Log("New Material : "+s);
+			m_tokken.GetComponent<TokkenBehaviour>().SetBonus(s);
 		}
 	}
 
