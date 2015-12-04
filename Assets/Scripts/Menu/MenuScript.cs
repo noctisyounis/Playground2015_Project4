@@ -20,7 +20,7 @@ public class MenuScript : MonoBehaviour
 
     void OnMouseEnter()
     {
-
+		Debug.Log ("Test");
         GetComponent<GUITexture>().transform.localScale = new Vector3(0.2f, 0.15f); 
 
     }
