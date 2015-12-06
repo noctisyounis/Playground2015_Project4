@@ -195,7 +195,7 @@ public class TokkenBehaviour : MonoBehaviour
 	IEnumerator DelayDamage(int hp)
 	{
 		int HP = hp;
-		yield return new WaitForSeconds((m_board.m_animCount+2) * (BoardBehaviour.m_delay-0.025f));
+		yield return new WaitForSeconds(((m_board.m_animCount+2) * (BoardBehaviour.m_delay))-0.3f);
 		//Todo
 		m_hp.GetComponent<Text>().text = HP.ToString();
 		m_hp.GetComponent<Text>().color = Color.blue;

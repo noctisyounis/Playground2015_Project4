@@ -3,31 +3,38 @@ using System.Collections;
 
 public class RockAnim : MonoBehaviour {
 
-	void MoveRight()
+	public AudioClip m_hit;
+	public AudioClip m_shot;
+	public AudioSource m_audio;
+
+	public void MoveRight(float f)
 	{
 		Vector3 NewPosition = gameObject.transform.parent.transform.position ;
-		NewPosition.x -= 1.0f;
+		NewPosition.x -= f;
 		gameObject.transform.parent.transform.position = NewPosition;
 	}
-	
-	void MoveLeft()
+
+
+	public void MoveLeft(float f)
 	{
 		Vector3 NewPosition = gameObject.transform.parent.transform.position ;
-		NewPosition.x += 1.0f;
+		NewPosition.x += f;
 		gameObject.transform.parent.transform.position = NewPosition;
 	}
-	
-	void MoveUp()
+
+
+	public void MoveUp(float f)
 	{
 		Vector3 NewPosition = gameObject.transform.parent.transform.position ;
-		NewPosition.z -= 1.0f;
+		NewPosition.z -= f;
 		gameObject.transform.parent.transform.position = NewPosition;
 	}
-	
-	void MoveDown()
+
+
+	public void MoveDown(float f)
 	{
 		Vector3 NewPosition = gameObject.transform.parent.transform.position ;
-		NewPosition.z += 1.0f;
+		NewPosition.z += f;
 		gameObject.transform.parent.transform.position = NewPosition;
 	}
 	
@@ -38,5 +45,16 @@ public class RockAnim : MonoBehaviour {
 	 public void Show()
 	{
 		transform.localScale = new Vector3(0.2f,0.2f,0.2f);
+	}
+
+	void RockHit()
+	{
+		m_audio.PlayOneShot (m_hit);
+	}
+	
+	void RockShot()
+	{
+		m_audio.PlayOneShot (m_shot);
+		
 	}
 }

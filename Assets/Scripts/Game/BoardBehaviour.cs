@@ -485,11 +485,13 @@ public class BoardBehaviour : MonoBehaviour
 						m_animCount -= CountSquare;
 						if (hit) 
 						{
-							for (int i = 0; i < CountSquare; i++) 
-							{
-								StartCoroutine(DelayAnimation(arrow, "ArrowUp"));
-							}
+
+							string anim = "ArrowUp" + CountSquare.ToString();
+							StartCoroutine(DelayAnimation(arrow,anim ));
+							m_animCount = m_animCount + CountSquare -1;
+
 						}
+
 					}
 					// Down
 					if (TokkenScript.m_gridY != 4) 
@@ -511,13 +513,15 @@ public class BoardBehaviour : MonoBehaviour
 							y++;
 						} while (y <= 4 && !hit);
 						m_animCount -= CountSquare;
+
 						if (hit) 
 						{
-							for (int i = 0; i < CountSquare; i++) 
-							{
-								StartCoroutine(DelayAnimation(arrow, "ArrowDown"));
-							}
+
+							string anim = "ArrowDown" + CountSquare.ToString();
+							StartCoroutine(DelayAnimation(arrow,anim ));
+							m_animCount = m_animCount + CountSquare -1;
 						}
+
 					}
 					// Right
 					if (TokkenScript.m_gridX != 5) 
@@ -539,13 +543,14 @@ public class BoardBehaviour : MonoBehaviour
 							x++;
 						} while (x <= 5 && !hit);
 						m_animCount -= CountSquare;
+
 						if (hit) 
 						{
-							for (int i = 0; i < CountSquare; i++) 
-							{
-								StartCoroutine(DelayAnimation(arrow, "ArrowRight"));
-							}
+							string anim = "ArrowRight" + CountSquare.ToString();
+							StartCoroutine(DelayAnimation(arrow,anim ));
+							m_animCount = m_animCount + CountSquare -1;
 						}
+
 					}
 					// Left
 					if (TokkenScript.m_gridX != 0) 
@@ -567,13 +572,15 @@ public class BoardBehaviour : MonoBehaviour
 							x--;
 						} while (x >= 0 && !hit);
 						m_animCount -= CountSquare;
+
 						if (hit) 
 						{
-							for (int i = 0; i < CountSquare; i++) 
-							{
-								StartCoroutine(DelayAnimation(arrow, "ArrowLeft"));
-							}
+							string anim = "ArrowLeft" + CountSquare.ToString();
+							StartCoroutine(DelayAnimation(arrow,anim ));
+							m_animCount = m_animCount + CountSquare -1;
+
 						}
+
 					}
 				}
 				// Heavy
@@ -618,19 +625,18 @@ public class BoardBehaviour : MonoBehaviour
 							}
 							y--;
 						}
-						
 						m_animCount = m_animCount - CountSquareHit - CountSquareTravel;
+
 						if (HaveHit) 
 						{
 							//travel animation
-							for (int i = 0; i < CountSquareTravel; i++) 
-							{
-								StartCoroutine(DelayAnimation(rock, "RockUp"));
-							}
+							string anim = "RockUp" + CountSquareTravel.ToString();
+							StartCoroutine(DelayAnimation(rock, anim));
+							m_animCount = m_animCount + CountSquareTravel - 1;
 							//Hit animation
 							for (int i = 0; i < CountSquareHit; i++) 
 							{
-								StartCoroutine(DelayAnimation(rock, "RockUp"));
+								StartCoroutine(DelayAnimation(rock, "RockUpEnd"));
 							}
 						}
 						
@@ -678,14 +684,13 @@ public class BoardBehaviour : MonoBehaviour
 						if (HaveHit) 
 						{
 							//travel animation
-							for (int i = 0; i < CountSquareTravel; i++) 
-							{
-								StartCoroutine(DelayAnimation(rock, "RockDown"));
-							}
+							string anim = "RockDown" + CountSquareTravel.ToString();
+							StartCoroutine(DelayAnimation(rock, anim));
+							m_animCount = m_animCount + CountSquareTravel - 1;
 							//Hit animation
 							for (int i = 0; i < CountSquareHit; i++) 
 							{
-								StartCoroutine(DelayAnimation(rock, "RockDown"));
+								StartCoroutine(DelayAnimation(rock, "RockDownEnd"));
 							}
 						}
 					}
@@ -732,14 +737,13 @@ public class BoardBehaviour : MonoBehaviour
 						if (HaveHit) 
 						{
 							//travel animation
-							for (int i = 0; i < CountSquareTravel; i++) 
-							{
-								StartCoroutine(DelayAnimation(rock, "RockRight"));
-							}
+							string anim = "RockRight" + CountSquareTravel.ToString();
+							StartCoroutine(DelayAnimation(rock, anim));
+							m_animCount = m_animCount + CountSquareTravel - 1;
 							//Hit animation
 							for (int i = 0; i < CountSquareHit; i++) 
 							{
-								StartCoroutine(DelayAnimation(rock, "RockRight"));
+								StartCoroutine(DelayAnimation(rock, "RockRightEnd"));
 							}
 						}
 						
@@ -787,14 +791,13 @@ public class BoardBehaviour : MonoBehaviour
 						if (HaveHit) 
 						{
 							//travel animation
-							for (int i = 0; i < CountSquareTravel; i++) 
-							{
-								StartCoroutine(DelayAnimation(rock, "RockLeft"));
-							}
+							string anim = "RockLeft" + CountSquareTravel.ToString();
+							StartCoroutine(DelayAnimation(rock, anim));
+							m_animCount = m_animCount + CountSquareTravel - 1;
 							//Hit animation
 							for (int i = 0; i < CountSquareHit; i++) 
 							{
-								StartCoroutine(DelayAnimation(rock, "RockLeft"));
+								StartCoroutine(DelayAnimation(rock, "RockLeftEnd"));
 							}
 						}
 					}

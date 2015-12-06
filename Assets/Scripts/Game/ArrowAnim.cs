@@ -3,6 +3,9 @@ using System.Collections;
 
 public class ArrowAnim : MonoBehaviour {
 		
+	public AudioClip m_hit;
+	public AudioClip m_shot;
+	public AudioSource m_audio;
 
 	void MoveRight()
 	{
@@ -40,4 +43,16 @@ public class ArrowAnim : MonoBehaviour {
 	{
 		transform.localScale = new Vector3(0.2f,0.2f,0.2f);
 	}
+
+	void ArrowHit()
+	{
+		m_audio.PlayOneShot (m_hit);
+	}
+
+	void ArrowShot()
+	{
+		m_audio.PlayOneShot (m_shot);
+
+	}
+
 }
