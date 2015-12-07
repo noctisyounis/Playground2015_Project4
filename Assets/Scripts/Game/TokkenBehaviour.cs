@@ -16,6 +16,8 @@ public class TokkenBehaviour : MonoBehaviour
 
     public GameObject m_speed;
 
+	public GameObject m_Illustration;
+
     public GameObject m_Rubis1;
     public GameObject m_Rubis2;
     public GameObject m_Rubis3;
@@ -133,6 +135,8 @@ public class TokkenBehaviour : MonoBehaviour
 		script.m_ATK_Down.GetComponent<Text> ().text = Card.m_ATK_Down.GetComponent<Text> ().text;
 		script.m_ATK_Left.GetComponent<Text> ().text = Card.m_ATK_Left.GetComponent<Text> ().text;
 		script.m_speed.GetComponent<Text> ().text = Card.m_Speed.GetComponent<Text> ().text;
+
+		script.m_Illustration.GetComponent<Image>().sprite = Card.m_Illustration.GetComponent<Image>().sprite;
 
 		GameObject Tokken = (GameObject)Instantiate (prefab, position, rotation);
 

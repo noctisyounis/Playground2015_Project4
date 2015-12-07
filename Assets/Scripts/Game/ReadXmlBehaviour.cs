@@ -73,6 +73,22 @@ public class ReadXmlBehaviour
 						case "name":
 							reader.Read ();
 							script.m_name.GetComponent<Text> ().text = reader.Value;
+							//todo eb illustration
+							switch (reader.Value) 
+							{
+							case "Sombre Guerrier":
+								script.m_Illustration.GetComponent<Image>().sprite = script.m_illustrations[2];
+								break;
+							case "Baliste de feu":
+								script.m_Illustration.GetComponent<Image>().sprite = script.m_illustrations[1];
+								break;
+							case "Archer crepusculaire":
+								script.m_Illustration.GetComponent<Image>().sprite = script.m_illustrations[0];
+								break;
+							default:
+								script.m_Illustration.GetComponent<Image>().enabled = false;
+								break;
+							}
 							break;
 						case "l1":
 							reader.Read ();
