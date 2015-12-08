@@ -169,16 +169,25 @@ public class BoardBehaviour : MonoBehaviour
 
 	public void setTextScreen()
 	{
-		m_panelTurn.GetComponent<Text>().text = "Turn n°" + (m_turnNewNumber + 1);
+		m_panelTurn.GetComponent<Text>().text = "Tour n°" + (m_turnNewNumber + 1);
 
 		if(m_turnType[m_turnNewNumber] == 0)
 		{
 			m_panelTurnType.GetComponent<Text>().text = "Unités";
+
+			if(m_player_Turn == false)
+			{
+				m_bulleBehaviour.TurnUnits();
+			}
 		}
 		else if(m_turnType[m_turnNewNumber] == 1)
 		{
 			m_panelTurnType.GetComponent<Text>().text = "Terrains";
-			m_bulleBehaviour.TurnLands();
+
+			if(m_player_Turn == false)
+			{
+				m_bulleBehaviour.TurnLands();
+			}
 		}
 	}
 

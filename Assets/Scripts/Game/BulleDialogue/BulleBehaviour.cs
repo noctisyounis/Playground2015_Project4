@@ -38,6 +38,7 @@ public class BulleBehaviour : MonoBehaviour {
 		while (true) 
 		{
 			float time = Random.Range(45f, 90f);
+			//float time = 5f;
 			yield return new WaitForSeconds(time);
 			
 			m_text.color = Color.black;
@@ -78,6 +79,18 @@ public class BulleBehaviour : MonoBehaviour {
 		m_text.text = bulleScript.TurnLands();
 		Invoke("HiddenObject",2f);
 	}
+
+	public void TurnUnits()
+	{
+		m_text.color = Color.black;
+		m_text.enabled = true;
+		bulle.sprite = m_bulleWhite;
+		bulle.enabled = true;
+		
+		m_text.text = bulleScript.TurnUnits();
+		Invoke("HiddenObject",2f);
+	}
+
 	public void ErrorUnit(string type)
 	{
 		m_text.color = Color.white;
