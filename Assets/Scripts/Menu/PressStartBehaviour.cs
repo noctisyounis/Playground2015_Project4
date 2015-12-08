@@ -9,6 +9,7 @@ public class PressStartBehaviour : MonoBehaviour
 
     public float tempsAnimation = 0.5f; // pour regler le clignotement depuis l'editor
 	public float speed = 2.0f;
+	public AudioClip m_son;
 
 	Text flashingText;
 	IEnumerator coroutine;
@@ -18,34 +19,19 @@ public class PressStartBehaviour : MonoBehaviour
 
     
     void Start()
-    {
-		flashingText = GetComponent<Text> ();
-		coroutine = BlinkText (0.5f);
-		StartCoroutine (coroutine);
-        //iTween.ColorTo(this.gameObject, iTween.Hash("a", 0, "time", tempsAnimation, "looptype", iTween.LoopType.pingPong));
-
-		/*GameObject.FindObjectOfType<AnimationMenuBehaviour>().Move();
-		
-		GameObject.FindObjectOfType<MoveTitleBehaviour>().Move();
-		
-		Destroy(GameObject.FindObjectOfType<PressStartBehaviour>().gameObject);*/
-    }
-
-	/*void Update()
 	{
-		if (Input.GetMouseButton (0)) {
-			OnMouseUp();
-		}
-	}*/
-
-
+			audio = GetComponent<AudioSource> ();
+			flashingText = GetComponent<Text> ();
+			coroutine = BlinkText (0.5f);
+			StartCoroutine (coroutine);
+    }
 
 	public IEnumerator BlinkText(float time)
 	{
 		while (true) {
 			flashingText.text = " ";
 			yield return new WaitForSeconds(time-0.2f);
-			flashingText.text = "Click here to continue";
+			flashingText.text = "Clique pour continuer";
 			yield return new WaitForSeconds(time+0.3f);
 		}
 	}
@@ -53,19 +39,28 @@ public class PressStartBehaviour : MonoBehaviour
 
     void OnMouseUp()
     {
+		gameObject.GetComponent<Text> ().enabled = false;
+
         GameObject.FindObjectOfType<AnimationMenuBehaviour>().Move();
         
 		GameObject.FindObjectOfType<MoveTitleBehaviour>().Move();
         
-        Destroy(GameObject.FindObjectOfType<PressStartBehaviour>().gameObject);
+		StartCoroutine (DelayDestroy (2.5f));
     }
 
 
 
 	public void ClickMe()
-	{
-		StopCoroutine (coroutine);
+	{	
+		StopCoroutine (coroutine);	
+		audio.Play();
 		OnMouseUp ();
+	}
+
+	IEnumerator DelayDestroy(float time)
+	{
+		yield return new WaitForSeconds (time);
+		Destroy(GameObject.FindObjectOfType<PressStartBehaviour>().gameObject);
 	}
 
     #endregion
@@ -74,7 +69,9 @@ public class PressStartBehaviour : MonoBehaviour
    
     #endregion
 
-    #region Private Variable
-
-    #endregion
+	#region Private Variable
+	
+	private AudioSource audio;
+	
+	#endregion
 }
