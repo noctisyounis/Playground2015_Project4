@@ -61,10 +61,6 @@
     <type>BigRange</type>
   </card>
   <card>
-    <id>1002</id>
-    <type>Swamp</type>
-  </card>
-  <card>
     <id>1001</id>
     <type>Forest</type>
   </card>
@@ -91,5 +87,9 @@
   <card>
     <id>1</id>
     <type>Close</type>
+  </card>
+  <card>
+    <id>1002</id>
+    <type>Swamp</type>
   </card>
 </player>
