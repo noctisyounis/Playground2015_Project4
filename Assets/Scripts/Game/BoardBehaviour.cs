@@ -54,6 +54,8 @@ public class BoardBehaviour : MonoBehaviour
 
 	public int m_animCount = 0;
 
+	public BulleBehaviour m_bulleBehaviour;
+
 	#endregion
 	
 	#region Main Methodes
@@ -176,6 +178,7 @@ public class BoardBehaviour : MonoBehaviour
 		else if(m_turnType[m_turnNewNumber] == 1)
 		{
 			m_panelTurnType.GetComponent<Text>().text = "Terrains";
+			m_bulleBehaviour.TurnLands();
 		}
 	}
 
@@ -834,10 +837,14 @@ public class BoardBehaviour : MonoBehaviour
 		if (m_finalPointsP1 > m_finalPointsP2) 
 		{
 			result = true;
+			//win
+			m_bulleBehaviour.EndGame(true);
 		}
 		if (m_finalPointsP1 < m_finalPointsP2) 
 		{
 			result = false;
+			//loose
+			m_bulleBehaviour.EndGame(false);
 		}
 		m_endGame.VictoryGameMessage(result);
 	}

@@ -1,14 +1,13 @@
 fileFormatVersion: 2
-guid: a1bab5f3047343349be7506b61c34670
-timeCreated: 1449480123
+guid: 62697feda83e57e4680302a1e8a5dbbf
+timeCreated: 1449566491
 licenseType: Free
 TextureImporter:
-  fileIDToRecycleName:
-    21300000: bulleAide_0
+  fileIDToRecycleName: {}
   serializedVersion: 2
   mipmaps:
     mipMapMode: 0
-    enableMipMap: 0
+    enableMipMap: 1
     linearTexture: 0
     correctGamma: 0
     fadeOut: 0
@@ -39,7 +38,7 @@ TextureImporter:
   rGBM: 0
   compressionQuality: 50
   allowsAlphaSplitting: 0
-  spriteMode: 2
+  spriteMode: 1
   spriteExtrude: 1
   spriteMeshType: 1
   alignment: 0
@@ -50,17 +49,7 @@ TextureImporter:
   textureType: 8
   buildTargetSettings: []
   spriteSheet:
-    sprites:
-    - name: bulleAide_0
-      rect:
-        serializedVersion: 2
-        x: 0
-        y: 0
-        width: 299
-        height: 252
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
+    sprites: []
   spritePackingTag: 
   userData: 
   assetBundleName: 

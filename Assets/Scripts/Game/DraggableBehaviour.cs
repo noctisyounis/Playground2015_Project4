@@ -78,6 +78,17 @@ public class DraggableBehaviour : MonoBehaviour, IBeginDragHandler, IDragHandler
 		BoardBehaviour scriptBoard = (BoardBehaviour)m_board.GetComponent<BoardBehaviour>();
 		if (scriptBoard.m_player_Turn && !scriptBoard.m_gameIsFinished) 
 		{
+			if(m_currentTypeCard == "Land" && scriptBoard.m_turnType[scriptBoard.m_turnNewNumber] != 1)
+			{
+				scriptBoard.m_bulleBehaviour.ErrorUnit("Land");
+			}
+
+			
+			if(m_currentTypeCard == "Unit" && scriptBoard.m_turnType[scriptBoard.m_turnNewNumber] != 0)
+			{
+				scriptBoard.m_bulleBehaviour.ErrorUnit("Unit");
+			}
+
 			if(m_currentTypeCard == "Unit" && scriptBoard.m_turnType[scriptBoard.m_turnNewNumber] == 0){
 				GameObject cube = scriptBoard.CheckCubePointing (eventData.pointerDrag);
 				if (cube != null) 

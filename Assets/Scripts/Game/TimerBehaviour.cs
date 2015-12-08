@@ -19,8 +19,6 @@ public class TimerBehaviour : MonoBehaviour
 
     public void Start()
     {
-
-
         m_time = m_timePerTurn;
         m_hand = GameObject.FindObjectOfType<HandBehaviour>();
 
@@ -40,6 +38,7 @@ public class TimerBehaviour : MonoBehaviour
     public void TimerOut()
     {
         Debug.Log("Timer Out");
+		m_board.m_bulleBehaviour.changeTextBulleEndTurn();
         m_hand.ForcePlay(m_board);
     }
 
@@ -64,7 +63,6 @@ public class TimerBehaviour : MonoBehaviour
             iTween.ShakeRotation(gameObject, new Vector3(120, 0, 0), 1f);
             //iTween.RotateTo(gameObject, new Vector3(120, 0, 0), 0.5f);
             //iTween.RotateTo(gameObject, new Vector3(300, 0, 0), 0.5f);
-            
         }
     }
 
