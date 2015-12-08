@@ -15,5 +15,6 @@ public class AllCategory : MonoBehaviour {
 		{
 			InventoryBehaviour.m_storage.transform.GetChild(0).transform.SetParent(m_Inventory.transform);
 		}
+		GetComponent<AudioSource>().Play();
 	}
 }

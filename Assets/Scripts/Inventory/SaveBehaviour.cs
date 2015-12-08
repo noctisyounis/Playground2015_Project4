@@ -26,6 +26,7 @@ public class SaveBehaviour : MonoBehaviour
 
 	public void OnMouseUp()
 	{
+		GetComponent<AudioSource>().Play();
 		// if deck is full (23) : 18 units/5 lands
 		if (DeckBehaviour.m_deck.Count == 23) {
 			m_stringError.color = BaseColor;

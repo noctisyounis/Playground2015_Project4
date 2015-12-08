@@ -89,6 +89,8 @@ public class CardHolderBehaviour :MonoBehaviour {
 		script.m_Description1.GetComponent<Text> ().text = c1.descriptionL1;
 		script.m_Description2.GetComponent<Text> ().text = c1.descriptionL2;
 		script.m_Description3.GetComponent<Text> ().text = c1.descriptionL3;
+		script.m_Illustration.GetComponent<Image>().sprite = c1.m_Illustration.GetComponent<Image>().sprite;
+
         int cost = int.Parse(c1.victoryPoint.ToString());
         int Rubis = 1;
         while (cost > 0)

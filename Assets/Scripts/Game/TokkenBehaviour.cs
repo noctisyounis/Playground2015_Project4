@@ -16,11 +16,15 @@ public class TokkenBehaviour : MonoBehaviour
 
     public GameObject m_speed;
 
+	public GameObject m_Illustration;
+
     public GameObject m_Rubis1;
     public GameObject m_Rubis2;
     public GameObject m_Rubis3;
     public GameObject m_Rubis4;
     public GameObject m_Rubis5;
+
+	public GameObject m_DamageIndicator;
 
     public Sprite m_Cac;
     public Sprite m_Range;
@@ -132,6 +136,8 @@ public class TokkenBehaviour : MonoBehaviour
 		script.m_ATK_Left.GetComponent<Text> ().text = Card.m_ATK_Left.GetComponent<Text> ().text;
 		script.m_speed.GetComponent<Text> ().text = Card.m_Speed.GetComponent<Text> ().text;
 
+		script.m_Illustration.GetComponent<Image>().sprite = Card.m_Illustration.GetComponent<Image>().sprite;
+
 		GameObject Tokken = (GameObject)Instantiate (prefab, position, rotation);
 
 		TokkenBehaviour TokkenB = (TokkenBehaviour)Tokken.GetComponent<TokkenBehaviour> ();
@@ -162,6 +168,10 @@ public class TokkenBehaviour : MonoBehaviour
 
 	public bool DealDamageTo(Player AttackedBy ,int Damage)
 	{
+		return DealDamageTo(AttackedBy, Damage, false);
+	}
+	public bool DealDamageTo(Player AttackedBy ,int Damage, bool IsClose)
+	{
 		bool hit = (hp > 0);
 		
 		if (hit) 
@@ -169,7 +179,7 @@ public class TokkenBehaviour : MonoBehaviour
 			if (AttackedBy != m_playedBy) 
 			{
 				hp -= Damage;
-				StartCoroutine(DelayDamage(hp));
+				StartCoroutine(DelayDamage(Damage, hp, IsClose));
 				if (hp <= 0) 
 				{
 					GameObject square = GameObject.FindObjectOfType<BoardBehaviour> ().m_cubes [m_gridX, m_gridY];
@@ -192,13 +202,23 @@ public class TokkenBehaviour : MonoBehaviour
 		m_gridY = y;
 	}
 
-	IEnumerator DelayDamage(int hp)
+	IEnumerator DelayDamage(int Damage, int hp , bool IsClose)
 	{
 		int HP = hp;
-		yield return new WaitForSeconds(((m_board.m_animCount+2) * (BoardBehaviour.m_delay))-0.3f);
+		float i ;
+		if (IsClose) 
+		{
+			i = 1.9f;
+		}
+		else 
+		{
+			i = 1f;
+		}
+		yield return new WaitForSeconds(((m_board.m_animCount + i) * (BoardBehaviour.m_delay))+ 0.1f);
 		//Todo
 		m_hp.GetComponent<Text>().text = HP.ToString();
-		m_hp.GetComponent<Text>().color = Color.blue;
+		m_hp.GetComponent<Text>().color = Color.cyan;
+		ShowDamage(Damage);
 		if (HP <= 0) 
 		{
 			yield return new WaitForSeconds(0.45f);
@@ -232,34 +252,34 @@ public class TokkenBehaviour : MonoBehaviour
 			}
 			else if (type == "Range") 
 			{
-				SetAttack(1,Color.green);
-				SetSpeed(1,Color.green);
+				SetAttack(1,BonusColor);
+				SetSpeed(1,BonusColor);
 			}
 			else if (type == "BigRange") 
 			{
-				SetAttack(1,Color.green);
+				SetAttack(1,BonusColor);
 			}
 			break;
 		case "Forest":
 			if (type == "Close") 
 			{
-				SetAttack(1,Color.green);
-				SetSpeed(1,Color.green);
+				SetAttack(1,BonusColor);
+				SetSpeed(1,BonusColor);
 			}
 			else if (type == "Range") 
 			{
-				SetAttack(-1,Color.white);
+				SetAttack(-1,MalusColor);
 			}
 			else if (type == "BigRange") 
 			{
-				SetAttack(-1,Color.white);
-				SetSpeed(-1,Color.red);
+				SetAttack(-1,MalusColor);
+				SetSpeed(-1,MalusColor);
 			}
 			break;
 		case "Ruin":
 			if (type == "Close") 
 			{
-				SetAttack(-1,Color.white);
+				SetAttack(-1,MalusColor);
 			}
 			else if (type == "Range") 
 			{
@@ -287,15 +307,15 @@ public class TokkenBehaviour : MonoBehaviour
 		case "Swamp":
 			if (type == "Close") 
 			{
-				SetAttack(-1,Color.white);
+				SetAttack(-1,MalusColor);
 			}
 			else if (type == "Range") 
 			{
-				SetAttack(-1,Color.white);
+				SetAttack(-1,MalusColor);
 			}
 			else if (type == "BigRange") 
 			{
-				SetAttack(-1,Color.white);
+				SetAttack(-1,MalusColor);
 			}
 			break;
 		}
@@ -357,11 +377,11 @@ public class TokkenBehaviour : MonoBehaviour
 		}
 		if (BonusSpeed) 
 		{
-			SetSpeed(-1,Color.black);
+			SetSpeed(-1,Color.white);
 		}
 		else if (MalusSpeed) 
 		{
-			SetSpeed(1,Color.black);
+			SetSpeed(1,Color.white);
 		}
 
 		BonusAttack = false;
@@ -369,6 +389,18 @@ public class TokkenBehaviour : MonoBehaviour
 		MalusSpeed = false;
 		MalusAttack = false;
 
+	}
+
+	void ShowDamage(int Damage)
+	{
+		m_DamageIndicator.GetComponent<Text>().text = "-"+Damage;
+		m_DamageIndicator.GetComponent<Text>().enabled = true;
+		GetComponent<Animation>().Play("Hit");
+	}
+	void HideDamage()
+	{
+		m_DamageIndicator.GetComponent<Text>().text = "";
+		m_DamageIndicator.GetComponent<Text>().enabled = false;
 	}
 
     #endregion
@@ -457,5 +489,8 @@ public class TokkenBehaviour : MonoBehaviour
 	public bool BonusSpeed ;
 	public bool MalusAttack ;
 	public bool MalusSpeed ;
+
+	private Color MalusColor = Color.yellow; 
+	private Color BonusColor = Color.green; 
     #endregion
 }
