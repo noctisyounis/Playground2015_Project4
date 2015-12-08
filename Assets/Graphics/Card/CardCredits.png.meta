@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: 9d88e20fcd8a1c94496f9a6d195b8a4b
-timeCreated: 1449502604
+guid: 6e76828e403ed954da1512906ca4c76a
+timeCreated: 1449491365
 licenseType: Free
 TextureImporter:
   fileIDToRecycleName:
-    21300000: dosCarte_0
+    21300000: CardCredits_0
   serializedVersion: 2
   mipmaps:
     mipMapMode: 0
@@ -51,13 +51,13 @@ TextureImporter:
   buildTargetSettings: []
   spriteSheet:
     sprites:
-    - name: dosCarte_0
+    - name: CardCredits_0
       rect:
         serializedVersion: 2
-        x: 89
-        y: 9
-        width: 327
-        height: 497
+        x: 103
+        y: 4
+        width: 308
+        height: 505
       alignment: 0
       pivot: {x: .5, y: .5}
       border: {x: 0, y: 0, z: 0, w: 0}
