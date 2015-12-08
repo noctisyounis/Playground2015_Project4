@@ -14,7 +14,7 @@ public class deck
 	
 	public void SaveXml()
 	{
-		string filepath = Application.dataPath + "\\\\Extrernal\\Xml\\playerCard.xml";
+		string filepath = Application.streamingAssetsPath+"\\Xml\\playerCard.xml";
 		XmlDocument xmlDoc = new XmlDocument();
 		if(File.Exists (filepath))
 		{

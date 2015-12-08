@@ -5,7 +5,7 @@ public class moveCreditBehaviour : MonoBehaviour {
     
 	void Start () {
         
-        iTween.MoveTo(gameObject, iTween.Hash("y", 5000, "time",300f));
+        iTween.MoveTo(gameObject, iTween.Hash("y", 7000, "time",250f));
         Invoke("LoadMenu",60f);
 	}
     void LoadMenu()

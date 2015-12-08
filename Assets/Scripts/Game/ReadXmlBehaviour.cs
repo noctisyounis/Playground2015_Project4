@@ -40,7 +40,7 @@ public class ReadXmlBehaviour
 
 	void Initialize(string prefabName, string prefabLandName)
     {
-        System.Xml.XmlTextReader reader = new System.Xml.XmlTextReader("Assets\\Extrernal\\Xml\\gameCard.xml");
+		System.Xml.XmlTextReader reader = new System.Xml.XmlTextReader(Application.dataPath+"\\StreamingAssets\\Xml\\gameCard.xml");
 
         bool card = false;
 		bool zoneLand = false;

@@ -13,6 +13,8 @@ public class PressStartBehaviour : MonoBehaviour
 
 	Text flashingText;
 	IEnumerator coroutine;
+
+	static bool m_firstStart = true;
     #endregion
 
     #region Main Methodes
@@ -22,15 +24,15 @@ public class PressStartBehaviour : MonoBehaviour
 	{
 		audio = GetComponent<AudioSource> ();
 		flashingText = GetComponent<Text> ();
-		//if (PlayerPrefs.GetString("IsNotFirstStart") != "True") 
-		//{
+		if (m_firstStart) 
+		{
 			coroutine = BlinkText (0.5f);
 			StartCoroutine (coroutine);
-		//}
-		//else 
-		//{
-			//OnMouseUp();
-		//}
+		}
+		else 
+		{
+			OnMouseUp();
+		}
     }
 
 	public IEnumerator BlinkText(float time)
@@ -53,6 +55,8 @@ public class PressStartBehaviour : MonoBehaviour
 		GameObject.FindObjectOfType<MoveTitleBehaviour>().Move();
         
 		PlayerPrefs.SetString("IsNotFirstStart","True");
+
+		PressStartBehaviour.m_firstStart = false;
 
 		StartCoroutine (DelayDestroy (2.5f));
     }

@@ -29,7 +29,7 @@ public class ReadDeckBehaviour
 	}
 
 	void Start (string deckName) {
-        System.Xml.XmlTextReader reader = new System.Xml.XmlTextReader("Assets\\Extrernal\\Xml\\"+deckName);
+		System.Xml.XmlTextReader reader = new System.Xml.XmlTextReader(Application.dataPath+"\\StreamingAssets\\Xml\\"+deckName);
 
         while (reader.Read())
         {
