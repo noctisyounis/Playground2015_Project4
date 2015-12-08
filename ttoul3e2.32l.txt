@@ -1,0 +1,92 @@
+﻿Merge remote-tracking branch 'origin/master'
+
+# Conflicts:
+#	Assets/Audio/son/SwordClique.mp3.meta
+#	Assets/Extrernal/Image/Materials/Cloud.mat
+#
+# It looks like you may be committing a merge.
+# If this is not correct, please remove the file
+#	.git/MERGE_HEAD
+# and try again.
+
+
+# Please enter the commit message for your changes. Lines starting
+# with '#' will be ignored, and an empty message aborts the commit.
+# On branch master
+# Your branch and 'origin/master' have diverged,
+# and have 1 and 8 different commits each, respectively.
+#   (use "git pull" to merge the remote branch into yours)
+#
+# All conflicts fixed but you are still merging.
+#
+# Changes to be committed:
+#	modified:   Assets/Audio/Animation SFX/explosion_punchy_impact_03.mp3
+#	modified:   Assets/Audio/Animation SFX/fireball_catapult_whoosh_pass_by_heavy.mp3
+#	deleted:    Assets/Audio/Animation SFX/impact_rock_on_rubble_001 (1).mp3
+#	deleted:    Assets/Audio/Animation SFX/impact_rock_on_rubble_001 (1).mp3.meta
+#	new file:   Assets/Audio/son/SwordClique.mp3
+#	deleted:    Assets/Extrernal/Image/ArrowLeft.png
+#	deleted:    Assets/Extrernal/Image/Materials/flying_island_by_vennom07-d4nup4e.mat
+#	new file:   Assets/Extrernal/Image/Tutorial.meta
+#	new file:   Assets/Extrernal/Image/Tutorial/Arrow.png
+#	renamed:    Assets/Extrernal/Image/flying_island_by_vennom07-d4nup4e.jpg.meta -> Assets/Extrernal/Image/Tutorial/Arrow.png.meta
+#	new file:   Assets/Extrernal/Image/Tutorial/ArrowOther.png
+#	new file:   Assets/Extrernal/Image/Tutorial/ArrowOther.png.meta
+#	new file:   Assets/Extrernal/Image/Tutorial/TestTutorial2Heroic.png
+#	renamed:    Assets/Extrernal/Image/ArrowLeft.png.meta -> Assets/Extrernal/Image/Tutorial/TestTutorial2Heroic.png.meta
+#	new file:   Assets/Extrernal/Image/Tutorial/TestTutorial3Heroic.png
+#	new file:   Assets/Extrernal/Image/Tutorial/TestTutorial3Heroic.png.meta
+#	new file:   Assets/Extrernal/Image/Tutorial/TestTutorial4Heroic.png
+#	new file:   Assets/Extrernal/Image/Tutorial/TestTutorial4Heroic.png.meta
+#	new file:   Assets/Extrernal/Image/Tutorial/TestTutorial5Heroic.png
+#	new file:   Assets/Extrernal/Image/Tutorial/TestTutorial5Heroic.png.meta
+#	new file:   Assets/Extrernal/Image/Tutorial/Tuto1.png
+#	new file:   Assets/Extrernal/Image/Tutorial/Tuto1.png.meta
+#	new file:   Assets/Extrernal/Image/bulleAide.png
+#	new file:   Assets/Extrernal/Image/bulleAide.png.meta
+#	deleted:    Assets/Extrernal/Image/flying_island_by_vennom07-d4nup4e.jpg
+#	modified:   Assets/Graphics/Animation/Arrow/ArrowRight2.anim
+#	modified:   Assets/Graphics/Animation/Arrow/ArrowUp2.anim
+#	modified:   Assets/Graphics/Animation/Arrow/ArrowUp4.anim
+#	new file:   Assets/Graphics/Animation/Hit.anim
+#	renamed:    Assets/Extrernal/Image/Materials/flying_island_by_vennom07-d4nup4e.mat.meta -> Assets/Graphics/Animation/Hit.anim.meta
+#	modified:   Assets/Graphics/Animation/Sword/SwordDown.anim
+#	modified:   Assets/Graphics/Animation/Sword/SwordLeft.anim
+#	modified:   Assets/Graphics/Animation/Sword/SwordRight.anim
+#	modified:   Assets/Graphics/Animation/Sword/SwordUp.anim
+#	new file:   Assets/Graphics/Card/Illustrations.meta
+#	new file:   Assets/Graphics/Card/Illustrations/IlluArcher.png
+#	new file:   Assets/Graphics/Card/Illustrations/IlluArcher.png.meta
+#	new file:   Assets/Graphics/Card/Illustrations/IlluBallista.png
+#	new file:   Assets/Graphics/Card/Illustrations/IlluBallista.png.meta
+#	new file:   Assets/Graphics/Card/Illustrations/IlluSword.png
+#	new file:   Assets/Graphics/Card/Illustrations/IlluSword.png.meta
+#	modified:   Assets/Resources/ArrowAnim.prefab
+#	modified:   Assets/Resources/Card.prefab
+#	modified:   Assets/Resources/CardGUIUnit.prefab
+#	modified:   Assets/Resources/CardInventory.prefab
+#	modified:   Assets/Resources/OpponentTokken.prefab
+#	modified:   Assets/Resources/PlayerTokken.prefab
+#	modified:   Assets/Resources/RockAnim.prefab
+#	modified:   Assets/Resources/SwordAnim.prefab
+#	modified:   Assets/Scenes/Inventory.unity
+#	modified:   Assets/Scenes/Tutorial.unity
+#	modified:   Assets/Scenes/menu.unity
+#	modified:   Assets/Scripts/Game/BoardBehaviour.cs
+#	modified:   Assets/Scripts/Game/CardHolderBehaviour.cs
+#	modified:   Assets/Scripts/Game/CardUnitBehaviour.cs
+#	modified:   Assets/Scripts/Game/ReadXmlBehaviour.cs
+#	modified:   Assets/Scripts/Game/TokkenBehaviour.cs
+#	modified:   Assets/Scripts/Inventory/AllCategory.cs
+#	modified:   Assets/Scripts/Inventory/BigRangeCategory.cs
+#	new file:   Assets/Scripts/Inventory/BulleAide.cs
+#	new file:   Assets/Scripts/Inventory/BulleAide.cs.meta
+#	modified:   Assets/Scripts/Inventory/CacCategory.cs
+#	modified:   Assets/Scripts/Inventory/LandsCategory.cs
+#	modified:   Assets/Scripts/Inventory/OnClickBehaviour.cs
+#	modified:   Assets/Scripts/Inventory/RangeCategory.cs
+#	modified:   Assets/Scripts/Inventory/SaveBehaviour.cs
+#	modified:   Assets/Scripts/Menu/PressStartBehaviour.cs
+#	modified:   Assets/Scripts/Tutorial/buttonTutorialBehaviour.cs
+#
+credit

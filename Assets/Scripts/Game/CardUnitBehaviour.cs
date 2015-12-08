@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using UnityEngine.UI;
+using System.Collections.Generic;
 
 public class CardUnitBehaviour : CardBehaviour
 {
@@ -15,6 +16,8 @@ public class CardUnitBehaviour : CardBehaviour
 
     public GameObject m_Speed;
 
+	public GameObject m_Illustration;
+
     public GameObject m_Rubis1;
     public GameObject m_Rubis2;
     public GameObject m_Rubis3;
@@ -25,7 +28,8 @@ public class CardUnitBehaviour : CardBehaviour
     public Sprite m_range;
     public Sprite m_cac;
 
-
+	public List<Sprite> m_illustrations;
+	
     public int m_price;
     public string m_type;
 
@@ -50,6 +54,8 @@ public class CardUnitBehaviour : CardBehaviour
 		this.ATK_Up = c1.ATK_Up;
 		this.HP = c1.HP;
 		this.Speed = c1.Speed;
+
+		this.m_Illustration.GetComponent<Image>().sprite = c1.m_Illustration.GetComponent<Image>().sprite;
 
 		this.m_name.GetComponent<Text>().text = c1.m_name.GetComponent<Text>().text;
 		this.m_HP.GetComponent<Text>().text = c1.m_HP.GetComponent<Text>().text;

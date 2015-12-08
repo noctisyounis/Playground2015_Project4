@@ -24,5 +24,6 @@ public class LandsCategory : InventoryBehaviour {
 				Card.transform.SetParent(InventoryBehaviour.m_storage.transform);
 			}
 		}
+		GetComponent<AudioSource>().Play();
 	}
 }

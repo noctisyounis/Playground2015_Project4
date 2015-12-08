@@ -10,6 +10,7 @@ public class LoadScript : MonoBehaviour
     public AudioClip m_son;
 	public AudioSource m_over;
     public string m_levelSuivant = "Quitter";
+	public bool StopMusic = false;
     #endregion
 
     #region Main method
@@ -29,6 +30,10 @@ public class LoadScript : MonoBehaviour
         }
         else
         {
+			if (StopMusic) 
+			{
+				FindObjectOfType<SoundManager>().Stop();
+			}
             Application.LoadLevel(m_levelSuivant);
         }
     }

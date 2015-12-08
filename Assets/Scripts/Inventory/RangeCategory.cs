@@ -24,5 +24,6 @@ public class RangeCategory : InventoryBehaviour
 				Card.transform.SetParent(InventoryBehaviour.m_storage.transform);
 			}
 		}
+		GetComponent<AudioSource>().Play();
 	}
 }

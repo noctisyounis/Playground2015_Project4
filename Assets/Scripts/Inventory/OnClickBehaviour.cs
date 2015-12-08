@@ -39,7 +39,7 @@ public class OnClickBehaviour : MonoBehaviour
 	
 	public void OnMouseUp()
 	{
-//		audio.PlayOneShot(m_son);
+		GetComponent<AudioSource>().Play();
 		bool isUnit = false;
 		if(gameObject.GetComponent<CardUnitBehaviour>()!= null)
 		{
@@ -175,8 +175,7 @@ public class OnClickBehaviour : MonoBehaviour
 	#endregion
 	
 	#region Private Variable
-	
-//	private AudioSource audio;
+
 	
 	#endregion
 }

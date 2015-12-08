@@ -407,7 +407,8 @@ public class BoardBehaviour : MonoBehaviour
 						SquareBehaviour SquareScript = Board[TokkenScript.m_gridX,TokkenScript.m_gridY-1].GetComponent<SquareBehaviour>();
 						if(SquareScript.m_isOccuped)
 						{
-							bool hit = SquareScript.m_tokken.GetComponent<TokkenBehaviour>().DealDamageTo(TokkenScript.m_playedBy,TokkenScript.ATK_Up);
+							m_animCount++;
+							bool hit = SquareScript.m_tokken.GetComponent<TokkenBehaviour>().DealDamageTo(TokkenScript.m_playedBy,TokkenScript.ATK_Up, true);
 							if (hit) 
 							{
 								StartCoroutine( DelayAnimation(sword, "SwordUp"));
@@ -422,7 +423,8 @@ public class BoardBehaviour : MonoBehaviour
 						SquareBehaviour SquareScript = Board[TokkenScript.m_gridX,TokkenScript.m_gridY+1].GetComponent<SquareBehaviour>();
 						if(SquareScript.m_isOccuped)
 						{
-							bool hit = SquareScript.m_tokken.GetComponent<TokkenBehaviour>().DealDamageTo(TokkenScript.m_playedBy,TokkenScript.ATK_Down);
+							m_animCount++;
+							bool hit = SquareScript.m_tokken.GetComponent<TokkenBehaviour>().DealDamageTo(TokkenScript.m_playedBy,TokkenScript.ATK_Down, true);
 							if (hit) 
 							{
 								StartCoroutine( DelayAnimation(sword, "SwordDown"));
@@ -437,8 +439,8 @@ public class BoardBehaviour : MonoBehaviour
 						SquareBehaviour SquareScript = Board[TokkenScript.m_gridX+1,TokkenScript.m_gridY].GetComponent<SquareBehaviour>();
 						if(SquareScript.m_isOccuped)
 						{
-							
-							bool hit = SquareScript.m_tokken.GetComponent<TokkenBehaviour>().DealDamageTo(TokkenScript.m_playedBy,TokkenScript.ATK_Right);
+							m_animCount++;
+							bool hit = SquareScript.m_tokken.GetComponent<TokkenBehaviour>().DealDamageTo(TokkenScript.m_playedBy,TokkenScript.ATK_Right, true);
 							if (hit) 
 							{
 								StartCoroutine( DelayAnimation(sword, "SwordRight"));
@@ -453,7 +455,8 @@ public class BoardBehaviour : MonoBehaviour
 						SquareBehaviour SquareScript = Board[TokkenScript.m_gridX-1,TokkenScript.m_gridY].GetComponent<SquareBehaviour>();
 						if(SquareScript.m_isOccuped)
 						{
-							bool hit = SquareScript.m_tokken.GetComponent<TokkenBehaviour>().DealDamageTo(TokkenScript.m_playedBy,TokkenScript.ATK_Left);
+							m_animCount++;
+							bool hit = SquareScript.m_tokken.GetComponent<TokkenBehaviour>().DealDamageTo(TokkenScript.m_playedBy,TokkenScript.ATK_Left, true);
 							if (hit) 
 							{
 								StartCoroutine( DelayAnimation(sword, "SwordLeft"));
@@ -615,12 +618,16 @@ public class BoardBehaviour : MonoBehaviour
 						HaveHit = hit;
 						while (y >= 0 && hit) 
 						{
-							m_animCount++;
-							CountSquareHit++;
+
 							SquareBehaviour SquareScript = Board[TokkenScript.m_gridX, y].GetComponent<SquareBehaviour>();
 							if(SquareScript.m_isOccuped)
 							{
 								hit = SquareScript.m_tokken.GetComponent<TokkenBehaviour>().DealDamageTo(TokkenScript.m_playedBy,TokkenScript.ATK_Up);
+								if (hit) 
+								{
+									m_animCount++;
+									CountSquareHit++;
+								}
 							}
 							else 
 							{
@@ -669,12 +676,16 @@ public class BoardBehaviour : MonoBehaviour
 						HaveHit = hit;
 						while (y <= 4 && hit) 
 						{
-							m_animCount++;
-							CountSquareHit++;
+
 							SquareBehaviour SquareScript = Board[TokkenScript.m_gridX, y].GetComponent<SquareBehaviour>();
 							if(SquareScript.m_isOccuped)
 							{
-								hit = SquareScript.m_tokken.GetComponent<TokkenBehaviour>().DealDamageTo(TokkenScript.m_playedBy,TokkenScript.ATK_Up);
+								hit = SquareScript.m_tokken.GetComponent<TokkenBehaviour>().DealDamageTo(TokkenScript.m_playedBy,TokkenScript.ATK_Down);
+								if (hit) 
+								{
+									m_animCount++;
+									CountSquareHit++;
+								}
 							}
 							else 
 							{
@@ -722,12 +733,16 @@ public class BoardBehaviour : MonoBehaviour
 						HaveHit = hit;
 						while (x <= 5 && hit) 
 						{
-							m_animCount++;
-							CountSquareHit++;
+
 							SquareBehaviour SquareScript = Board[x, TokkenScript.m_gridY].GetComponent<SquareBehaviour>();
 							if(SquareScript.m_isOccuped)
 							{
 								hit = SquareScript.m_tokken.GetComponent<TokkenBehaviour>().DealDamageTo(TokkenScript.m_playedBy,TokkenScript.ATK_Right);
+								if (hit) 
+								{
+									m_animCount++;
+									CountSquareHit++;
+								}
 							}
 							else 
 							{
@@ -776,12 +791,16 @@ public class BoardBehaviour : MonoBehaviour
 						HaveHit = hit;
 						while (x >= 0 && hit) 
 						{
-							m_animCount++;
-							CountSquareHit++;
 							SquareBehaviour SquareScript = Board[x, TokkenScript.m_gridY].GetComponent<SquareBehaviour>();
 							if(SquareScript.m_isOccuped)
 							{
-								hit = SquareScript.m_tokken.GetComponent<TokkenBehaviour>().DealDamageTo(TokkenScript.m_playedBy,TokkenScript.ATK_Right);
+
+								hit = SquareScript.m_tokken.GetComponent<TokkenBehaviour>().DealDamageTo(TokkenScript.m_playedBy,TokkenScript.ATK_Left);
+								if (hit) 
+								{
+									m_animCount++;
+									CountSquareHit++;
+								}
 							}
 							else 
 							{
