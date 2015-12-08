@@ -8,7 +8,7 @@ public class AnimationMenuBehaviour : MonoBehaviour
     #region Public Variable
 
 
-    public float m_time = 4.0f;
+    public float m_time = 2.0f;
     #endregion
 
     #region Main methode
@@ -41,7 +41,7 @@ public class AnimationMenuBehaviour : MonoBehaviour
 		int heightScreen = Screen.height;
 		double position10 = (heightScreen / 10 )* 6.5;
       //  iTween.MoveTo(gameObject, new Vector3(m_initialPosition.x, m_initialPosition.y + 1, m_initialPosition.z), m_time);
-		iTween.MoveTo(gameObject, iTween.Hash("y",position10,"time",2f));
+		iTween.MoveTo(gameObject, iTween.Hash("y",position10,"time",m_time));
     }
    
     #endregion
