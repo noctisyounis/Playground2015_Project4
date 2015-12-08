@@ -1,8 +1,9 @@
 ﻿<Properties>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\Game\BoardBehaviour.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\Menu\CurseurScript.cs">
     <Files>
-      <File FileName="Assets\Scripts\Game\BoardBehaviour.cs" Line="798" Column="42" />
+      <File FileName="Assets\Scripts\Menu\CurseurScript.cs" Line="29" Column="1" />
+      <File FileName="Assets\Scripts\Game\BoardBehaviour.cs" Line="1" Column="1" />
       <File FileName="Assets\Scripts\Game\RockAnim.cs" Line="1" Column="1" />
       <File FileName="Assets\Scripts\Game\ArrowAnim.cs" Line="1" Column="1" />
       <File FileName="Assets\Scripts\Game\EndGameUIManager.cs" Line="1" Column="1" />
