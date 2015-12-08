@@ -20,10 +20,17 @@ public class PressStartBehaviour : MonoBehaviour
     
     void Start()
 	{
-			audio = GetComponent<AudioSource> ();
-			flashingText = GetComponent<Text> ();
+		audio = GetComponent<AudioSource> ();
+		flashingText = GetComponent<Text> ();
+		if (PlayerPrefs.GetString("IsNotFirstStart") != "True") 
+		{
 			coroutine = BlinkText (0.5f);
 			StartCoroutine (coroutine);
+		}
+		else 
+		{
+			OnMouseUp();
+		}
     }
 
 	public IEnumerator BlinkText(float time)
@@ -45,6 +52,8 @@ public class PressStartBehaviour : MonoBehaviour
         
 		GameObject.FindObjectOfType<MoveTitleBehaviour>().Move();
         
+		PlayerPrefs.SetString("IsNotFirstStart","True");
+
 		StartCoroutine (DelayDestroy (2.5f));
     }
 
