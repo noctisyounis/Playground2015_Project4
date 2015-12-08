@@ -9,7 +9,7 @@ public class ResetPlayerPref
 {
 	static ResetPlayerPref ()
 	{
-		PlayerPrefs.SetString("IsNotFirstStart","False");
+		PlayerPrefs.DeleteAll();
 	}
 
 }

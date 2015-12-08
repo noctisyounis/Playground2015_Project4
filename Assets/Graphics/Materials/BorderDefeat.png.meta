@@ -1,6 +1,6 @@
 fileFormatVersion: 2
 guid: 53d354845942e9b46abef6fabc297116
-timeCreated: 1449242700
+timeCreated: 1449582843
 licenseType: Free
 TextureImporter:
   fileIDToRecycleName:
@@ -54,13 +54,13 @@ TextureImporter:
     - name: BorderDefeat_0
       rect:
         serializedVersion: 2
-        x: 20
-        y: 100
+        x: 21
+        y: 104
         width: 473
-        height: 316
+        height: 312
       alignment: 0
       pivot: {x: .5, y: .5}
-      border: {x: 0, y: 6, z: 0, w: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
   spritePackingTag: 
   userData: 
   assetBundleName: 
